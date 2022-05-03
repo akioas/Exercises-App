@@ -19,9 +19,9 @@ class ViewController: UITableViewController {
             }
             tableView.reloadData()
     }
-//    var exerciss: FetchedResults<Entity>
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .gray
         
         let tableView = UITableView()
         view.addSubview(tableView)
@@ -61,24 +61,50 @@ extension ViewController {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         let currentEx = exercises[indexPath.row]
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.YY"
-
-        let dateText = dateFormatter.string(from: (currentEx.value(forKey: "date") as! Date))
-        print(dateText)
-        cell.textLabel?.text = dateText
         
-    
+        cell.textLabel?.text = setText(item: indexPath.item, currentEx: currentEx)
+        
+        
         return cell
     }
     
+    func setText(item: Int, currentEx: NSManagedObject) -> String{
+        switch item{
+        case 0:
+            return caseDate(currentEx)
+        case 1:
+            return currentEx.value(forKey: "name") as? String ?? ""
+        case 2:
+            return String(currentEx.value(forKey: "rep") as? Int16 ?? 0)
+        case 3:
+            return String(currentEx.value(forKey: "reps") as? Int16 ?? 0)
+        case 4:
+            return String(currentEx.value(forKey: "weight") as? Int16 ?? 0)
+        case 5:
+            return String((currentEx.value(forKey: "weight") as? Int16 ?? 0) * (currentEx.value(forKey: "reps") as? Int16 ?? 0))
+        
+        default:
+            return ""
+        }
+        
+        
+         
+    }
+    
+    func caseDate(_ currentEx: NSManagedObject) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.YY"
+        let text = dateFormatter.string(from: (currentEx.value(forKey: "date") as! Date))
+        return text
+        
+    }
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
             return 5
         }
