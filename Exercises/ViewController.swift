@@ -7,6 +7,7 @@ class ViewController: UITableViewController {
     
     let cellId = "cellId"
     var exercises: [NSManagedObject] = []
+    var callBackStepper:((_ value:Int)->())?
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -51,6 +52,13 @@ class ViewController: UITableViewController {
         print(exercises)
     }
     
+    @objc func stepperValueChanged(_ sender:UIStepper!)
+        {
+            callBackStepper?(Int(sender.value))
+
+        }
+   
+     
 }
 
 extension ViewController {
@@ -71,7 +79,26 @@ extension ViewController {
         print(currentEx)
         
         cell.textLabel?.text = setText(item: (indexPath.item), currentEx: currentEx)
+//        let newButton = UIButton(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+//        newButton.setImage(UIImage(systemName: "doc.fill"), for: .normal)
+
+//        let accessoryView = newButton
+        let accessoryView = UIStepper()
+        accessoryView.minimumValue = 0
+        accessoryView.maximumValue = 10
+        accessoryView.value = 1
+        accessoryView.stepValue = 1
+
         
+
+        accessoryView.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
+        cell.accessoryView = accessoryView
+        callBackStepper = { value in
+            currentEx.setValue(value, forKey: "rep")
+            DataModel().saveModel()
+            print(currentEx)
+
+         }
         
         return cell
     }
@@ -84,4 +111,10 @@ extension ViewController {
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
             return UIView()
         }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
+    
 }
+

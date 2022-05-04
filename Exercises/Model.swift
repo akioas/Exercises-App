@@ -35,6 +35,9 @@ class DataModel{
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
+    
+    
+    
 }
 
 func setText(item: Int, currentEx: NSManagedObject) -> String{
