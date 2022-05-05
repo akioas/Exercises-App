@@ -7,10 +7,17 @@ class ViewController: UITableViewController {
     
     let cellId = "cellId"
     var exercises: [NSManagedObject] = []
-    var callBackStepper:((_ value:Int)->())?
+    var callBackStepper:((_ value:Int, _ num: Int)->())?
 
+
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fetch()
+        
+    }
+    
+    func fetch(){
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entity")
             do {
                 exercises = try context.fetch(fetchRequest)
@@ -20,13 +27,17 @@ class ViewController: UITableViewController {
             }
             tableView.reloadData()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
         view.backgroundColor = .gray
         
         let tableView = UITableView()
         view.addSubview(tableView)
         setupTableView()
+//        tableView.register(TableViewCell.self, forCellReuseIdentifier:cellId)
+
         self.tableView.contentInset = UIEdgeInsets(top: 70, left: 0, bottom: 0, right: 0)
         setupButton()
         
@@ -48,13 +59,14 @@ class ViewController: UITableViewController {
     
     @objc func addItem(){
         DataModel().addModel()
-        tableView.reloadData()
+        fetch()
         print(exercises)
     }
     
-    @objc func stepperValueChanged(_ sender:UIStepper!)
+    @objc func stepperValueChanged(_ sender:Stepper!)
         {
-            callBackStepper?(Int(sender.value))
+            callBackStepper?(Int(sender.value), sender.getNum())
+            print(sender.getNum())
 
         }
    
@@ -83,23 +95,19 @@ extension ViewController {
 //        newButton.setImage(UIImage(systemName: "doc.fill"), for: .normal)
 
 //        let accessoryView = newButton
-        let accessoryView = UIStepper()
-        accessoryView.minimumValue = 0
-        accessoryView.maximumValue = 10
-        accessoryView.value = 1
-        accessoryView.stepValue = 1
-
-        
-
-        accessoryView.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
-        cell.accessoryView = accessoryView
-        callBackStepper = { value in
-            currentEx.setValue(value, forKey: "rep")
-            DataModel().saveModel()
-            print(currentEx)
-
-         }
-        
+        if indexPath.row == 2{
+            setupStepper(cell, tag: indexPath.section)
+            callBackStepper = { value, num in
+                let currentEx = self.exercises[num]
+                currentEx.setValue(value, forKey: "rep")
+                DataModel().saveModel()
+//                cell.textLabel?.text = String(value)
+                tableView.reloadData()
+                
+            }
+        } else {
+            cell.accessoryView = nil
+        }
         return cell
     }
     
@@ -115,6 +123,30 @@ extension ViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
     }
-    
+
+    func setupStepper(_ cell: UITableViewCell, tag: Int){
+        let stepper = Stepper()
+
+        stepper.minimumValue = 0
+        stepper.maximumValue = 10
+        
+        stepper.value = Double(Int(cell.textLabel!.text!)!)
+        stepper.stepValue = 1
+        stepper.setNum(num: tag)
+        stepper.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
+        cell.accessoryView = stepper
+        print(tag)
+    }
+
 }
 
+class Stepper: UIStepper{
+    var num: Int = 0
+    func setNum(num: Int){
+        self.num = num
+    }
+    func getNum() -> Int{
+        return self.num
+    }
+    
+}
