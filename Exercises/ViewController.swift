@@ -3,13 +3,19 @@
 import UIKit
 import CoreData
 
-class ViewController: UITableViewController {
+class ViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    
     
     let cellId = "cellId"
     var exercises: [NSManagedObject] = []
     var callBackStepper:((_ value:Int, _ num: Int, _ name: String)->())?
 
+    var picker  = UIPickerView()
 
+    var toolBar = UIToolbar()
+
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -80,25 +86,49 @@ extension ViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 6
     }
+    @objc func showPicker(){
+        picker.delegate = self
+        picker.dataSource = self
+    picker.contentMode = .center
+        picker.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)
+    let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(donePicker))
+    
+    let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+    let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(donePicker))
+        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50))
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        self.view.addSubview(picker)
+
+        self.view.addSubview(toolBar)
+
+
+    }
+    @objc func donePicker() {
+        toolBar.removeFromSuperview()
+        picker.removeFromSuperview()
+    }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         let currentEx = exercises[indexPath.section]
-        
         cell.textLabel?.text = setText(item: (indexPath.item), currentEx: currentEx)
-//        let newButton = UIButton(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-//        newButton.setImage(UIImage(systemName: "doc.fill"), for: .normal)
-
-//        let accessoryView = newButton
-        if indexPath.row == 2{
-            setupStepper(cell, tag: indexPath.section, value: Double((getRep(currentEx: currentEx))), name: "rep")
+        if indexPath.row == 1{
+                    let newButton = UIButton(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+                    newButton.setImage(UIImage(systemName: "doc.fill"), for: .normal)
+            newButton.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
+            cell.accessoryView = newButton
+            
+        } else if indexPath.row == 2{
+            setupStepper(cell, tag: indexPath.section, value: Double((getRep(currentEx: currentEx))), name: "rep", max: 10.0, step: 1.0)
             callBack()
         } else if (indexPath.row == 3){
-            setupStepper(cell, tag: indexPath.section, value: Double((getReps(currentEx: currentEx))), name: "reps")
+            setupStepper(cell, tag: indexPath.section, value: Double((getReps(currentEx: currentEx))), name: "reps", max: 100.0, step: 1.0)
             callBack()
         } else if (indexPath.row == 4){
-            setupStepper(cell, tag: indexPath.section, value: Double((getWeight(currentEx: currentEx))), name: "weight")
+            setupStepper(cell, tag: indexPath.section, value: Double((getWeight(currentEx: currentEx))), name: "weight", max: 300.0, step: 5.0)
             callBack()
         } else {
             cell.accessoryView = nil
@@ -127,12 +157,12 @@ extension ViewController {
         print(indexPath.row)
     }
 
-    func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String){
+    func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
         let stepper = Stepper()
         stepper.minimumValue = 0
-        stepper.maximumValue = 10
+        stepper.maximumValue = max
         stepper.value = value
-        stepper.stepValue = 1
+        stepper.stepValue = step
         stepper.setNum(num: tag)
         stepper.setName(name: name)
         stepper.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
@@ -142,3 +172,21 @@ extension ViewController {
 }
 
 
+extension ViewController{
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        exercises.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return allExersizes[row]
+    }
+        
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print(allExersizes[row])
+    }
+}

@@ -11,11 +11,6 @@ let context = AppDelegate().persistentContainer.viewContext
 
 class DataModel{
     
-    var exersizes = [ "Отведение ног", "Квадрицепс ног",
-                      "Бицепс тренажер", "Пресс тренажер",
-                      "Спина гиперэкстензия"]
-    
-
     func addModel(){
         let newItem = Entity(context: context)
         newItem.date = Date()
@@ -42,3 +37,7 @@ class DataModel{
 
 
 
+
+var allExersizes = [ "Отведение ног", "Квадрицепс ног",
+                  "Бицепс тренажер", "Пресс тренажер",
+                  "Спина гиперэкстензия"]

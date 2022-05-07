@@ -9,11 +9,11 @@ func setText(item: Int, currentEx: NSManagedObject) -> String{
     case 1:
         return currentEx.value(forKey: "name") as? String ?? ""
     case 2:
-        return String(currentEx.value(forKey: "rep") as? Int16 ?? 0)
+        return ("Rep: " + String(currentEx.value(forKey: "rep") as? Int16 ?? 0))
     case 3:
-        return String(currentEx.value(forKey: "reps") as? Int16 ?? 0)
+        return ("Reps: " + String(currentEx.value(forKey: "reps") as? Int16 ?? 0))
     case 4:
-        return String(currentEx.value(forKey: "weight") as? Int16 ?? 0)
+        return ("Weight: " + String(currentEx.value(forKey: "weight") as? Int16 ?? 0))
     case 5:
         return String((currentEx.value(forKey: "weight") as? Int16 ?? 0) * (currentEx.value(forKey: "reps") as? Int16 ?? 0))
     
