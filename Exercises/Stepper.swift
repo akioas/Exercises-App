@@ -19,3 +19,13 @@ class Stepper: UIStepper{
     }
     
 }
+
+class Button: UIButton{
+    var num: Int = 0
+    func setNum(num: Int){
+        self.num = num
+    }
+    func getNum() -> Int{
+        return self.num
+    }
+}

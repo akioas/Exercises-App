@@ -2,19 +2,20 @@
 
 import UIKit
 import CoreData
+import NotificationCenter
 
-class ViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+
+let notificationKey = "Key"
+
+class ViewController: UITableViewController {
+  
     
     
+    var selected = ""
     
     let cellId = "cellId"
     var exercises: [NSManagedObject] = []
     var callBackStepper:((_ value:Int, _ num: Int, _ name: String)->())?
-
-    var picker  = UIPickerView()
-
-    var toolBar = UIToolbar()
-
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,13 +37,16 @@ class ViewController: UITableViewController, UIPickerViewDataSource, UIPickerVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refresh),
+                                               name: NSNotification.Name(rawValue: notificationKey),
+                                               object: nil)
 
         view.backgroundColor = .gray
         
         let tableView = UITableView()
         view.addSubview(tableView)
         setupTableView()
-//        tableView.register(TableViewCell.self, forCellReuseIdentifier:cellId)
 
         self.tableView.contentInset = UIEdgeInsets(top: 70, left: 0, bottom: 0, right: 0)
         setupButton()
@@ -73,7 +77,10 @@ class ViewController: UITableViewController, UIPickerViewDataSource, UIPickerVie
             callBackStepper?(Int(sender.value), sender.getNum(), sender.getName())
         }
    
-     
+    @objc func refresh(){
+        self.tableView.reloadData()
+
+    }
 }
 
 extension ViewController {
@@ -86,29 +93,18 @@ extension ViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 6
     }
-    @objc func showPicker(){
-        picker.delegate = self
-        picker.dataSource = self
-    picker.contentMode = .center
-        picker.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 300)
-    let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(donePicker))
-    
-    let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-    let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(donePicker))
-        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 300, width: UIScreen.main.bounds.size.width, height: 50))
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        toolBar.isUserInteractionEnabled = true
-        self.view.addSubview(picker)
-
-        self.view.addSubview(toolBar)
-
+    @objc func showPicker(_ sender:Button!){
+        showVC(sender.getNum())
 
     }
-    @objc func donePicker() {
-        toolBar.removeFromSuperview()
-        picker.removeFromSuperview()
-    }
     
+    func showVC(_ num: Int){
+        let vc = Picker()
+        self.present(vc, animated: false, completion: {
+            vc.setNum(num, ex: self.exercises[num])
+        })
+        
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -116,10 +112,13 @@ extension ViewController {
         let currentEx = exercises[indexPath.section]
         cell.textLabel?.text = setText(item: (indexPath.item), currentEx: currentEx)
         if indexPath.row == 1{
-                    let newButton = UIButton(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-                    newButton.setImage(UIImage(systemName: "doc.fill"), for: .normal)
+            
+                    let newButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            newButton.setNum(num: indexPath.section)
+                    newButton.setImage(UIImage(systemName: "list.bullet"), for: .normal)
             newButton.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
             cell.accessoryView = newButton
+            
             
         } else if indexPath.row == 2{
             setupStepper(cell, tag: indexPath.section, value: Double((getRep(currentEx: currentEx))), name: "rep", max: 10.0, step: 1.0)
@@ -172,14 +171,94 @@ extension ViewController {
 }
 
 
-extension ViewController{
+
+
+
+
+class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
+    var callBackPicker:((_ value:String, _ currentEx: NSManagedObject)->())?
+
+    var picker  = UIPickerView()
+    var toolBar = UIToolbar()
+    var selected = ""
+    var pickerNum = 0
+    var object: NSManagedObject? = nil
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        callBackPicker = { value, currentEx in
+            print(value)
+            print(currentEx)
+            print("!!")
+//            let currentEx = self.exercises[num]
+            currentEx.setValue(value, forKey: "name")
+            DataModel().saveModel()
+//            self.tableView.reloadData()
+//            print(self.exercises[num])
+        }
+        
+        picker.delegate = self
+        picker.dataSource = self
+//        picker.translatesAutoresizingMaskIntoConstraints = true
+        picker.backgroundColor = .white
+       
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(donePicker))
+        
+        let spaceButton = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(cancelPicker))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(cancelPicker))
+            
+            toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+            toolBar.isUserInteractionEnabled = true
+        
+
+    print(pickerNum)
+            
+        picker.contentMode = .bottom
+
+        picker.frame = CGRect.init(x: 0.0, y: 50, width: UIScreen.main.bounds.size.width, height: 300)
+    
+//        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 350, width: UIScreen.main.bounds.size.width, height: 50))
+       
+        view.addSubview(picker)
+
+        view.addSubview(toolBar)
+        toolBar.sizeToFit()
+
+    
+    }
+    
+    func setNum(_ num: Int, ex: NSManagedObject){
+        pickerNum = num
+        object = ex
+    }
+    
+    @objc func cancelPicker() {
+        let vc = ViewController()
+        self.dismiss(animated: false, completion: {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: notificationKey), object: self)
+        })
+    }
+   
+    @objc func donePicker(){
+        print(object)
+        callBackPicker?(selected, object!)
+        
+        print(selected)
+        print(pickerNum)
+        cancelPicker()
+    }
+    
+    
+}
+
+extension Picker{
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        exercises.count
+        allExersizes.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -187,6 +266,9 @@ extension ViewController{
     }
         
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(allExersizes[row])
+//        callBackPicker?(allExersizes[row], (pickerView.getNum()))
+        print(pickerNum)
+        selected = allExersizes[row]
+        print(selected)
     }
 }
