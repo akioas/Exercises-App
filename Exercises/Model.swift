@@ -37,7 +37,8 @@ class DataModel{
 
 
 
-
-var allExersizes = [ "Отведение ног", "Квадрицепс ног",
+class ExercisesList{
+    var allExersises = [ "Отведение ног", "Квадрицепс ног",
                   "Бицепс тренажер", "Пресс тренажер",
                   "Спина гиперэкстензия"]
+}

@@ -10,7 +10,7 @@ let notificationKey = "Key"
 class ViewController: UITableViewController {
   
     
-    
+    let data = GetData()
     var selected = ""
     
     let cellId = "cellId"
@@ -110,7 +110,7 @@ extension ViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         let currentEx = exercises[indexPath.section]
-        cell.textLabel?.text = setText(item: (indexPath.item), currentEx: currentEx)
+        cell.textLabel?.text = data.setText(item: (indexPath.item), currentEx: currentEx)
         if indexPath.row == 1{
             
                     let newButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
@@ -121,13 +121,13 @@ extension ViewController {
             
             
         } else if indexPath.row == 2{
-            setupStepper(cell, tag: indexPath.section, value: Double((getRep(currentEx: currentEx))), name: "rep", max: 10.0, step: 1.0)
+            setupStepper(cell, tag: indexPath.section, value: Double((data.getRep(currentEx: currentEx))), name: "rep", max: 10.0, step: 1.0)
             callBack()
         } else if (indexPath.row == 3){
-            setupStepper(cell, tag: indexPath.section, value: Double((getReps(currentEx: currentEx))), name: "reps", max: 100.0, step: 1.0)
+            setupStepper(cell, tag: indexPath.section, value: Double((data.getReps(currentEx: currentEx))), name: "reps", max: 100.0, step: 1.0)
             callBack()
         } else if (indexPath.row == 4){
-            setupStepper(cell, tag: indexPath.section, value: Double((getWeight(currentEx: currentEx))), name: "weight", max: 300.0, step: 5.0)
+            setupStepper(cell, tag: indexPath.section, value: Double((data.getWeight(currentEx: currentEx))), name: "weight", max: 300.0, step: 5.0)
             callBack()
         } else {
             cell.accessoryView = nil
@@ -183,6 +183,7 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     var selected = ""
     var pickerNum = 0
     var object: NSManagedObject? = nil
+    let list = ExercisesList()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -258,17 +259,17 @@ extension Picker{
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        allExersizes.count
+        list.allExersises.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return allExersizes[row]
+        return list.allExersises[row]
     }
         
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 //        callBackPicker?(allExersizes[row], (pickerView.getNum()))
         print(pickerNum)
-        selected = allExersizes[row]
+        selected = list.allExersises[row]
         print(selected)
     }
 }
