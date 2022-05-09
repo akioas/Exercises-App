@@ -43,13 +43,23 @@ class ViewController: UITableViewController {
                                                object: nil)
 
         view.backgroundColor = .gray
+        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
+        view.addSubview(navBar)
+
+        let navItem = UINavigationItem(title: "")
+        let addItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
+//        let clockItem = UIBarButtonItem(title: "Date", style: .plain, target: self, action: #selector(clockItem))
+//        navItem.rightBarButtonItems = [addItem, clockItem]
+        navItem.rightBarButtonItems = [addItem]
+
+
+        navBar.setItems([navItem], animated: false)
         
         let tableView = UITableView()
         view.addSubview(tableView)
         setupTableView()
 
-        self.tableView.contentInset = UIEdgeInsets(top: 70, left: 0, bottom: 0, right: 0)
-        setupButton()
+//        self.tableView.contentInset = UIEdgeInsets(top: 70, left: 0, bottom: 0, right: 0)
         
     }
     
@@ -57,21 +67,15 @@ class ViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
     }
     
-    func setupButton(){
-        let button = UIButton(frame: CGRect(x: 40, y: 100, width: UIScreen.main.bounds.width - 80, height: 50))
-        button.backgroundColor = .systemIndigo
-        button.setTitle("Добавить", for: .normal)
-        button.addTarget(self, action: #selector(addItem), for: .touchUpInside)
-        
-        self.view.addSubview(button)
-        button.frame.origin.y = -60
-    }
+
     
     @objc func addItem(){
         DataModel().addModel()
         fetch()
     }
-    
+    @objc func clockItem(){
+        print(Date())
+    }
     @objc func stepperValueChanged(_ sender:Stepper!)
         {
             callBackStepper?(Int(sender.value), sender.getNum(), sender.getName())
