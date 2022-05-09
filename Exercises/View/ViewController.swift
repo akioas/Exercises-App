@@ -11,71 +11,22 @@ let notificationKey = "Key"
 class ViewController: UITableViewController {
     var datePicker : UIDatePicker!
     let toolBar = UIToolbar()
-
+    
     var isFiltered = false
     let data = GetData()
+    var date = Date()
     var selected = ""
-    
     let cellId = "cellId"
     var exercises: [NSManagedObject] = []
     
     var callBackStepper:((_ value:Int, _ num: Int, _ name: String)->())?
-    var date = Date()
+    
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetch(isFiltered)
-        print(exercises.count)
-        
     }
-    
-    func setDate(_ getDate: Date){
-        date = getDate
-     
-        print(date)
-        isFiltered = true
-        let startDate = Calendar.current.startOfDay(for: date)
-                var components = DateComponents()
-                components.day = 1
-                components.second = -1
-                let endDate = Calendar.current.date(byAdding: components, to: startDate)!
-            fetch(isFiltered, startDate: startDate, endDate: endDate)
-                /*
-        let oldEx = exercises
-        var toDelete: [Int] = []
-        for (index, value) in exercises.enumerated(){
-            if data.caseDate(oldEx[index]) != data.caseDate(exercises[index]){
-                toDelete.append(index)
-            }
-        }
-        print(toDelete)
-            tableView.deleteSections(IndexSet(toDelete), with: .none)
-         */
-       
-        
-    }
-    
-    
-    
-    func fetch(_ isFiltered: Bool, startDate: Date = Date(), endDate: Date = Date()){
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entity")
-        if isFiltered{
-            fetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
-        }
-
-        do {
-            self.exercises = try context.fetch(fetchRequest)
-            tableView.reloadData()
-            
-            print(exercises)
-
-        } catch let err as NSError {
-            print(err)
-        }
-       
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self,
@@ -85,6 +36,32 @@ class ViewController: UITableViewController {
         
         
         view.backgroundColor = .gray
+        setupNavBar()
+        setupTableView()
+            
+    }
+    func fetch(_ isFiltered: Bool, startDate: Date = Date(), endDate: Date = Date()){
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entity")
+        if isFiltered{
+            fetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
+        }
+        
+        do {
+            self.exercises = try context.fetch(fetchRequest)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: notificationKey), object: self)
+            
+        } catch let err as NSError {
+            print(err)
+        }
+        
+    }
+    func setupTableView(){
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
+    
+    func setupNavBar(){
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
         view.addSubview(navBar)
         
@@ -97,19 +74,20 @@ class ViewController: UITableViewController {
         navBar.setItems([navItem], animated: false)
         let tableView = UITableView()
         view.addSubview(tableView)
-        setupTableView()
-        tableView.dataSource = self
-        tableView.delegate = self
-
-        
-        //        self.tableView.contentInset = UIEdgeInsets(top: 70, left: 0, bottom: 0, right: 0)
-        
     }
     
-    func setupTableView(){
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
-    }
     
+    func setDate(_ getDate: Date){
+        date = getDate
+        isFiltered = true
+        let startDate = Calendar.current.startOfDay(for: date)
+        var components = DateComponents()
+        components.day = 1
+        components.second = -1
+        let endDate = Calendar.current.date(byAdding: components, to: startDate)!
+        fetch(isFiltered, startDate: startDate, endDate: endDate)
+        
+    }
     
     
     @objc func addItem(){
@@ -118,10 +96,6 @@ class ViewController: UITableViewController {
     }
     @objc func clockItem(){
         setupDatePicker()
-
-//        let vc = Clock()
-//        self.present(vc, animated: false)
-//        setDate(Date())
     }
     
     @objc func stepperValueChanged(_ sender:Stepper!)
@@ -135,51 +109,40 @@ class ViewController: UITableViewController {
     }
     
     func setupDatePicker(){
-        let dateFormatter = DateFormatter()
-            let locale = NSLocale.current
-//
+
         datePicker = UIDatePicker()
         datePicker.frame = CGRect.init(x: 0.0, y: 50, width: UIScreen.main.bounds.size.width, height: 100)
         datePicker.backgroundColor = .lightGray
         datePicker.datePickerMode = UIDatePicker.Mode.date
-//            datePicker.center = view.center
         datePicker.contentMode = .bottom
         view.addSubview(datePicker)
 
-
         toolBar.barStyle = .default
-//            toolBar.isTranslucent = true
         toolBar.sizeToFit()
-
+        
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDate))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDate))
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
-
-       view.addSubview(toolBar)
+        
+        view.addSubview(toolBar)
         toolBar.sizeToFit()
     }
-
-
-@objc func doneDate() {
+    
+    
+    @objc func doneDate() {
         let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = .full
-    setDate(datePicker.date)
-//    let vc = ViewController()
-//    self.dismiss(animated: false, completion: {
-//        vc.setDate(pickedDate)
+        dateFormatter.dateStyle = .full
+        setDate(datePicker.date)
+        cancelDate()
         
-//    })
-    cancelDate()
-
-
+        
     }
-
-@objc func cancelDate() {
-//    self.dismiss(animated: false)
-    datePicker.removeFromSuperview()
-    toolBar.removeFromSuperview()
+    
+    @objc func cancelDate() {
+        datePicker.removeFromSuperview()
+        toolBar.removeFromSuperview()
     }
     
     
@@ -221,6 +184,7 @@ extension ViewController {
             let newButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             newButton.setNum(num: indexPath.section)
             newButton.setImage(UIImage(systemName: "list.bullet"), for: .normal)
+            newButton.tintColor = .black
             newButton.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
             cell.accessoryView = newButton
             
@@ -239,6 +203,16 @@ extension ViewController {
         }
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection
+                            section: Int) -> String? {
+        if section == 0{
+            return " "
+        } else {
+            return ("")
+        }
+    }
+    
     
     func callBack(){
         callBackStepper = { value, num, name in

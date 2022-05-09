@@ -44,3 +44,4 @@ class GetData{
         return text
     }
 }
+
