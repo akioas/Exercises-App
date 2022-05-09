@@ -184,9 +184,12 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     var pickerNum = 0
     var object: NSManagedObject? = nil
     let list = ExercisesList()
-    
+    var exersises: [String] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        exersises = list.load()
+
         callBackPicker = { value, currentEx in
             print(value)
             print(currentEx)
@@ -205,7 +208,7 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
        
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(donePicker))
         
-        let spaceButton = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(cancelPicker))
+        let spaceButton = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(displayAlert))
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(cancelPicker))
             
             toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
@@ -227,6 +230,32 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
 
     
     }
+    
+    
+    @objc func displayAlert() {
+
+        let alertController = UIAlertController(title: "Добавить упражнение", message: "", preferredStyle: UIAlertController.Style.alert)
+        alertController.addTextField { (textField : UITextField!) -> Void in
+                textField.placeholder = "Упражнение"
+            }
+        let saveAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: { alert -> Void in
+                let firstTextField = alertController.textFields![0] as UITextField
+            self.exersises.insert(firstTextField.text ?? "", at: self.exersises.endIndex)
+            self.list.save(self.exersises)
+            self.picker.reloadAllComponents()
+            })
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
+                (action : UIAlertAction!) -> Void in })
+     
+            
+            
+            alertController.addAction(saveAction)
+            alertController.addAction(cancelAction)
+            
+        self.present(alertController, animated: true, completion: nil)
+
+        }
+    
     
     func setNum(_ num: Int, ex: NSManagedObject){
         pickerNum = num
@@ -259,17 +288,17 @@ extension Picker{
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        list.allExersises.count
+        exersises.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return list.allExersises[row]
+        return exersises[row]
     }
         
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 //        callBackPicker?(allExersizes[row], (pickerView.getNum()))
         print(pickerNum)
-        selected = list.allExersises[row]
+        selected = exersises[row]
         print(selected)
     }
 }

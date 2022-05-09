@@ -41,4 +41,12 @@ class ExercisesList{
     var allExersises = [ "Отведение ног", "Квадрицепс ног",
                   "Бицепс тренажер", "Пресс тренажер",
                   "Спина гиперэкстензия"]
+    
+    func load() -> [String]{
+        UserDefaults.standard.array(forKey: "ex") as? [String] ?? allExersises
+    }
+    func save(_ strings: [String]){
+        UserDefaults.standard.set(strings, forKey: "ex")
+
+    }
 }
