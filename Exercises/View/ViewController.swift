@@ -35,11 +35,18 @@ class ViewController: UITableViewController {
                                                object: nil)
         
         
+        
         view.backgroundColor = .gray
         setupNavBar()
         setupTableView()
         
     }
+    
+    func deleteLast(_ object: NSManagedObject){
+        DataModel().delete(object)
+        refresh()
+    }
+    
     func fetch(_ isFiltered: Bool){
         //        change
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entity")
@@ -219,7 +226,7 @@ extension ViewController {
             let deleteButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             deleteButton.setNum(num: indexPath.section)
             deleteButton.setImage(UIImage(systemName: "trash"), for: .normal)
-            deleteButton.tintColor = .black
+            deleteButton.tintColor = .label
             deleteButton.addTarget(self, action: #selector(deleteObject), for: .touchUpInside)
             cell.accessoryView = deleteButton
         } else if indexPath.row == 1{
@@ -227,7 +234,7 @@ extension ViewController {
             let newButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             newButton.setNum(num: indexPath.section)
             newButton.setImage(UIImage(systemName: "list.bullet"), for: .normal)
-            newButton.tintColor = .black
+            newButton.tintColor = .label
             newButton.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
             cell.accessoryView = newButton
             

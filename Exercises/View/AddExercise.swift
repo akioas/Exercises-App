@@ -17,7 +17,7 @@ class AddExercise: UITableViewController{
                                                selector: #selector(refresh),
                                                name: NSNotification.Name(rawValue: notificationKey),
                                                object: nil)
-        view.backgroundColor = .gray
+//        view.backgroundColor = .gray
         setupTableView()
 
         setupNavBar()
@@ -48,11 +48,13 @@ class AddExercise: UITableViewController{
     }
     
     @objc func cancel(){
-        DataModel().delete(object)
+        context.delete(object)
         self.dismiss(animated: false)
     }
     
+    
     @objc func done(){
+        DataModel().saveModel()
         self.dismiss(animated: false, completion: {
             NotificationCenter.default.post(name: Notification.Name(rawValue: notificationKey), object: self)
         })
@@ -75,7 +77,6 @@ class AddExercise: UITableViewController{
     func callBack(){
         callBackStepper = { value, name in
             self.object.setValue(value, forKey: name)
-            DataModel().saveModel()
             self.tableView.reloadData()
         }
     }
@@ -108,7 +109,7 @@ extension AddExercise {
             let newButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             newButton.setNum(num: indexPath.section)
             newButton.setImage(UIImage(systemName: "list.bullet"), for: .normal)
-            newButton.tintColor = .black
+            newButton.tintColor = .label
             newButton.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
             cell.accessoryView = newButton
             

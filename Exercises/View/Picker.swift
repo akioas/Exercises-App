@@ -32,7 +32,7 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         picker.delegate = self
         picker.dataSource = self
         //        picker.translatesAutoresizingMaskIntoConstraints = true
-        picker.backgroundColor = .white
+        picker.backgroundColor = .systemBackground
         picker.contentMode = .bottom
         
         
