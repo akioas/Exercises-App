@@ -38,10 +38,10 @@ class ViewController: UITableViewController {
         view.backgroundColor = .gray
         setupNavBar()
         setupTableView()
-            
+        
     }
     func fetch(_ isFiltered: Bool){
-//        change
+        //        change
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entity")
         if isFiltered{
             let (startDate, endDate) = dates(for: date)
@@ -97,8 +97,8 @@ class ViewController: UITableViewController {
     }
     
     @objc func addItem(){
-//        DataModel().addModel()
-//        fetch(isFiltered)
+        //        DataModel().addModel()
+        //        fetch(isFiltered)
         let vc = AddExercise()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: false)
@@ -118,14 +118,14 @@ class ViewController: UITableViewController {
     }
     
     func setupDatePicker(){
-
+        
         datePicker = UIDatePicker()
         datePicker.frame = CGRect.init(x: 0.0, y: 50, width: UIScreen.main.bounds.size.width, height: 100)
         datePicker.backgroundColor = .lightGray
         datePicker.datePickerMode = UIDatePicker.Mode.date
         datePicker.contentMode = .bottom
         view.addSubview(datePicker)
-
+        
         toolBar.barStyle = .default
         toolBar.sizeToFit()
         
@@ -154,8 +154,46 @@ class ViewController: UITableViewController {
         toolBar.removeFromSuperview()
     }
     
+    @objc func deleteObject(_ sender:Button!){
+        tableView.beginUpdates()
+
+        tableView.deleteSections(IndexSet([sender.num]), with: .fade)
+        DataModel().delete(exercises[sender.num])
+        fetch(isFiltered)
+        tableView.endUpdates()
+
+//        refresh()
+    }
+    @objc func showPicker(_ sender:Button!){
+        showVC(sender.getNum())
+    }
     
-    
+    func showVC(_ num: Int){
+        let vc = Picker()
+        self.present(vc, animated: false, completion: {
+            vc.setNum(num, ex: self.exercises[num])
+        })
+        
+    }
+    func callBack(){
+        callBackStepper = { value, num, name in
+            let currentEx = self.exercises[num]
+            currentEx.setValue(value, forKey: name)
+            DataModel().saveModel()
+            self.tableView.reloadData()
+        }
+    }
+    func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
+        let stepper = Stepper()
+        stepper.minimumValue = 0
+        stepper.maximumValue = max
+        stepper.value = value
+        stepper.stepValue = step
+        stepper.setNum(num: tag)
+        stepper.setName(name: name)
+        stepper.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
+        cell.accessoryView = stepper
+    }
     
 }
 
@@ -170,25 +208,21 @@ extension ViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 6
     }
-    @objc func showPicker(_ sender:Button!){
-        showVC(sender.getNum())
-        
-    }
     
-    func showVC(_ num: Int){
-        let vc = Picker()
-        self.present(vc, animated: false, completion: {
-            vc.setNum(num, ex: self.exercises[num])
-        })
-        
-    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         let currentEx = exercises[indexPath.section]
         cell.textLabel?.text = data.setText(item: (indexPath.item), currentEx: currentEx)
-        if indexPath.row == 1{
+        if indexPath.row == 0{
+            let deleteButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            deleteButton.setNum(num: indexPath.section)
+            deleteButton.setImage(UIImage(systemName: "trash"), for: .normal)
+            deleteButton.tintColor = .black
+            deleteButton.addTarget(self, action: #selector(deleteObject), for: .touchUpInside)
+            cell.accessoryView = deleteButton
+        } else if indexPath.row == 1{
             
             let newButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             newButton.setNum(num: indexPath.section)
@@ -223,14 +257,7 @@ extension ViewController {
     }
     
     
-    func callBack(){
-        callBackStepper = { value, num, name in
-            let currentEx = self.exercises[num]
-            currentEx.setValue(value, forKey: name)
-            DataModel().saveModel()
-            self.tableView.reloadData()
-        }
-    }
+    
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 5
@@ -242,18 +269,6 @@ extension ViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
-    }
-    
-    func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
-        let stepper = Stepper()
-        stepper.minimumValue = 0
-        stepper.maximumValue = max
-        stepper.value = value
-        stepper.stepValue = step
-        stepper.setNum(num: tag)
-        stepper.setName(name: name)
-        stepper.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
-        cell.accessoryView = stepper
     }
     
 }

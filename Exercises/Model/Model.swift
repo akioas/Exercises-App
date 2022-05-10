@@ -32,7 +32,10 @@ class DataModel{
         }
     }
     
-    
+    func delete(_ object: NSManagedObject){
+        context.delete(object)
+        saveModel()
+    }
     
 }
 
