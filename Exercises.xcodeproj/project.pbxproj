@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A1119D4282A919E0001908C /* AddExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1119D3282A919E0001908C /* AddExercise.swift */; };
 		4A858541282131E200604655 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A858540282131E200604655 /* AppDelegate.swift */; };
 		4A858543282131E200604655 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A858542282131E200604655 /* SceneDelegate.swift */; };
 		4A858545282131E200604655 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A858544282131E200604655 /* ViewController.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A1119D3282A919E0001908C /* AddExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExercise.swift; sourceTree = "<group>"; };
 		4A85853D282131E200604655 /* Exercises.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exercises.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A858540282131E200604655 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4A858542282131E200604655 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			children = (
 				4A858544282131E200604655 /* ViewController.swift */,
 				4A97F7FF282953E600CAE0D1 /* Picker.swift */,
+				4A1119D3282A919E0001908C /* AddExercise.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A1119D4282A919E0001908C /* AddExercise.swift in Sources */,
 				4A8585582821322000604655 /* Model.swift in Sources */,
 				4A858545282131E200604655 /* ViewController.swift in Sources */,
 				4A85855B282137B900604655 /* Entity+CoreDataClass.swift in Sources */,

@@ -11,7 +11,7 @@ let context = AppDelegate().persistentContainer.viewContext
 
 class DataModel{
     
-    func addModel(){
+    func addModel() -> NSManagedObject{
         let newItem = Entity(context: context)
         newItem.date = Date()
         newItem.name = "Упражнение"
@@ -19,6 +19,7 @@ class DataModel{
         newItem.reps = 10
         newItem.weight = 10
         saveModel()
+        return newItem
     }
 
     func saveModel(){

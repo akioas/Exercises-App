@@ -40,9 +40,11 @@ class ViewController: UITableViewController {
         setupTableView()
             
     }
-    func fetch(_ isFiltered: Bool, startDate: Date = Date(), endDate: Date = Date()){
+    func fetch(_ isFiltered: Bool){
+//        change
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entity")
         if isFiltered{
+            let (startDate, endDate) = dates(for: date)
             fetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
         }
         
@@ -80,19 +82,26 @@ class ViewController: UITableViewController {
     func setDate(_ getDate: Date){
         date = getDate
         isFiltered = true
+        
+        fetch(isFiltered)
+        
+    }
+    
+    func dates(for date: Date) -> (start: Date, end: Date){
         let startDate = Calendar.current.startOfDay(for: date)
         var components = DateComponents()
         components.day = 1
         components.second = -1
         let endDate = Calendar.current.date(byAdding: components, to: startDate)!
-        fetch(isFiltered, startDate: startDate, endDate: endDate)
-        
+        return (startDate, endDate)
     }
     
-    
     @objc func addItem(){
-        DataModel().addModel()
-        fetch(isFiltered)
+//        DataModel().addModel()
+//        fetch(isFiltered)
+        let vc = AddExercise()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false)
     }
     @objc func clockItem(){
         setupDatePicker()
