@@ -48,7 +48,6 @@ class ViewController: UITableViewController {
     }
     
     func fetch(_ isFiltered: Bool){
-        //        change
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entity")
         if isFiltered{
             let (startDate, endDate) = dates(for: date)
@@ -75,9 +74,12 @@ class ViewController: UITableViewController {
         view.addSubview(navBar)
         
         let navItem = UINavigationItem(title: "")
+        let historyItem = UIBarButtonItem(title: "History", style: .plain, target: self, action: #selector(historyItem))
         let addItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
         let clockItem = UIBarButtonItem(title: "Date", style: .plain, target: self, action: #selector(clockItem))
-        navItem.rightBarButtonItems = [addItem, clockItem]
+        
+
+        navItem.rightBarButtonItems = [addItem, clockItem, historyItem]
         
         
         navBar.setItems([navItem], animated: false)
@@ -111,9 +113,20 @@ class ViewController: UITableViewController {
     @objc func clockItem(){
         setupDatePicker()
     }
+    @objc func historyItem(){
+        showHistory()
+    }
     
     @objc func refresh(){
         self.tableView.reloadData()
+    }
+    
+    func showHistory(){
+        let vc = History()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false, completion: {
+            vc.setExersises(self.exercises)
+        })
         
     }
     
@@ -145,8 +158,7 @@ class ViewController: UITableViewController {
         dateFormatter.dateStyle = .full
         setDate(datePicker.date)
         cancelDate()
-        
-        
+
     }
     
     @objc func cancelDate() {

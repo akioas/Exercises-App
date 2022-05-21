@@ -9,7 +9,7 @@ class AddExercise: UITableViewController{
     let cellId = "cellId"
     let data = GetData()
     var callBackStepper:((_ value:Int, _ name: String)->())?
-    var toolBar = UIToolbar()
+//    var toolBar = UIToolbar()
 
 
     override func viewDidLoad() {
@@ -18,7 +18,6 @@ class AddExercise: UITableViewController{
                                                selector: #selector(refresh),
                                                name: NSNotification.Name(rawValue: notificationKey),
                                                object: nil)
-//        view.backgroundColor = .gray
         setupTableView()
 
         setupNavBar()
