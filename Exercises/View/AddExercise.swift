@@ -5,6 +5,7 @@ import CoreData
 class AddExercise: UITableViewController{
     
     var object: NSManagedObject = DataModel().addModel()
+    var isNewObject = true
     let cellId = "cellId"
     let data = GetData()
     var callBackStepper:((_ value:Int, _ name: String)->())?
@@ -22,6 +23,11 @@ class AddExercise: UITableViewController{
 
         setupNavBar()
         
+    }
+    
+    func loadObject(_ object: NSManagedObject){
+        self.object = object
+        self.isNewObject = false
     }
     
     func setupTableView(){
@@ -48,7 +54,9 @@ class AddExercise: UITableViewController{
     }
     
     @objc func cancel(){
-        context.delete(object)
+        if isNewObject{
+            context.delete(object)
+        }
         self.dismiss(animated: false)
     }
     
@@ -126,6 +134,8 @@ extension AddExercise {
         } else {
             cell.accessoryView = nil
         }
+        cell.selectionStyle = .none
+
         return cell
     }
     

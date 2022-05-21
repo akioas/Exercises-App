@@ -104,19 +104,12 @@ class ViewController: UITableViewController {
     }
     
     @objc func addItem(){
-        //        DataModel().addModel()
-        //        fetch(isFiltered)
         let vc = AddExercise()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: false)
     }
     @objc func clockItem(){
         setupDatePicker()
-    }
-    
-    @objc func stepperValueChanged(_ sender:Stepper!)
-    {
-        callBackStepper?(Int(sender.value), sender.getNum(), sender.getName())
     }
     
     @objc func refresh(){
@@ -169,7 +162,6 @@ class ViewController: UITableViewController {
         fetch(isFiltered)
         tableView.endUpdates()
 
-//        refresh()
     }
     @objc func showPicker(_ sender:Button!){
         showVC(sender.getNum())
@@ -181,25 +173,6 @@ class ViewController: UITableViewController {
             vc.setNum(num, ex: self.exercises[num])
         })
         
-    }
-    func callBack(){
-        callBackStepper = { value, num, name in
-            let currentEx = self.exercises[num]
-            currentEx.setValue(value, forKey: name)
-            DataModel().saveModel()
-            self.tableView.reloadData()
-        }
-    }
-    func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
-        let stepper = Stepper()
-        stepper.minimumValue = 0
-        stepper.maximumValue = max
-        stepper.value = value
-        stepper.stepValue = step
-        stepper.setNum(num: tag)
-        stepper.setName(name: name)
-        stepper.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
-        cell.accessoryView = stepper
     }
     
 }
@@ -213,7 +186,7 @@ extension ViewController {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return 2
     }
     
     
@@ -229,25 +202,6 @@ extension ViewController {
             deleteButton.tintColor = .label
             deleteButton.addTarget(self, action: #selector(deleteObject), for: .touchUpInside)
             cell.accessoryView = deleteButton
-        } else if indexPath.row == 1{
-            
-            let newButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            newButton.setNum(num: indexPath.section)
-            newButton.setImage(UIImage(systemName: "list.bullet"), for: .normal)
-            newButton.tintColor = .label
-            newButton.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
-            cell.accessoryView = newButton
-            
-            
-        } else if indexPath.row == 2{
-            setupStepper(cell, tag: indexPath.section, value: Double((data.getRep(currentEx: currentEx))), name: "rep", max: 10.0, step: 1.0)
-            callBack()
-        } else if (indexPath.row == 3){
-            setupStepper(cell, tag: indexPath.section, value: Double((data.getReps(currentEx: currentEx))), name: "reps", max: 100.0, step: 1.0)
-            callBack()
-        } else if (indexPath.row == 4){
-            setupStepper(cell, tag: indexPath.section, value: Double((data.getWeight(currentEx: currentEx))), name: "weight", max: 300.0, step: 5.0)
-            callBack()
         } else {
             cell.accessoryView = nil
         }
@@ -276,6 +230,12 @@ extension ViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
+        let vc = AddExercise()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false, completion: {
+            vc.loadObject(self.exercises[indexPath.section])
+        })
+        
     }
     
 }
