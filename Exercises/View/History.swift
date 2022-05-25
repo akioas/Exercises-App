@@ -25,10 +25,29 @@ class History: UITableViewController{
         print(names)
     }
     
+    func fetch(_ name: String){
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entity")
+
+        fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+        
+        
+        do {
+            self.exercises = try context.fetch(fetchRequest)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: notificationKey), object: self)
+            
+        } catch let err as NSError {
+            print(err)
+        }
+        
+    }
+    
     func setupTableView(){
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellID")
         tableView.dataSource = self
         tableView.delegate = self
+        let tableView = UITableView()
+        view.addSubview(tableView)
+
         
     }
     func setupNavBar(){
@@ -40,10 +59,7 @@ class History: UITableViewController{
         
         navItem.leftBarButtonItems = [backItem]
         
-        
         navBar.setItems([navItem], animated: false)
-        let tableView = UITableView()
-        view.addSubview(tableView)
         view.addSubview(navBar)
         print(navBar.frame)
     }
@@ -72,5 +88,12 @@ extension History {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
+        fetch(names[indexPath.row])
+        let vc = Chart()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false, completion: {
+            vc.setValues(self.exercises)
+        })
+        
     }
 }
