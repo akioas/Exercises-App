@@ -106,25 +106,26 @@ class ChartView : UIView {
         for (index, _) in y.enumerated(){
             points.append(CGPoint(x: 20.0 + stepSize * Double(index), y: (-CGFloat((y[index])) / (size.height ) + 0.5 * (size.height) - 30.0)))
         }
-         /*
-        let p1 = self.bounds.origin
-                let p2 = CGPoint(x:p1.x + size.width, y:p1.y)
-        let p3 = CGPoint(x:p2.x, y:p2.y + size.height * 0.8)
-                let p4 = CGPoint(x:size.width/2, y:size.height)
-                let p5 = CGPoint(x:p1.x, y: size.height * 0.8)
-        points = [p1, p2, p3, p4, p5]
-*/
+         
         let path = UIBezierPath()
         path.move(to: points.first!)
         for point in points {
             path.addLine(to: point)
         }
-        print("L")
-        print(points)
-
         UIColor.red.setStroke()
         path.lineWidth = 5
         path.stroke()
+        let pathDot = UIBezierPath()
+        pathDot.lineWidth = 10
+        pathDot.setLineDash([1, stepSize - 3], count: 2, phase: 0)
+        pathDot.move(to: points.first!)
+        for point in points {
+            pathDot.addLine(to: point)
+        }
+       
+        pathDot.stroke()
+        
+        
         let origPath = UIBezierPath()
         origPath.move(to: CGPoint(x: 10, y:  -Int(size.height)))
         origPath.addLine(to: CGPoint(x: 10, y: -20 + Int(size.height)))
