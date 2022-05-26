@@ -32,6 +32,21 @@ class Chart: UIViewController{
             view.addSubview(imgView)
             imgView.image = img
             print(imgView.frame)
+        } else if exersises.count > 1{
+            
+        } else {
+            let width = UIScreen.main.bounds.width - 30
+            let frame = CGRect(x: 20, y: (UIScreen.main.bounds.height - width) / 2, width: width, height: width)
+            let txtField = UILabel(frame: frame)
+            let txt = String(dates.first!) + "\nRep: " + String(rep.first!) + "\nReps:" +
+            String(reps.first!) + "\nWeights:" + String(weights.first!)
+            txtField.text = txt
+            txtField.textColor = .systemIndigo
+            print(txt)
+            txtField.numberOfLines = 4
+            view.addSubview(txtField)
+            
+            print("d")
         }
     }
     func getPoints(){
