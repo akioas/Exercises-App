@@ -33,7 +33,14 @@ class Chart: UIViewController{
             imgView.image = img
             print(imgView.frame)
         } else if exersises.count > 1{
-            
+            let width = UIScreen.main.bounds.width - 30
+
+            let frame = CGRect(x: 0, y: (UIScreen.main.bounds.height - width) / 2, width: width, height: width)
+
+            let chart = ChartView(frame: frame)
+            chart.y = reps
+            self.view.addSubview(chart)
+
         } else {
             let width = UIScreen.main.bounds.width - 30
             let frame = CGRect(x: 20, y: (UIScreen.main.bounds.height - width) / 2, width: width, height: width)
@@ -75,5 +82,50 @@ class Chart: UIViewController{
     }
     @objc func back(){
         self.dismiss(animated: false)
+    }
+}
+
+class ChartView : UIView {
+    var y: [Int16] = []
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = UIColor.clear
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        backgroundColor = UIColor.clear
+    }
+
+    override func draw(_ rect: CGRect) {
+        let size = self.bounds.size
+        
+        var points: [CGPoint] = []
+        let stepSize = ( Int(size.width) - 20 ) / y.count
+        print(y.count)
+        
+        for (index, _) in y.enumerated(){
+            points.append(CGPoint(x: 20 + stepSize * index, y: (-1 * Int(y[index]) / Int(size.height / 2) + Int(size.height) - 30)))
+        }
+         /*
+        let p1 = self.bounds.origin
+                let p2 = CGPoint(x:p1.x + size.width, y:p1.y)
+        let p3 = CGPoint(x:p2.x, y:p2.y + size.height * 0.8)
+                let p4 = CGPoint(x:size.width/2, y:size.height)
+                let p5 = CGPoint(x:p1.x, y: size.height * 0.8)
+        points = [p1, p2, p3, p4, p5]
+*/
+        let path = UIBezierPath()
+        path.move(to: points.first!)
+        for point in points {
+            path.addLine(to: point)
+        }
+        path.close()
+        print("L")
+        print(points)
+
+        UIColor.red.setStroke()
+
+        path.stroke()
     }
 }
