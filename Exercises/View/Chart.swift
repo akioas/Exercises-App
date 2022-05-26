@@ -99,13 +99,12 @@ class ChartView : UIView {
 
     override func draw(_ rect: CGRect) {
         let size = self.bounds.size
-        
         var points: [CGPoint] = []
-        let stepSize = ( Int(size.width) - 20 ) / y.count
+        let stepSize = ( (size.width) - 20.0 ) / Double(y.count)
         print(y.count)
         
         for (index, _) in y.enumerated(){
-            points.append(CGPoint(x: 20 + stepSize * index, y: (-1 * Int(y[index]) / Int(size.height / 2) + Int(size.height) - 30)))
+            points.append(CGPoint(x: 20.0 + stepSize * Double(index), y: (-CGFloat((y[index])) / (size.height ) + 0.5 * (size.height) - 30.0)))
         }
          /*
         let p1 = self.bounds.origin
@@ -120,12 +119,19 @@ class ChartView : UIView {
         for point in points {
             path.addLine(to: point)
         }
-        path.close()
         print("L")
         print(points)
 
         UIColor.red.setStroke()
-
+        path.lineWidth = 5
         path.stroke()
+        let origPath = UIBezierPath()
+        origPath.move(to: CGPoint(x: 10, y:  -Int(size.height)))
+        origPath.addLine(to: CGPoint(x: 10, y: -20 + Int(size.height)))
+        origPath.addLine(to: CGPoint(x: 10 + Int(stepSize) * y.count, y: -20 + Int(size.height)))
+        
+        UIColor.black.setStroke()
+        origPath.lineWidth = 3
+        origPath.stroke()
     }
 }
