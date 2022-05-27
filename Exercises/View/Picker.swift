@@ -31,7 +31,6 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         
         picker.delegate = self
         picker.dataSource = self
-        //        picker.translatesAutoresizingMaskIntoConstraints = true
         picker.backgroundColor = .systemBackground
         picker.contentMode = .bottom
         
@@ -90,16 +89,13 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     }
     
     @objc func cancelPicker() {
-        //        let vc = ViewController()
         self.dismiss(animated: false, completion: {
             NotificationCenter.default.post(name: Notification.Name(rawValue: notificationKey), object: self)
         })
     }
     
     @objc func donePicker(){
-        //        print(object)
         callBackPicker?(selected, object!)
-
         cancelPicker()
     }
     
