@@ -25,8 +25,10 @@ class AddExercise: UITableViewController{
     }
     
     func loadObject(_ object: NSManagedObject){
+        context.delete(self.object)
         self.object = object
         self.isNewObject = false
+        tableView.reloadData()
     }
     
     func setupTableView(){

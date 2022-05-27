@@ -99,12 +99,21 @@ class ChartView : UIView {
 
     override func draw(_ rect: CGRect) {
         let size = self.bounds.size
+        let height = size.height - 10.0
         var points: [CGPoint] = []
         let stepSize = ( (size.width) - 20.0 ) / Double(y.count)
         print(y.count)
-        
+        let diff = Int(y.max() ?? 0) - Int(y.min() ?? 0)
+        print(diff)
+        let stepY = 100*CGFloat(diff) / height
+        print("d")
+        print(stepY)
+        print(CGFloat(diff))
+        print(height)
+        let yMin = Int(y.min() ?? 0)
         for (index, _) in y.enumerated(){
-            points.append(CGPoint(x: 20.0 + stepSize * Double(index), y: (-CGFloat((y[index])) / (size.height ) + 0.5 * (size.height) - 30.0)))
+            points.append(CGPoint(x: 20.0 + stepSize * Double(index), y: -40 + height + stepY * (-CGFloat(y[index]) )))
+            print(points)
         }
          
         let path = UIBezierPath()
@@ -115,21 +124,12 @@ class ChartView : UIView {
         UIColor.red.setStroke()
         path.lineWidth = 5
         path.stroke()
-        let pathDot = UIBezierPath()
-        pathDot.lineWidth = 10
-        pathDot.setLineDash([1, stepSize - 3], count: 2, phase: 0)
-        pathDot.move(to: points.first!)
-        for point in points {
-            pathDot.addLine(to: point)
-        }
-       
-        pathDot.stroke()
-        
+        print(points)
         
         let origPath = UIBezierPath()
         origPath.move(to: CGPoint(x: 10, y:  -Int(size.height)))
-        origPath.addLine(to: CGPoint(x: 10, y: -20 + Int(size.height)))
-        origPath.addLine(to: CGPoint(x: 10 + Int(stepSize) * y.count, y: -20 + Int(size.height)))
+        origPath.addLine(to: CGPoint(x: 10, y: -20 + Int(height)))
+        origPath.addLine(to: CGPoint(x: 10 + Int(stepSize) * y.count, y: -20 + Int(height)))
         
         UIColor.black.setStroke()
         origPath.lineWidth = 3
