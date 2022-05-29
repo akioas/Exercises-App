@@ -11,21 +11,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    
-
-        if UserVariables().isFirstLaunch(){
-            print(UserVariables().isFirstLaunch())
-            self.window?.rootViewController = UINavigationController(rootViewController: storyboard.instantiateViewController(withIdentifier: "launch"))
-
-        } else {
-            print(UserVariables().isFirstLaunch())
-            print("false")
-            self.window?.rootViewController = UINavigationController(rootViewController: storyboard.instantiateViewController(withIdentifier: "viewcontroller"))
-
-        }
-        self.window?.makeKeyAndVisible()
         return true
        
     }

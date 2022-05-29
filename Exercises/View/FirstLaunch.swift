@@ -9,6 +9,16 @@ class FirstLaunch: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         nextButton.layer.borderWidth = 1
+        
+    }
+    override func viewDidAppear(_ animated:Bool) {
+        super.viewDidAppear(true)
+        if !UserVariables().isFirstLaunch(){
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "viewcontroller") as! ViewController
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: false)
+        }
     }
 }
 
