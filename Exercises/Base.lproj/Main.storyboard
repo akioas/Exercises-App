@@ -23,12 +23,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="161" y="98"/>
+            <point key="canvasLocation" x="1894" y="826"/>
         </scene>
         <!--First Launch-->
         <scene sceneID="q9V-vK-WMr">
             <objects>
-                <viewController id="jCF-8M-4Bh" customClass="FirstLaunch" sceneMemberID="viewController">
+                <viewController id="jCF-8M-4Bh" customClass="FirstLaunch" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mko-9T-3cv" customClass="UITableView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -79,15 +79,18 @@
                             <constraint firstItem="JII-C5-gXm" firstAttribute="top" secondItem="ZLW-VL-yjC" secondAttribute="bottom" constant="60" id="rbv-84-3Oi"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="nextButton" destination="btm-WQ-CDq" id="yZM-OP-SQk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Fr-J2-bkh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="111.59420289855073" y="825.66964285714278"/>
         </scene>
-        <!--First Launch-->
+        <!--First Launch Text-->
         <scene sceneID="gCV-6p-nUv">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="q3D-Pd-A9y" customClass="FirstLaunch" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="q3D-Pd-A9y" customClass="FirstLaunchText" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kt5-dy-RZU" customClass="UITableView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -106,6 +109,7 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Start"/>
                                 <connections>
+                                    <action selector="startAction:" destination="q3D-Pd-A9y" eventType="touchUpInside" id="XkF-bf-VGt"/>
                                     <segue destination="BYZ-38-t0r" kind="show" id="EBe-b2-wj5"/>
                                 </connections>
                             </button>
@@ -119,6 +123,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="name"/>
+                                        <connections>
+                                            <action selector="nameEdited:" destination="q3D-Pd-A9y" eventType="editingDidEnd" id="bOk-sW-L7B"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Birthday" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kwd-WV-ytu">
                                         <rect key="frame" x="0.0" y="60" width="142" height="40"/>
@@ -127,6 +134,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" textContentType="date-time"/>
+                                        <connections>
+                                            <action selector="birthdayEdited:" destination="q3D-Pd-A9y" eventType="editingDidEnd" id="iOV-s6-iYP"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Sex" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5iD-LF-WWb">
                                         <rect key="frame" x="0.0" y="120" width="142" height="40"/>
@@ -135,6 +145,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="nickname"/>
+                                        <connections>
+                                            <action selector="sexEdited:" destination="q3D-Pd-A9y" eventType="editingDidEnd" id="1R4-om-eRG"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Weight" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PjU-TZ-UeV">
                                         <rect key="frame" x="0.0" y="180" width="142" height="40"/>
@@ -142,7 +155,10 @@
                                             <constraint firstAttribute="height" constant="40" id="o6U-gC-Bl1"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="honorifix-suffix"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" textContentType="honorifix-suffix"/>
+                                        <connections>
+                                            <action selector="weightEdited:" destination="q3D-Pd-A9y" eventType="editingDidEnd" id="IZU-MA-iCE"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -159,6 +175,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="osi-4H-oSx"/>
+                    <connections>
+                        <outlet property="birthdayField" destination="kwd-WV-ytu" id="ZVj-74-1xz"/>
+                        <outlet property="nameField" destination="h8R-uH-JpX" id="d3o-Gx-Ndi"/>
+                        <outlet property="sexField" destination="5iD-LF-WWb" id="g5k-Mi-dJf"/>
+                        <outlet property="startButton" destination="H4q-gn-N2G" id="fM5-Nv-sjf"/>
+                        <outlet property="weightField" destination="PjU-TZ-UeV" id="jeR-UO-Foe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xnt-lc-0Ke" sceneMemberID="firstResponder"/>
             </objects>

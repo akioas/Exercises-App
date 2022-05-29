@@ -54,3 +54,18 @@ class ExercisesList{
 
     }
 }
+
+class UserVariables{
+    func save(_ name: String, forKey key: String){
+        UserDefaults.standard.set(name, forKey: key)
+    }
+    func load(forKey key: String) -> String{
+        UserDefaults.standard.string(forKey: key) ?? ""
+    }
+    func wasLaunched(){
+        UserDefaults.standard.set(true, forKey: "firstLaunch")
+    }
+    func isFirstLaunch() -> Bool{
+        UserDefaults.standard.bool(forKey: "firstLaunch")
+    }
+}

@@ -18,6 +18,7 @@
 		4A8585582821322000604655 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8585572821322000604655 /* Model.swift */; };
 		4A85855B282137B900604655 /* Entity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A858559282137B900604655 /* Entity+CoreDataClass.swift */; };
 		4A85855C282137B900604655 /* Entity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A85855A282137B900604655 /* Entity+CoreDataProperties.swift */; };
+		4A937D472843E00D0078A6E3 /* FirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A937D462843E00D0078A6E3 /* FirstLaunch.swift */; };
 		4A97F800282953E600CAE0D1 /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97F7FF282953E600CAE0D1 /* Picker.swift */; };
 		4A9FCAE4283EBD2D004D9ABE /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9FCAE3283EBD2D004D9ABE /* Chart.swift */; };
 		4AA2FA272825B55900E4AF61 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA2FA262825B55900E4AF61 /* Controller.swift */; };
@@ -39,6 +40,7 @@
 		4A8585572821322000604655 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		4A858559282137B900604655 /* Entity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4A85855A282137B900604655 /* Entity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4A937D462843E00D0078A6E3 /* FirstLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunch.swift; sourceTree = "<group>"; };
 		4A97F7FF282953E600CAE0D1 /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
 		4A9FCAE3283EBD2D004D9ABE /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		4AA2FA262825B55900E4AF61 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				4A858544282131E200604655 /* ViewController.swift */,
+				4A937D462843E00D0078A6E3 /* FirstLaunch.swift */,
 				4AFFBFA228397908009FFC36 /* History.swift */,
 				4A9FCAE3283EBD2D004D9ABE /* Chart.swift */,
 				4A97F7FF282953E600CAE0D1 /* Picker.swift */,
@@ -193,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A1119D4282A919E0001908C /* AddExercise.swift in Sources */,
+				4A937D472843E00D0078A6E3 /* FirstLaunch.swift in Sources */,
 				4A8585582821322000604655 /* Model.swift in Sources */,
 				4A858545282131E200604655 /* ViewController.swift in Sources */,
 				4A85855B282137B900604655 /* Entity+CoreDataClass.swift in Sources */,

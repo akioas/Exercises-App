@@ -1,5 +1,5 @@
 
-import Foundation
+import UIKit
 import CoreData
 
 
@@ -44,4 +44,3 @@ class GetData{
         return text
     }
 }
-
