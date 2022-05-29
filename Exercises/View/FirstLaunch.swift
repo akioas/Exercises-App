@@ -13,7 +13,7 @@ class FirstLaunch: UIViewController{
     }
     override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(true)
-        if !UserVariables().isFirstLaunch(){
+        if UserVariables().isFirstLaunch(){ //!
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "viewcontroller") as! ViewController
             vc.modalPresentationStyle = .fullScreen
@@ -66,6 +66,7 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboard()
         startButton.layer.borderWidth = 1
         nameField.delegate = self
         birthdayField.delegate = self
@@ -79,5 +80,18 @@ extension FirstLaunchText {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension FirstLaunchText {
+
+    @objc func hideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:    #selector(FirstLaunchText.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
