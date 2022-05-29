@@ -5,11 +5,8 @@ import UIKit
 
 class FirstLaunch: UIViewController{
     
-    @IBOutlet weak var nextButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        nextButton.layer.borderWidth = 1
-        
     }
     override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(true)
@@ -24,7 +21,6 @@ class FirstLaunch: UIViewController{
 
 class FirstLaunchText: UIViewController, UITextFieldDelegate{
     
-    @IBOutlet weak var startButton: UIButton!
     
     var name = ""
     var birthday = ""
@@ -32,17 +28,20 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate{
     var weight = ""
     
     @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var birthdayField: UITextField!
+//    @IBOutlet weak var birthdayField: UITextField!
     @IBOutlet weak var sexField: UITextField!
     @IBOutlet weak var weightField: UITextField!
     
     @IBAction func nameEdited(_ sender: Any) {
         
         name = nameField.text ?? "user"
-    }
+    }/*
     @IBAction func birthdayEdited(_ sender: Any) {
         
         birthday = birthdayField.text ?? "unknown"
+    }
+      */
+    @IBAction func birthdayEdited(_ sender: Any) {
     }
     @IBAction func sexEdited(_ sender: Any) {
         
@@ -59,7 +58,7 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate{
         let user = UserVariables()
         user.wasLaunched()
         user.save(name, forKey: user.nameKey)
-        user.save(birthday, forKey: user.birthdayKey)
+//        user.save(birthday, forKey: user.birthdayKey)
         user.save(sex, forKey: user.sexKey)
         user.save(weight, forKey: user.weightKey)
     }
@@ -67,9 +66,8 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
-        startButton.layer.borderWidth = 1
         nameField.delegate = self
-        birthdayField.delegate = self
+//        birthdayField.delegate = self
         sexField.delegate = self
         weightField.delegate = self
     }
