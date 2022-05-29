@@ -48,13 +48,10 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate{
     @IBAction func startAction(_ sender: Any) {
         let user = UserVariables()
         user.wasLaunched()
-        user.save(name, forKey: "name")
-        user.save(birthday, forKey: "birthday")
-        user.save(sex, forKey: "sex")
-        user.save(weight, forKey: "weight")
-        let vc = ViewController()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false)
+        user.save(name, forKey: user.nameKey)
+        user.save(birthday, forKey: user.birthdayKey)
+        user.save(sex, forKey: user.sexKey)
+        user.save(weight, forKey: user.weightKey)
     }
     
     override func viewDidLoad() {
