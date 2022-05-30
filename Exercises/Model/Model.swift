@@ -21,6 +21,16 @@ class DataModel{
         saveModel()
         return newItem
     }
+    
+    func addUser() -> NSManagedObject{
+        let newUser = User(context: context)
+        newUser.birthday = Date()
+        newUser.name = "User"
+        newUser.sex = "Not set"
+        newUser.weight = 0
+        saveModel()
+        return newUser
+    }
 
     func saveModel(){
      
@@ -61,7 +71,7 @@ class UserVariables{
     let sexKey = "sex"
     let weightKey = "weight"
     let birthdayKey = "birthday"
-    
+    /*
     func save(_ name: Any, forKey key: String){
         UserDefaults.standard.set(name, forKey: key)
     }
@@ -79,6 +89,7 @@ class UserVariables{
             return UserDefaults.standard.string(forKey: key) ?? ""
         }
     }
+     */
     func wasLaunched(){
         UserDefaults.standard.set(false, forKey: "firstLaunch")
     }
