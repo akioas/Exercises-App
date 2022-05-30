@@ -9,6 +9,8 @@ class FirstLaunch: UIViewController{
         super.viewDidLoad()
     }
 
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var logo: UIImageView!
     override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(true)
         if UserVariables().isFirstLaunch(){ //!
@@ -17,11 +19,11 @@ class FirstLaunch: UIViewController{
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: false)
         }
-        /*
-        let logoConstraint = NSLayoutConstraint(item: nextButton!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: self.view.bounds.height * 0.95)
-        let nextBConstraint = NSLayoutConstraint(item: logo!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: self.view.bounds.height * 0.05)
+        
+        let nextBConstraint = NSLayoutConstraint(item: nextButton!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: self.view.bounds.height * 0.95)
+        let logoConstraint = NSLayoutConstraint(item: logo!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: self.view.bounds.height * 0.05)
         NSLayoutConstraint.activate([logoConstraint, nextBConstraint])
-         */
+         
     }
          
 }
@@ -42,7 +44,7 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     var name = "user"
     var birthday = Date()
     var sex = "Not set"
-    var weight = "Not set"
+    var weight = 0
     
     let sexes = ["Female", "Male", "Other"]
     
@@ -51,6 +53,8 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     @IBOutlet weak var sexButton: UIButton!
     @IBOutlet weak var weightField: UITextField!
     
+    @IBOutlet weak var appLabel: UILabel!
+    @IBOutlet weak var startButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +63,9 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
         weightField.delegate = self
         setupDatePicker()
         setupPicker()
+        let startBConstraint = NSLayoutConstraint(item: startButton!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: self.view.bounds.height * 0.95)
+        let appLabelConstraint = NSLayoutConstraint(item: appLabel!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: self.view.bounds.height * 0.05)
+        NSLayoutConstraint.activate([startBConstraint, appLabelConstraint])
 
     }
     
@@ -74,7 +81,7 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
         isPickingSex = true
     }
     @IBAction func weightEdited(_ sender: Any) {
-        weight = weightField.text ?? "unknown"
+        weight = Int(weightField.text ?? "0") ?? 0
     }
     
     func setupDatePicker(){
@@ -102,7 +109,7 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
         user.save(name, forKey: user.nameKey)
         user.save(birthday, forKey: user.birthdayKey)
         user.save(sex, forKey: user.sexKey)
-        user.save(weight, forKey: user.weightKey)
+        user.save(String(weight), forKey: user.weightKey)
     }
     
 }
@@ -123,6 +130,15 @@ extension FirstLaunchText {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         sex = sexes[row]
     }
+}
+
+extension FirstLaunchText {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+           if textField == weightField {
+               return AllowedText().textDigits(string: string)
+            }
+            return true
+        }
 }
 
 extension FirstLaunchText {

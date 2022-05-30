@@ -53,3 +53,15 @@ func changeText(button: UIButton, with text: String){
         button.tintColor = .label
     }
 }
+
+
+class AllowedText{
+    var allowedCharacters = CharacterSet(charactersIn:"")
+    var characterSet = CharacterSet(charactersIn:"")
+
+    func textDigits(string:String) -> Bool{
+        allowedCharacters = CharacterSet(charactersIn:"0123456789")
+        characterSet = CharacterSet(charactersIn: string)
+        return allowedCharacters.isSuperset(of: characterSet)
+    }
+}
