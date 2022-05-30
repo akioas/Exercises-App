@@ -62,11 +62,23 @@ class UserVariables{
     let weightKey = "weight"
     let birthdayKey = "birthday"
     
-    func save(_ name: String, forKey key: String){
+    func save(_ name: Any, forKey key: String){
         UserDefaults.standard.set(name, forKey: key)
     }
     func load(forKey key: String) -> String{
-        UserDefaults.standard.string(forKey: key) ?? ""
+        if key == birthdayKey{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
+            let date = (UserDefaults.standard.object(forKey: key)) as? Date ?? Date()
+            if date == Date(){
+                return "Not set"
+            } else {
+                print(dateFormatter.string(from: date))
+                return dateFormatter.string(from: date)
+            }
+        } else {
+            return UserDefaults.standard.string(forKey: key) ?? ""
+        }
     }
     func wasLaunched(){
         UserDefaults.standard.set(false, forKey: "firstLaunch")

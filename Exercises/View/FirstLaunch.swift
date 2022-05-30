@@ -19,59 +19,108 @@ class FirstLaunch: UIViewController{
     }
 }
 
-class FirstLaunchText: UIViewController, UITextFieldDelegate{
+
+
+
+
+
+class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
     
     
-    var name = ""
-    var birthday = ""
-    var sex = ""
-    var weight = ""
+    
+    let datePicker = UIDatePicker()
+    let picker = UIPickerView()
+    let dateFormatter = DateFormatter()
+    var isPickingDate = false
+    var isPickingSex = false
+    
+    var name = "user"
+    var birthday = Date()
+    var sex = "Not set"
+    var weight = "Not set"
+    
+    let sexes = ["Female", "Male", "Other"]
     
     @IBOutlet weak var nameField: UITextField!
-//    @IBOutlet weak var birthdayField: UITextField!
-    @IBOutlet weak var sexField: UITextField!
+    @IBOutlet weak var birthdayButton: UIButton!
+    @IBOutlet weak var sexButton: UIButton!
     @IBOutlet weak var weightField: UITextField!
     
     @IBAction func nameEdited(_ sender: Any) {
-        
         name = nameField.text ?? "user"
-    }/*
-    @IBAction func birthdayEdited(_ sender: Any) {
-        
-        birthday = birthdayField.text ?? "unknown"
     }
-      */
     @IBAction func birthdayEdited(_ sender: Any) {
+        self.view.addSubview(datePicker)
+        isPickingDate = true
     }
     @IBAction func sexEdited(_ sender: Any) {
+        self.view.addSubview(picker)
+        isPickingSex = true
         
-        sex = sexField.text ?? "unknown"
-
     }
     @IBAction func weightEdited(_ sender: Any) {
-        
         weight = weightField.text ?? "unknown"
-        
+    }
+    
+    func setupDatePicker(){
+        datePicker.datePickerMode = .date
+       
+        if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+        }
+
+        datePicker.center = view.center
+
+        datePicker.backgroundColor = .systemBackground
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
+
+    }
+    func setupPicker(){
+        picker.delegate = self
+        picker.dataSource = self
+        picker.center = view.center
+        picker.backgroundColor = .systemBackground
     }
     
     @IBAction func startAction(_ sender: Any) {
         let user = UserVariables()
         user.wasLaunched()
         user.save(name, forKey: user.nameKey)
-//        user.save(birthday, forKey: user.birthdayKey)
+        user.save(birthday, forKey: user.birthdayKey)
         user.save(sex, forKey: user.sexKey)
         user.save(weight, forKey: user.weightKey)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboard()
+        self.hideOnTap()
         nameField.delegate = self
-//        birthdayField.delegate = self
-        sexField.delegate = self
         weightField.delegate = self
+        setupDatePicker()
+        setupPicker()
     }
     
+    
+    
+    
+}
+
+extension FirstLaunchText {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        sexes.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return sexes[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        sex = sexes[row]
+    }
 }
 
 extension FirstLaunchText {
@@ -83,13 +132,25 @@ extension FirstLaunchText {
 
 extension FirstLaunchText {
 
-    @objc func hideKeyboard() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:    #selector(FirstLaunchText.dismissKeyboard))
+    @objc func hideOnTap() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:    #selector(FirstLaunchText.dismissView))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
 
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
+    @objc func dismissView() {
+        if isPickingDate{
+            birthday = datePicker.date
+            changeText(button: birthdayButton, with: dateFormatter.string(from: (datePicker.date)))
+            datePicker.removeFromSuperview()
+            isPickingDate = false
+        } else if isPickingSex{
+            changeText(button: sexButton, with: sex)
+            picker.removeFromSuperview()
+            isPickingSex = false
+        } else {
+            view.endEditing(true)
+
+        }
     }
 }

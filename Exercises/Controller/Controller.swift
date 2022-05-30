@@ -44,3 +44,12 @@ class GetData{
         return text
     }
 }
+
+func changeText(button: UIButton, with text: String){
+    if let attributedTitle = button.attributedTitle(for: .normal) {
+        let mutableAttributedTitle = NSMutableAttributedString(attributedString: attributedTitle)
+        mutableAttributedTitle.replaceCharacters(in: NSMakeRange(0, mutableAttributedTitle.length), with: text)
+        button.setAttributedTitle(mutableAttributedTitle, for: .normal)
+        button.tintColor = .label
+    }
+}

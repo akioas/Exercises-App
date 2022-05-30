@@ -40,8 +40,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fiid" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JII-C5-gXm">
-                                <rect key="frame" x="176.5" y="284" width="61.5" height="48"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fiit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JII-C5-gXm">
+                                <rect key="frame" x="181.5" y="284" width="51.5" height="48"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <nil key="textColor"/>
@@ -106,8 +106,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fiid" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDI-MB-PnL">
-                                <rect key="frame" x="176.5" y="104" width="61.5" height="48"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fiit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDI-MB-PnL">
+                                <rect key="frame" x="181.5" y="104" width="51.5" height="48"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <nil key="textColor"/>
@@ -178,18 +178,31 @@
                                             <action selector="birthdayEdited:" destination="q3D-Pd-A9y" eventType="touchUpInside" id="mf1-kV-Jbe"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Sex" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5iD-LF-WWb">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Prq-02-bej">
                                         <rect key="frame" x="0.0" y="120" width="142" height="40"/>
-                                        <color key="backgroundColor" systemColor="secondarySystemFillColor"/>
+                                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="auK-3q-TgM"/>
+                                            <constraint firstAttribute="height" constant="40" id="zBy-jm-1hc"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="nickname"/>
+                                        <color key="tintColor" systemColor="placeholderTextColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray" cornerStyle="small">
+                                            <backgroundConfiguration key="background" strokeWidth="1" strokeOutset="0.0">
+                                                <color key="strokeColor" systemColor="systemFillColor"/>
+                                            </backgroundConfiguration>
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Sex">
+                                                    <attributes>
+                                                        <font key="NSFont" metaFont="system" size="25"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="17" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </buttonConfiguration>
                                         <connections>
-                                            <action selector="sexEdited:" destination="q3D-Pd-A9y" eventType="editingDidEnd" id="1R4-om-eRG"/>
+                                            <action selector="sexEdited:" destination="q3D-Pd-A9y" eventType="touchUpInside" id="2b8-0o-1QB"/>
                                         </connections>
-                                    </textField>
+                                    </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Weight" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PjU-TZ-UeV">
                                         <rect key="frame" x="0.0" y="180" width="142" height="40"/>
                                         <color key="backgroundColor" systemColor="secondarySystemFillColor"/>
@@ -218,8 +231,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="osi-4H-oSx"/>
                     <connections>
+                        <outlet property="birthdayButton" destination="LNR-7I-hNi" id="FC5-nr-Qgc"/>
                         <outlet property="nameField" destination="h8R-uH-JpX" id="d3o-Gx-Ndi"/>
-                        <outlet property="sexField" destination="5iD-LF-WWb" id="g5k-Mi-dJf"/>
+                        <outlet property="sexButton" destination="Prq-02-bej" id="dKA-Ga-keU"/>
                         <outlet property="weightField" destination="PjU-TZ-UeV" id="jeR-UO-Foe"/>
                     </connections>
                 </viewController>
