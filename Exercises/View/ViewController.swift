@@ -168,7 +168,6 @@ class ViewController: UITableViewController {
     
     @objc func deleteObject(_ sender:Button!){
         tableView.beginUpdates()
-
         tableView.deleteSections(IndexSet([sender.num]), with: .fade)
         DataModel().delete(exercises[sender.num])
         fetch(isFiltered)
@@ -228,9 +227,6 @@ extension ViewController {
             return ("")
         }
     }
-    
-    
-    
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 5

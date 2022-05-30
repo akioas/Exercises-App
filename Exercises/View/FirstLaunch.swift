@@ -8,6 +8,7 @@ class FirstLaunch: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+
     override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(true)
         if UserVariables().isFirstLaunch(){ //!
@@ -16,7 +17,13 @@ class FirstLaunch: UIViewController{
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: false)
         }
+        /*
+        let logoConstraint = NSLayoutConstraint(item: nextButton!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: self.view.bounds.height * 0.95)
+        let nextBConstraint = NSLayoutConstraint(item: logo!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: self.view.bounds.height * 0.05)
+        NSLayoutConstraint.activate([logoConstraint, nextBConstraint])
+         */
     }
+         
 }
 
 
@@ -25,8 +32,6 @@ class FirstLaunch: UIViewController{
 
 
 class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
-    
-    
     
     let datePicker = UIDatePicker()
     let picker = UIPickerView()
@@ -46,6 +51,17 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     @IBOutlet weak var sexButton: UIButton!
     @IBOutlet weak var weightField: UITextField!
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.hideOnTap()
+        nameField.delegate = self
+        weightField.delegate = self
+        setupDatePicker()
+        setupPicker()
+
+    }
+    
     @IBAction func nameEdited(_ sender: Any) {
         name = nameField.text ?? "user"
     }
@@ -56,7 +72,6 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     @IBAction func sexEdited(_ sender: Any) {
         self.view.addSubview(picker)
         isPickingSex = true
-        
     }
     @IBAction func weightEdited(_ sender: Any) {
         weight = weightField.text ?? "unknown"
@@ -70,7 +85,6 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
         }
 
         datePicker.center = view.center
-
         datePicker.backgroundColor = .systemBackground
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
 
@@ -90,18 +104,6 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
         user.save(sex, forKey: user.sexKey)
         user.save(weight, forKey: user.weightKey)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.hideOnTap()
-        nameField.delegate = self
-        weightField.delegate = self
-        setupDatePicker()
-        setupPicker()
-    }
-    
-    
-    
     
 }
 
@@ -150,7 +152,6 @@ extension FirstLaunchText {
             isPickingSex = false
         } else {
             view.endEditing(true)
-
         }
     }
 }

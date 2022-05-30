@@ -73,7 +73,6 @@ class UserVariables{
             if date == Date(){
                 return "Not set"
             } else {
-                print(dateFormatter.string(from: date))
                 return dateFormatter.string(from: date)
             }
         } else {
