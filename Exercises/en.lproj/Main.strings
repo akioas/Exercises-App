@@ -1,0 +1,39 @@
+
+/* Class = "UIButton"; configuration.title = "Start"; ObjectID = "H4q-gn-N2G"; */
+"H4q-gn-N2G.configuration.title" = "Start";
+
+/* Class = "UIButton"; normalTitle = "Start"; ObjectID = "H4q-gn-N2G"; */
+"H4q-gn-N2G.normalTitle" = "Start";
+
+/* Class = "UILabel"; text = "Fiit"; ObjectID = "JII-C5-gXm"; */
+"JII-C5-gXm.text" = "Fiit";
+
+/* Class = "UIButton"; configuration.title = "Birthday"; ObjectID = "LNR-7I-hNi"; */
+"LNR-7I-hNi.configuration.title" = "Birthday";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "LNR-7I-hNi"; */
+"LNR-7I-hNi.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Small text"; ObjectID = "NiG-bb-2ZK"; */
+"NiG-bb-2ZK.text" = "Small text";
+
+/* Class = "UITextField"; placeholder = "Weight"; ObjectID = "PjU-TZ-UeV"; */
+"PjU-TZ-UeV.placeholder" = "Weight";
+
+/* Class = "UIButton"; configuration.title = "Sex"; ObjectID = "Prq-02-bej"; */
+"Prq-02-bej.configuration.title" = "Sex";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Prq-02-bej"; */
+"Prq-02-bej.normalTitle" = "Button";
+
+/* Class = "UIButton"; configuration.title = "Next"; ObjectID = "btm-WQ-CDq"; */
+"btm-WQ-CDq.configuration.title" = "Next";
+
+/* Class = "UIButton"; normalTitle = "Next"; ObjectID = "btm-WQ-CDq"; */
+"btm-WQ-CDq.normalTitle" = "Next";
+
+/* Class = "UITextField"; placeholder = "Your name"; ObjectID = "h8R-uH-JpX"; */
+"h8R-uH-JpX.placeholder" = "Your name";
+
+/* Class = "UILabel"; text = "Fiit"; ObjectID = "jDI-MB-PnL"; */
+"jDI-MB-PnL.text" = "Fiit";

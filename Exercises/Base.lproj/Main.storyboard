@@ -60,17 +60,12 @@
                                     <constraint firstAttribute="width" constant="240" id="y2a-eX-ANn"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btm-WQ-CDq">
-                                <rect key="frame" x="155" y="760" width="104.5" height="62"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="btm-WQ-CDq">
+                                <rect key="frame" x="166.5" y="760" width="81" height="62"/>
                                 <fontDescription key="fontDescription" family="Helvetica Neue" pointSize="40"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Next"/>
-                                <buttonConfiguration key="configuration" style="gray">
-                                    <backgroundConfiguration key="background" strokeOutset="3">
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="strokeColor" systemColor="labelColor"/>
-                                    </backgroundConfiguration>
+                                <state key="normal" title="Next">
                                     <attributedString key="attributedTitle">
                                         <fragment content="Next">
                                             <attributes>
@@ -79,7 +74,7 @@
                                             </attributes>
                                         </fragment>
                                     </attributedString>
-                                </buttonConfiguration>
+                                </state>
                                 <connections>
                                     <segue destination="q3D-Pd-A9y" kind="show" animates="NO" id="ec5-Ld-Cyq"/>
                                 </connections>
@@ -124,17 +119,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H4q-gn-N2G">
-                                <rect key="frame" x="153.5" y="760" width="107" height="62"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H4q-gn-N2G">
+                                <rect key="frame" x="165.5" y="760" width="83" height="62"/>
                                 <fontDescription key="fontDescription" family="Helvetica Neue" pointSize="40"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Start"/>
-                                <buttonConfiguration key="configuration" style="gray">
-                                    <backgroundConfiguration key="background" strokeOutset="3">
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="strokeColor" systemColor="labelColor"/>
-                                    </backgroundConfiguration>
+                                <state key="normal" title="Start">
                                     <attributedString key="attributedTitle">
                                         <fragment content="Start">
                                             <attributes>
@@ -143,7 +133,7 @@
                                             </attributes>
                                         </fragment>
                                     </attributedString>
-                                </buttonConfiguration>
+                                </state>
                                 <connections>
                                     <action selector="startAction:" destination="q3D-Pd-A9y" eventType="touchUpInside" id="XkF-bf-VGt"/>
                                     <segue destination="BYZ-38-t0r" kind="show" animates="NO" id="EBe-b2-wj5"/>
@@ -164,18 +154,15 @@
                                             <action selector="nameEdited:" destination="q3D-Pd-A9y" eventType="editingDidEnd" id="bOk-sW-L7B"/>
                                         </connections>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LNR-7I-hNi">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LNR-7I-hNi">
                                         <rect key="frame" x="0.0" y="60" width="373" height="40"/>
                                         <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Mj1-Hm-tKa"/>
                                         </constraints>
                                         <color key="tintColor" systemColor="placeholderTextColor"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="gray" cornerStyle="small">
-                                            <backgroundConfiguration key="background" strokeWidth="1" strokeOutset="0.0">
-                                                <color key="strokeColor" systemColor="systemFillColor"/>
-                                            </backgroundConfiguration>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Button">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Birthday">
                                                     <attributes>
@@ -184,23 +171,20 @@
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
-                                        </buttonConfiguration>
+                                        </state>
                                         <connections>
                                             <action selector="birthdayEdited:" destination="q3D-Pd-A9y" eventType="touchUpInside" id="mf1-kV-Jbe"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Prq-02-bej">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Prq-02-bej">
                                         <rect key="frame" x="0.0" y="120" width="373" height="40"/>
                                         <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="zBy-jm-1hc"/>
                                         </constraints>
                                         <color key="tintColor" systemColor="placeholderTextColor"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="gray" cornerStyle="small">
-                                            <backgroundConfiguration key="background" strokeWidth="1" strokeOutset="0.0">
-                                                <color key="strokeColor" systemColor="systemFillColor"/>
-                                            </backgroundConfiguration>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Button">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Sex">
                                                     <attributes>
@@ -209,7 +193,7 @@
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>
-                                        </buttonConfiguration>
+                                        </state>
                                         <connections>
                                             <action selector="sexEdited:" destination="q3D-Pd-A9y" eventType="touchUpInside" id="2b8-0o-1QB"/>
                                         </connections>
@@ -270,9 +254,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemFillColor">
-            <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
