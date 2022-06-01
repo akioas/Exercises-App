@@ -8,7 +8,8 @@ import NotificationCenter
 
 let notificationKey = "Key"
 
-class ViewController: UITableViewController {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    let tableView = UITableView()
     var datePicker : UIDatePicker!
     let toolBar = UIToolbar()
     
@@ -21,11 +22,22 @@ class ViewController: UITableViewController {
     
     var callBackStepper:((_ value:Int, _ num: Int, _ name: String)->())?
     
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetch(isFiltered)
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        topPadding = view.safeAreaInsets.top
+        botPadding = view.safeAreaInsets.bottom
+        setupTableView()
+        setupBotButtons(buttonNum: 1, frame: self.view.bounds, view: view, systemName: "house.fill")
+        setupBotButtons(buttonNum: 2, frame: self.view.bounds, view: view, named: "Dumbbell")
+        setupBotButtons(buttonNum: 3, frame: self.view.bounds, view: view, systemName: "plus.circle")
+        setupBotButtons(buttonNum: 4, frame: self.view.bounds, view: view, systemName: "sun.max")
+
+
+        setupNavBar()
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +49,10 @@ class ViewController: UITableViewController {
         
         
         view.backgroundColor = .gray
-        setupNavBar()
-        setupTableView()
-        
+    }
+    
+    @objc func buttonAction(_ sender: UIButton!) {
+        print("Button tapped")
     }
     
     func deleteLast(_ object: NSManagedObject){
@@ -67,7 +80,36 @@ class ViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.dataSource = self
         tableView.delegate = self
+        let frame = self.view.bounds
+        print(botPadding)
+        print(view.safeAreaInsets)
+        print("!")
+        print(view.bounds)
+        print(frame.height - frame.width / 4  - topPadding - botPadding)
+        tableView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height - frame.width / 4  - topPadding - botPadding)
+        view.addSubview(tableView)
     }
+    func setupBotButtons(buttonNum num: Int, frame: CGRect, view: UIView, systemName: String = "", named: String = ""){
+        var img = UIImage()
+        let button = UIButton()
+        button.frame = CGRect(x: CGFloat(num - 1) * frame.width / 4 , y: frame.height - frame.width / 4  - topPadding - botPadding, width: frame.width / 4, height: frame.width / 4)
+        if systemName != ""{
+            let configuration = UIImage.SymbolConfiguration(pointSize: frame.width / 4)
+            img = UIImage(systemName: systemName, withConfiguration: configuration) ?? UIImage()
+        } else {
+            img = UIImage(named: named) ?? UIImage()
+        }
+        button.setImage(img, for: .normal)
+        button.imageView?.contentMode = .scaleToFill
+
+        button.backgroundColor = UIColor.systemBackground
+        button.tintColor = UIColor.label
+        button.layer.borderWidth = 3
+        button.layer.borderColor = UIColor.quaternaryLabel.cgColor
+//        button.addTarget(self, action: #selector(selectorB1), for: .touchUpInside)
+        view.addSubview(button)
+    }
+
     
     func setupNavBar(){
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
@@ -78,13 +120,9 @@ class ViewController: UITableViewController {
         let addItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
         let clockItem = UIBarButtonItem(title: "Date", style: .plain, target: self, action: #selector(clockItem))
         
-
         navItem.rightBarButtonItems = [addItem, clockItem, historyItem]
-        
-        
         navBar.setItems([navItem], animated: false)
-        let tableView = UITableView()
-        view.addSubview(tableView)
+       
     }
     
     
@@ -190,18 +228,18 @@ class ViewController: UITableViewController {
 
 extension ViewController {
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         print(exercises.count)
         return exercises.count
     }
     
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
     
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         let currentEx = exercises[indexPath.section]
@@ -219,24 +257,24 @@ extension ViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection
+    func tableView(_ tableView: UITableView, titleForHeaderInSection
                             section: Int) -> String? {
         if section == 0{
-            return " "
+            return "Hello, name "
         } else {
             return ("")
         }
     }
     
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 5
     }
     
-    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
         let vc = AddExercise()
         vc.modalPresentationStyle = .fullScreen
@@ -245,6 +283,5 @@ extension ViewController {
         })
         
     }
-    
 }
 

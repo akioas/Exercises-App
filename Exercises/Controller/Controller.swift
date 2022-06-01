@@ -100,3 +100,6 @@ class SaveValues {
         dataModel.saveModel()
     }
 }
+
+var botPadding = 0.0
+var topPadding = 0.0

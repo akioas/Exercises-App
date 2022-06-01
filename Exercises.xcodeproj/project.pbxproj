@@ -121,9 +121,9 @@
 		4A97F7FD282953B800CAE0D1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4A858544282131E200604655 /* ViewController.swift */,
 				4A937D462843E00D0078A6E3 /* FirstLaunch.swift */,
 				4A67D1D728454E910075E47C /* First Launch sec screen.swift */,
+				4A858544282131E200604655 /* ViewController.swift */,
 				4AFFBFA228397908009FFC36 /* History.swift */,
 				4A9FCAE3283EBD2D004D9ABE /* Chart.swift */,
 				4A97F7FF282953E600CAE0D1 /* Picker.swift */,
