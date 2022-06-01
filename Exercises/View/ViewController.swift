@@ -33,15 +33,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         setupBotButtons(buttonNum: 1, view: view, systemName: "house.fill")
         setupBotButtons(buttonNum: 2, view: view, named: "Dumbbell")
-        setupBotButtons(buttonNum: 3, view: view, systemName: "plus.circle")
+        setupBotButtons(buttonNum: 3, view: view, selector: #selector(addItem), systemName: "plus.circle")
         setupBotButtons(buttonNum: 4, view: view, systemName: "gearshape.circle")
         let newView = UIView()
-        newView.frame = CGRect(x: 5.0, y: tableView.frame.height + topPadding, width: view.frame.width - 10.0, height: 2)
+        newView.frame = CGRect(x: 5.0, y: tableView.frame.maxY , width: view.frame.width - 10.0, height: 1)
         newView.backgroundColor = .quaternaryLabel
         view.addSubview(newView)
+
+        let newBotView = UIView()
+        newBotView.frame = CGRect(x: 5.0, y: tableView.frame.height + topPadding , width: view.frame.width - 10.0, height: 3)
+        newBotView.backgroundColor = .blue
+//        view.addSubview(newBotView)
         setupHeader()
         
-        //        setupNavBar()
+//                setupNavBar()
         
     }
     override func viewDidLoad() {
@@ -87,11 +92,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print(view.safeAreaInsets)
         print("!")
         print(view.bounds)
-        print(frame.height - frame.width / 4  - topPadding - botPadding)
-        tableView.frame = CGRect(x: 0, y: 50 + topPadding, width: frame.width, height: frame.height - frame.width / 10  - topPadding - botPadding - 50)
+        print(topPadding)
+        print(frame.height)
+        print(frame.height - topPadding - botPadding)
+        tableView.frame = CGRect(x: 0, y: 50 + topPadding, width: frame.width, height: frame.height - frame.width / 10  - topPadding * 2 - botPadding - 54)
         view.addSubview(tableView)
     }
-    func setupBotButtons(buttonNum num: Int, view: UIView, systemName: String = "", named: String = ""){
+    func setupBotButtons(buttonNum num: Int, view: UIView, selector: Selector? = nil, systemName: String = "", named: String = ""){
         let frame = view.frame
         var img = UIImage()
         let button = UIButton()
@@ -107,8 +114,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         button.backgroundColor = UIColor.systemBackground
         button.tintColor = UIColor.label
-
-        //        button.addTarget(self, action: #selector(selectorB1), for: .touchUpInside)
+        if let selector = selector {
+            button.addTarget(self, action: selector, for: .touchUpInside)
+        }
+            
         view.addSubview(button)
     }
     
@@ -263,9 +272,10 @@ extension ViewController {
             let deleteButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             deleteButton.setNum(num: indexPath.section)
             deleteButton.setImage(UIImage(systemName: "trash"), for: .normal)
-            deleteButton.tintColor = .label
+            deleteButton.tintColor = .link
             deleteButton.addTarget(self, action: #selector(deleteObject), for: .touchUpInside)
             cell.accessoryView = deleteButton
+            
             
         } else {
             cell.accessoryView = nil

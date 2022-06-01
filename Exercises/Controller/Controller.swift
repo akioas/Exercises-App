@@ -11,7 +11,7 @@ class GetData {
         case 1:
             return currentEx.value(forKey: "name") as? String ?? ""
         case 2:
-            return ("Rep: " + String(currentEx.value(forKey: "rep") as? Int16 ?? 0))
+            return ("Set: " + String(currentEx.value(forKey: "rep") as? Int16 ?? 0))
         case 3:
             return ("Reps: " + String(currentEx.value(forKey: "reps") as? Int16 ?? 0))
         case 4:

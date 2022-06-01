@@ -16,6 +16,8 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideOnTap()
+
         exersises = list.load()
         
         callBackPicker = { value, currentEx in
@@ -28,31 +30,32 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
             DataModel().saveModel()
             
         }
-        
+        self.view.backgroundColor = .clear
         picker.delegate = self
         picker.dataSource = self
         picker.backgroundColor = .systemBackground
-        picker.contentMode = .bottom
+        picker.contentMode = .center
         
         
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: #selector(donePicker))
         
-        let spaceButton = UIBarButtonItem(title: "Add", style: UIBarButtonItem.Style.plain, target: self, action: #selector(displayAlert))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(cancelPicker))
         
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
         
-        
-        picker.frame = CGRect.init(x: 0.0, y: 50, width: UIScreen.main.bounds.size.width, height: 300)
+        toolBar.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300) / 2 - 50, width: UIScreen.main.bounds.size.width, height: 50)
+        picker.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300) / 2, width: UIScreen.main.bounds.size.width, height: 200)
         
         //        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 350, width: UIScreen.main.bounds.size.width, height: 50))
         
         view.addSubview(picker)
         
         view.addSubview(toolBar)
-        toolBar.sizeToFit()
+//        toolBar.sizeToFit()
         
         
     }
@@ -121,5 +124,18 @@ extension Picker{
         print(pickerNum)
         selected = exersises[row]
         print(selected)
+    }
+}
+
+extension Picker {
+
+    @objc func hideOnTap() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:    #selector(Picker.dismissView))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissView() {
+        donePicker()
     }
 }
