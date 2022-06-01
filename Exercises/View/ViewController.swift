@@ -30,14 +30,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         topPadding = view.safeAreaInsets.top
         botPadding = view.safeAreaInsets.bottom
         setupTableView()
-        setupBotButtons(buttonNum: 1, frame: self.view.bounds, view: view, systemName: "house.fill")
-        setupBotButtons(buttonNum: 2, frame: self.view.bounds, view: view, named: "Dumbbell")
-        setupBotButtons(buttonNum: 3, frame: self.view.bounds, view: view, systemName: "plus.circle")
-        setupBotButtons(buttonNum: 4, frame: self.view.bounds, view: view, systemName: "sun.max")
+
+        setupBotButtons(buttonNum: 1, view: view, systemName: "house.fill")
+        setupBotButtons(buttonNum: 2, view: view, named: "Dumbbell")
+        setupBotButtons(buttonNum: 3, view: view, systemName: "plus.circle")
+        setupBotButtons(buttonNum: 4, view: view, systemName: "gearshape.circle")
+        let newView = UIView()
+        newView.frame = CGRect(x: 5.0, y: tableView.frame.height + topPadding, width: view.frame.width - 10.0, height: 2)
+        newView.backgroundColor = .quaternaryLabel
+        view.addSubview(newView)
         setupHeader()
-
-//        setupNavBar()
-
+        
+        //        setupNavBar()
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,30 +88,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print("!")
         print(view.bounds)
         print(frame.height - frame.width / 4  - topPadding - botPadding)
-        tableView.frame = CGRect(x: 0, y: 50 + topPadding, width: frame.width, height: frame.height - frame.width / 4  - topPadding - botPadding - 50)
+        tableView.frame = CGRect(x: 0, y: 50 + topPadding, width: frame.width, height: frame.height - frame.width / 10  - topPadding - botPadding - 50)
         view.addSubview(tableView)
     }
-    func setupBotButtons(buttonNum num: Int, frame: CGRect, view: UIView, systemName: String = "", named: String = ""){
+    func setupBotButtons(buttonNum num: Int, view: UIView, systemName: String = "", named: String = ""){
+        let frame = view.frame
         var img = UIImage()
         let button = UIButton()
-        button.frame = CGRect(x: CGFloat(num - 1) * frame.width / 4 , y: frame.height - frame.width / 4  - topPadding - botPadding, width: frame.width / 4 + 1.5, height: frame.width / 4)
+        button.frame = CGRect(x: CGFloat(num - 1) * frame.width / 4 , y: frame.height - frame.width / 10  - topPadding - botPadding, width: frame.width / 4 + 1.5, height: frame.width / 10)
         if systemName != ""{
-            let configuration = UIImage.SymbolConfiguration(pointSize: frame.width / 4)
+            let configuration = UIImage.SymbolConfiguration(pointSize: frame.width / 8)
             img = UIImage(systemName: systemName, withConfiguration: configuration) ?? UIImage()
         } else {
             img = UIImage(named: named) ?? UIImage()
         }
         button.setImage(img, for: .normal)
-        button.imageView?.contentMode = .scaleToFill
-
+        button.imageView?.contentMode = .scaleAspectFit
+        
         button.backgroundColor = UIColor.systemBackground
         button.tintColor = UIColor.label
-        button.layer.borderWidth = 3
-        button.layer.borderColor = UIColor.quaternaryLabel.cgColor
-//        button.addTarget(self, action: #selector(selectorB1), for: .touchUpInside)
+
+        //        button.addTarget(self, action: #selector(selectorB1), for: .touchUpInside)
         view.addSubview(button)
     }
-
+    
     func setupHeader(){
         let header = UIView.init(frame: CGRect.init(x: 0, y: topPadding, width: tableView.frame.width, height: 50))
         let text = UILabel()
@@ -132,7 +137,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         navItem.rightBarButtonItems = [addItem, clockItem, historyItem]
         navBar.setItems([navItem], animated: false)
-       
+        
     }
     
     
@@ -206,7 +211,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         dateFormatter.dateStyle = .full
         setDate(datePicker.date)
         cancelDate()
-
+        
     }
     
     @objc func cancelDate() {
@@ -220,7 +225,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         DataModel().delete(exercises[sender.num])
         fetch(isFiltered)
         tableView.endUpdates()
-
+        
     }
     @objc func showPicker(_ sender:Button!){
         showVC(sender.getNum())
@@ -245,7 +250,7 @@ extension ViewController {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
     
     
@@ -253,7 +258,7 @@ extension ViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         let currentEx = exercises[indexPath.section]
-        cell.textLabel?.text = data.setText(item: (indexPath.item), currentEx: currentEx)
+        cell.textLabel?.text = data.setText(item: 1, currentEx: currentEx)
         if indexPath.row == 0{
             let deleteButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             deleteButton.setNum(num: indexPath.section)
@@ -261,35 +266,42 @@ extension ViewController {
             deleteButton.tintColor = .label
             deleteButton.addTarget(self, action: #selector(deleteObject), for: .touchUpInside)
             cell.accessoryView = deleteButton
-        
+            
         } else {
             cell.accessoryView = nil
         }
         return cell
     }
+    
     /*
+     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+     if section == 0{
+     return nil
+     } else {
+     return nil
+     }
+     }
+     */
     func tableView(_ tableView: UITableView, titleForHeaderInSection
-                            section: Int) -> String? {
+                   section: Int) -> String? {
         if section == 0{
-            return "Last trainings"
-        } else {
-            return (nil)
+            return data.setText(item: 0, currentEx: exercises[section])
         }
-    }
-    
-    
-    */
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0{
-            return nil
+        else if data.setText(item: 0, currentEx: exercises[section]) != data.setText(item: 0, currentEx: exercises[section - 1]) {
+            return data.setText(item: 0, currentEx: exercises[section])
         } else {
             return nil
         }
+        
+        
+        
+        
     }
-
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0{
-            return 0
+            return 20
+        } else if data.setText(item: 0, currentEx: exercises[section]) != data.setText(item: 0, currentEx: exercises[section - 1]) {
+            return 20
         } else {
             return 0
         }
