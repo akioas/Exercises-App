@@ -34,9 +34,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         setupBotButtons(buttonNum: 2, frame: self.view.bounds, view: view, named: "Dumbbell")
         setupBotButtons(buttonNum: 3, frame: self.view.bounds, view: view, systemName: "plus.circle")
         setupBotButtons(buttonNum: 4, frame: self.view.bounds, view: view, systemName: "sun.max")
+        setupHeader()
 
-
-        setupNavBar()
+//        setupNavBar()
 
     }
     override func viewDidLoad() {
@@ -45,10 +45,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                selector: #selector(refresh),
                                                name: NSNotification.Name(rawValue: notificationKey),
                                                object: nil)
-        
-        
-        
-        view.backgroundColor = .gray
+        view.backgroundColor = .systemBackground
     }
     
     @objc func buttonAction(_ sender: UIButton!) {
@@ -86,13 +83,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print("!")
         print(view.bounds)
         print(frame.height - frame.width / 4  - topPadding - botPadding)
-        tableView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height - frame.width / 4  - topPadding - botPadding)
+        tableView.frame = CGRect(x: 0, y: 50 + topPadding, width: frame.width, height: frame.height - frame.width / 4  - topPadding - botPadding - 50)
         view.addSubview(tableView)
     }
     func setupBotButtons(buttonNum num: Int, frame: CGRect, view: UIView, systemName: String = "", named: String = ""){
         var img = UIImage()
         let button = UIButton()
-        button.frame = CGRect(x: CGFloat(num - 1) * frame.width / 4 , y: frame.height - frame.width / 4  - topPadding - botPadding, width: frame.width / 4, height: frame.width / 4)
+        button.frame = CGRect(x: CGFloat(num - 1) * frame.width / 4 , y: frame.height - frame.width / 4  - topPadding - botPadding, width: frame.width / 4 + 1.5, height: frame.width / 4)
         if systemName != ""{
             let configuration = UIImage.SymbolConfiguration(pointSize: frame.width / 4)
             img = UIImage(systemName: systemName, withConfiguration: configuration) ?? UIImage()
@@ -110,6 +107,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         view.addSubview(button)
     }
 
+    func setupHeader(){
+        let header = UIView.init(frame: CGRect.init(x: 0, y: topPadding, width: tableView.frame.width, height: 50))
+        let text = UILabel()
+        text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width, height: 50)
+        text.numberOfLines = 2
+        text.text = "Hello, Name \nLast trainings"
+        text.textAlignment = .center
+        header.backgroundColor = .systemBackground
+        header.layer.borderWidth = 1
+        header.layer.borderColor = UIColor.label.cgColor
+        view.addSubview(header)
+        header.addSubview(text)
+    }
     
     func setupNavBar(){
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
@@ -251,27 +261,45 @@ extension ViewController {
             deleteButton.tintColor = .label
             deleteButton.addTarget(self, action: #selector(deleteObject), for: .touchUpInside)
             cell.accessoryView = deleteButton
+        
         } else {
             cell.accessoryView = nil
         }
         return cell
     }
-    
+    /*
     func tableView(_ tableView: UITableView, titleForHeaderInSection
                             section: Int) -> String? {
         if section == 0{
-            return "Hello, name "
+            return "Last trainings"
         } else {
-            return ("")
+            return (nil)
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 5
+    
+    */
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0{
+            return nil
+        } else {
+            return nil
+        }
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0{
+            return 0
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 5
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
