@@ -20,6 +20,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let cellId = "cellId"
     var exercises: [NSManagedObject] = []
     
+    
     var callBackStepper:((_ value:Int, _ num: Int, _ name: String)->())?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,21 +31,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         topPadding = view.safeAreaInsets.top
         botPadding = view.safeAreaInsets.bottom
         setupTableView()
+        setupHeader()
 
         setupBotButtons(buttonNum: 1, view: view, systemName: "house.fill")
-        setupBotButtons(buttonNum: 2, view: view, named: "Dumbbell")
+        setupBotButtons(buttonNum: 2, view: view, selector: #selector(toExTable), named: "Dumbbell")
         setupBotButtons(buttonNum: 3, view: view, selector: #selector(addItem), systemName: "plus.circle")
         setupBotButtons(buttonNum: 4, view: view, systemName: "gearshape.circle")
         let newView = UIView()
         newView.frame = CGRect(x: 5.0, y: tableView.frame.maxY , width: view.frame.width - 10.0, height: 1)
-        newView.backgroundColor = .quaternaryLabel
+        newView.backgroundColor = .lightGray
         view.addSubview(newView)
 
         let newBotView = UIView()
         newBotView.frame = CGRect(x: 5.0, y: tableView.frame.height + topPadding , width: view.frame.width - 10.0, height: 3)
         newBotView.backgroundColor = .blue
 //        view.addSubview(newBotView)
-        setupHeader()
         
 //                setupNavBar()
         
@@ -95,14 +96,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print(topPadding)
         print(frame.height)
         print(frame.height - topPadding - botPadding)
-        tableView.frame = CGRect(x: 0, y: 50 + topPadding, width: frame.width, height: frame.height - frame.width / 10  - topPadding * 2 - botPadding - 54)
+        tableView.frame = CGRect(x: 0, y: 50, width: frame.width, height: frame.height - frame.width / 10  - topPadding  - botPadding - 54)
         view.addSubview(tableView)
     }
     func setupBotButtons(buttonNum num: Int, view: UIView, selector: Selector? = nil, systemName: String = "", named: String = ""){
         let frame = view.frame
         var img = UIImage()
         let button = UIButton()
-        button.frame = CGRect(x: CGFloat(num - 1) * frame.width / 4 , y: frame.height - frame.width / 10  - topPadding - botPadding, width: frame.width / 4 + 1.5, height: frame.width / 10)
+        yBot = frame.height - frame.width / 10  - topPadding - botPadding
+        button.frame = CGRect(x: CGFloat(num - 1) * frame.width / 4 , y: yBot , width: frame.width / 4 + 1.5, height: frame.width / 10)
         if systemName != ""{
             let configuration = UIImage.SymbolConfiguration(pointSize: frame.width / 8)
             img = UIImage(systemName: systemName, withConfiguration: configuration) ?? UIImage()
@@ -111,7 +113,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         button.setImage(img, for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
-        
         button.backgroundColor = UIColor.systemBackground
         button.tintColor = UIColor.label
         if let selector = selector {
@@ -122,7 +123,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func setupHeader(){
-        let header = UIView.init(frame: CGRect.init(x: 0, y: topPadding, width: tableView.frame.width, height: 50))
+        let header = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
         let text = UILabel()
         text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width, height: 50)
         text.numberOfLines = 2
@@ -169,6 +170,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @objc func addItem(){
         let vc = AddExercise()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false)
+    }
+    @objc func toExTable(){
+        let vc = ExercisesTable()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: false)
     }

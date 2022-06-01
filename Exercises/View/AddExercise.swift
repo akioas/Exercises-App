@@ -2,8 +2,8 @@
 import UIKit
 import CoreData
 
-class AddExercise: UITableViewController{
-    
+class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
+    let tableView = UITableView()
     var object: NSManagedObject = DataModel().addModel()
     var isNewObject = true
     let cellId = "cellId"
@@ -18,10 +18,13 @@ class AddExercise: UITableViewController{
                                                selector: #selector(refresh),
                                                name: NSNotification.Name(rawValue: notificationKey),
                                                object: nil)
-        setupTableView()
-
-        setupNavBar()
         
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        view.backgroundColor = .systemBackground
+        setupTableView()
+        setupHeader()
+//        setupNavBar()
     }
     
     func loadObject(_ object: NSManagedObject){
@@ -35,8 +38,34 @@ class AddExercise: UITableViewController{
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.frame = CGRect(x: 0, y: 50 + topPadding, width: view.frame.width, height: view.frame.height - topPadding * 2 - botPadding )
+        view.addSubview(tableView)
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50))
+        let buttonCancel = UIButton(frame: CGRect(x: 20, y: 0, width: 100, height: 50))
+        buttonCancel.setTitle("Cancel", for: .normal)
+        buttonCancel.backgroundColor = .systemPink
+        buttonCancel.addTarget(self, action: #selector(cancel), for: .touchUpInside)
+        customView.addSubview(buttonCancel)
+        let buttonDone = UIButton(frame: CGRect(x: view.frame.width - 120, y: 0, width: 100, height: 50))
+        buttonDone.setTitle("Done", for: .normal)
+        buttonDone.backgroundColor = .systemBlue
+        buttonDone.addTarget(self, action: #selector(done), for: .touchUpInside)
+        customView.addSubview(buttonDone)
+        tableView.tableFooterView = customView
     }
-    
+    func setupHeader(){
+        let header = UIView.init(frame: CGRect.init(x: 0, y: topPadding, width: tableView.frame.width, height: 50))
+        let text = UILabel()
+        text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width, height: 50)
+        text.numberOfLines = 2
+        text.text = "Hello, Name \nAdd an activity"
+        text.textAlignment = .center
+        header.backgroundColor = .systemBackground
+        header.layer.borderWidth = 1
+        header.layer.borderColor = UIColor.label.cgColor
+        view.addSubview(header)
+        header.addSubview(text)
+    }
     func setupNavBar(){
         let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
         
@@ -99,17 +128,17 @@ class AddExercise: UITableViewController{
 
 extension AddExercise {
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
    
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         cell.textLabel?.text = data.setText(item: (indexPath.item + 1), currentEx: object)
@@ -140,20 +169,7 @@ extension AddExercise {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection
-                            section: Int) -> String? {
-        if section == 0{
-            return " "
-        } else {
-            return ("")
-        }
-    }
-    
-    
-   
-   
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
     }
     

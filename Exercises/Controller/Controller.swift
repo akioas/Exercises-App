@@ -103,3 +103,4 @@ class SaveValues {
 
 var botPadding = 0.0
 var topPadding = 0.0
+var yBot = 0.0

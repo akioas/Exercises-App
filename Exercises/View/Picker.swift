@@ -12,18 +12,18 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     var pickerNum = 0
     var object: NSManagedObject? = nil
     let list = ExercisesList()
-    var exersises: [String] = []
+    var exercises: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideOnTap()
 
-        exersises = list.load()
+        exercises = list.load()
         
         callBackPicker = { value, currentEx in
             
             if value == ""{
-                currentEx.setValue(self.exersises.first, forKey: "name")
+                currentEx.setValue(self.exercises.first, forKey: "name")
             } else {
                 currentEx.setValue(value, forKey: "name")
             }
@@ -69,8 +69,8 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         }
         let saveAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: { alert -> Void in
             let firstTextField = alertController.textFields![0] as UITextField
-            self.exersises.insert(firstTextField.text ?? "", at: self.exersises.endIndex)
-            self.list.save(self.exersises)
+            self.exercises.insert(firstTextField.text ?? "", at: self.exercises.endIndex)
+            self.list.save(self.exercises)
             self.picker.reloadAllComponents()
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
@@ -112,17 +112,17 @@ extension Picker{
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        exersises.count
+        exercises.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return exersises[row]
+        return exercises[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //        callBackPicker?(allExersizes[row], (pickerView.getNum()))
         print(pickerNum)
-        selected = exersises[row]
+        selected = exercises[row]
         print(selected)
     }
 }
