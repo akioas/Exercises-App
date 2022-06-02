@@ -13,7 +13,7 @@ class FirstLaunch: UIViewController{
     @IBOutlet weak var logo: UIImageView!
     override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(true)
-        if !UserVariables().isFirstLaunch(){ //!
+        if UserVariables().isFirstLaunch(){ //!
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "viewcontroller") as! ViewController
             vc.modalPresentationStyle = .fullScreen

@@ -59,7 +59,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         let text = UILabel()
         text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width, height: 50)
         text.numberOfLines = 2
-        text.text = "Hello, Name \nAdd an activity"
+        text.text = "Hello, " + yourName + " \nAdd an activity"
         text.textAlignment = .center
         header.backgroundColor = .secondarySystemBackground
         header.layer.borderWidth = 1
@@ -185,6 +185,11 @@ extension AddExercise {
         stepper.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
         cell.accessoryView = stepper
     }
-    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
 }
 

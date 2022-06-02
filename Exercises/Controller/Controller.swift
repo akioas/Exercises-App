@@ -89,9 +89,16 @@ class AllowedText {
 }
 
 class UserValues {
+    let userVar = UserVariables()
+    let dataModel = DataModel()
+    enum Keys{
+        case name
+        case birthday
+        case sex
+        case weight
+    }
     func save(birthday: Date, name: String, sex: String, weight: String){
-        let userVar = UserVariables()
-        let dataModel = DataModel()
+        
         userVar.wasLaunched()
         let user = dataModel.addUser()
         user.setValue(birthday, forKey: userVar.birthdayKey)
@@ -100,8 +107,58 @@ class UserValues {
         user.setValue(Int(weight), forKey: userVar.weightKey)
         dataModel.saveModel()
     }
+    func get(user: NSManagedObject, key: Keys) -> String{
+        switch key{
+        case .sex:
+            return getSex(user)
+        case .name:
+            return getName(user)
+        case .weight:
+            return getWeight(user)
+        case .birthday:
+            return getDate(user)
+        }
+    
+    }
+    func getSex(_ user: NSManagedObject) -> String{
+        let sex = user.value(forKey: userVar.sexKey) as? String ?? ""
+        if sex == ""{
+            return "Not set"
+        } else {
+            return sex
+        }
+    }
+    func getName(_ user: NSManagedObject) -> String{
+        let name = user.value(forKey: userVar.nameKey) as? String ?? ""
+        if name == ""{
+            return "Not set"
+        } else {
+            return name
+        }
+    }
+    func getWeight(_ user: NSManagedObject) -> String{
+        let weight = user.value(forKey: userVar.weightKey) as? Int16 ?? 0
+        if weight != 0 {
+            return String(weight)
+        } else {
+            return "Not set"
+        }
+    }
+    func getDate(_ user: NSManagedObject) -> String{
+        let currDate = Date()
+        let date = (user.value(forKey: userVar.birthdayKey) as? Date ?? currDate)
+        if date == currDate{
+            return "Not set"
+        } else {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
+            let text = dateFormatter.string(from: date)
+            return text
+        }
+    }
 }
 
 var botPadding = 0.0
 var topPadding = 0.0
 var yBot = 0.0
+var yourName = ""

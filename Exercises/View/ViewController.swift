@@ -19,13 +19,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var selected = ""
     let cellId = "cellId"
     var exercises: [NSManagedObject] = []
-    
+    var users: [NSManagedObject] = []
     
     var callBackStepper:((_ value:Int, _ num: Int, _ name: String)->())?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetch(isFiltered)
+        fetchUser()
     }
     override func viewDidAppear(_ animated: Bool) {
         topPadding = view.safeAreaInsets.top
@@ -36,7 +37,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         setupBotButtons(buttonNum: 1, view: view, systemName: "house.fill")
         setupBotButtons(buttonNum: 2, view: view, selector: #selector(toExTable), named: "Dumbbell")
         setupBotButtons(buttonNum: 3, view: view, selector: #selector(addItem), systemName: "plus.circle")
-        setupBotButtons(buttonNum: 4, view: view, systemName: "gearshape.circle")
+        setupBotButtons(buttonNum: 4, view: view, selector: #selector(userSettings), systemName: "gearshape.circle")
         let newView = UIView()
         newView.frame = CGRect(x: 5.0, y: tableView.frame.maxY , width: view.frame.width - 10.0, height: 1)
         newView.backgroundColor = .lightGray
@@ -122,7 +123,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let text = UILabel()
         text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width, height: 50)
         text.numberOfLines = 2
-        text.text = "Hello, Name \nLast trainings"
+        text.text = "Hello, " + yourName + "\nLast trainings"
         text.textAlignment = .center
         header.backgroundColor = .secondarySystemBackground
         header.layer.borderWidth = 1
@@ -170,6 +171,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     @objc func toExTable(){
         let vc = ExercisesTable()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false)
+    }
+    @objc func userSettings(){
+        let vc = UserSettings()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: false)
     }
@@ -249,6 +255,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    func fetchUser(){
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
+    
+        do {
+            self.users = try context.fetch(fetchRequest)
+            if let user = users.last{
+                yourName = UserValues().getName(user)
+            }
+            
+        } catch let err as NSError {
+            print(err)
+        }
+        
+    }
+    
 }
 
 extension ViewController {
@@ -268,7 +289,8 @@ extension ViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         let currentEx = exercises[indexPath.section]
-        cell.textLabel?.text = data.setText(item: 1, currentEx: currentEx)
+        let newText = data.setText(item: 1, currentEx: currentEx)
+        cell.textLabel?.text = newText
         if indexPath.row == 0{
             let deleteButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             deleteButton.setNum(num: indexPath.section)

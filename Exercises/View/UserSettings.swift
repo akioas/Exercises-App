@@ -4,10 +4,14 @@ import CoreData
 
 class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource{
     let tableView = UITableView()
-    var object: NSManagedObject? = nil//
+    var objects: [NSManagedObject] = []
     let cellId = "cellId"
     let data = GetData()
-
+    let vals = UserValues()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetch()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,42 +25,74 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
         setupHeader()
-//        setupNavBar()
+        setupBotButtons(buttonNum: 1, view: view, selector: #selector(cancel), systemName: "house.fill")
+        setupBotButtons(buttonNum: 2, view: view, selector: #selector(toExTable), named: "Dumbbell")
+        setupBotButtons(buttonNum: 3, view: view, selector: #selector(addNewEx), systemName: "plus.circle")
+        setupBotButtons(buttonNum: 4, view: view, systemName: "gearshape.circle")
+        let newView = UIView()
+        newView.frame = CGRect(x: 5.0, y: tableView.frame.maxY , width: view.frame.width - 10.0, height: 1)
+        newView.backgroundColor = .lightGray
+        view.addSubview(newView)
     }
     
-   
+    func fetch(){
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
     
+        do {
+            self.objects = try context.fetch(fetchRequest)
+            
+            
+        } catch let err as NSError {
+            print(err)
+        }
+        
+    }
+    @objc func cancel(){
+        self.dismiss(animated: false)
+    }
+    @objc func addNewEx(){
+        
+        let vc = AddExercise()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false)
+    }
+    @objc func toExTable(){
+        weak var pvc = self.presentingViewController
+
+        self.dismiss(animated: false, completion: {
+            let vc = ExercisesTable()
+            vc.modalPresentationStyle = .fullScreen
+            pvc?.present(vc, animated: false, completion: nil)
+        })
+        
+    }
     func setupTableView(){
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.dataSource = self
         tableView.delegate = self
+        let frame = self.view.bounds
+
+        tableView.frame = CGRect(x: 0, y: 50 + topPadding, width: frame.width, height: frame.height - frame.width / 10  - topPadding  - botPadding - 54)
+        tableView.isUserInteractionEnabled = false
         tableView.backgroundColor = .secondarySystemBackground
-        tableView.frame = CGRect(x: 0, y: 50 + topPadding, width: view.frame.width, height: view.frame.height - topPadding * 2 - botPadding )
         view.addSubview(tableView)
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 70))
-        let buttonCancel = UIButton(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
-        buttonCancel.setTitle("Cancel", for: .normal)
-        buttonCancel.backgroundColor = UIColor(red: 1.0, green: 0.5, blue: 0.5, alpha: 1.0)
-//        buttonCancel.addTarget(self, action: #selector(cancel), for: .touchUpInside)
-        customView.addSubview(buttonCancel)
-        let buttonDone = UIButton(frame: CGRect(x: view.frame.width - 120, y: 20, width: 100, height: 50))
-        buttonDone.setTitle("Done", for: .normal)
-        buttonDone.backgroundColor = .systemGray2
-//        buttonDone.addTarget(self, action: #selector(done), for: .touchUpInside)
-        customView.addSubview(buttonDone)
-        tableView.tableFooterView = customView
+       
     }
     func setupHeader(){
         let header = UIView.init(frame: CGRect.init(x: 0, y: topPadding, width: tableView.frame.width, height: 50))
         let text = UILabel()
-        text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width, height: 50)
-        text.numberOfLines = 2
-        text.text = "Hello, Name \nAdd an activity"
+        text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width - 90, height: 50)
+        text.numberOfLines = 1
+        if let object = objects.last{
+
+            text.text = vals.getName(object)
+        }
         text.textAlignment = .center
         header.backgroundColor = .secondarySystemBackground
         header.layer.borderWidth = 1
         header.layer.borderColor = UIColor.label.cgColor
         view.addSubview(header)
+
         header.addSubview(text)
     }
     
@@ -66,6 +102,28 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
     @objc func refresh(){
         self.tableView.reloadData()
         
+    }
+    
+    func setupBotButtons(buttonNum num: Int, view: UIView, selector: Selector? = nil, systemName: String = "", named: String = ""){
+        let frame = view.frame
+        var img = UIImage()
+        let button = UIButton()
+        button.frame = CGRect(x: CGFloat(num - 1) * frame.width / 4 , y: yBot + topPadding , width: frame.width / 4 + 1.5, height: frame.width / 10)
+        if systemName != ""{
+            let configuration = UIImage.SymbolConfiguration(pointSize: frame.width / 8)
+            img = UIImage(systemName: systemName, withConfiguration: configuration) ?? UIImage()
+        } else {
+            img = UIImage(named: named)?.withRenderingMode(.alwaysTemplate) ?? UIImage()
+        }
+        button.setImage(img, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.backgroundColor = UIColor.secondarySystemBackground
+        button.tintColor = UIColor.label
+        if let selector = selector {
+            button.addTarget(self, action: selector, for: .touchUpInside)
+        }
+            
+        view.addSubview(button)
     }
 }
 
@@ -79,17 +137,27 @@ extension UserSettings {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        if let object = object{
-            cell.textLabel?.text = data.setText(item: (indexPath.item + 1), currentEx: object)
+        let text = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 20))
+        if let object = objects.last{
+            if indexPath.row == 0{
+                cell.textLabel?.text = "Birthday:"
+                text.text = vals.get(user: object, key: .birthday)
+            } else if indexPath.row == 1{
+                cell.textLabel?.text = "Weight:"
+                text.text = vals.get(user: object, key: .weight)
+            } else if indexPath.row == 2 {
+                cell.textLabel?.text = "Sex:"
+                text.text = vals.get(user: object, key: .sex)
+            }
         }
-        
+        cell.accessoryView = text
         cell.selectionStyle = .none
         cell.backgroundColor = .secondarySystemBackground
         return cell
@@ -98,8 +166,12 @@ extension UserSettings {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
     }
-    
-    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
+    }
     
 }
 

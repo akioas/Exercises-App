@@ -25,7 +25,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         setupBotButtons(buttonNum: 1, view: view, selector: #selector(cancel), systemName: "house.fill")
         setupBotButtons(buttonNum: 2, view: view, named: "Dumbbell")
         setupBotButtons(buttonNum: 3, view: view, selector: #selector(addNewEx), systemName: "plus.circle")
-        setupBotButtons(buttonNum: 4, view: view, systemName: "gearshape.circle")
+        setupBotButtons(buttonNum: 4, view: view, selector: #selector(userSettings), systemName: "gearshape.circle")
         let newView = UIView()
         newView.frame = CGRect(x: 5.0, y: tableView.frame.maxY , width: view.frame.width - 10.0, height: 1)
         newView.backgroundColor = .lightGray
@@ -38,16 +38,19 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     @objc func cancel(){
         self.dismiss(animated: false)
     }
-    @objc func addNewEx(){
-        /*
-        weak var pvc = self.presentingViewController
+    @objc func userSettings(){
+            weak var pvc = self.presentingViewController
 
-        self.dismiss(animated: false, completion: {
-            let vc = AddExercise()
-            vc.modalPresentationStyle = .fullScreen
-            pvc?.present(vc, animated: false, completion: nil)
-        })
-        */
+            self.dismiss(animated: false, completion: {
+                let vc = UserSettings()
+                vc.modalPresentationStyle = .fullScreen
+                pvc?.present(vc, animated: false, completion: nil)
+            })
+            
+        
+        
+    }
+    @objc func addNewEx(){
         let vc = AddExercise()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: false)
