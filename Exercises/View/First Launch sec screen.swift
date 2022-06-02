@@ -81,7 +81,7 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     }
     
     @IBAction func startAction(_ sender: Any) {
-        SaveValues().save(birthday: birthday, name: name, sex: sex, weight: weight)
+        UserValues().save(birthday: birthday, name: name, sex: sex, weight: weight)
     }
     
 }

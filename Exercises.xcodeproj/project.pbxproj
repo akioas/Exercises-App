@@ -27,6 +27,7 @@
 		4A9FCAE4283EBD2D004D9ABE /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9FCAE3283EBD2D004D9ABE /* Chart.swift */; };
 		4AA2FA272825B55900E4AF61 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA2FA262825B55900E4AF61 /* Controller.swift */; };
 		4AA2FA292825B9B300E4AF61 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA2FA282825B9B300E4AF61 /* Buttons.swift */; };
+		4ADBFEBE284923A90091F108 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADBFEBD284923A90091F108 /* UserSettings.swift */; };
 		4AE08BD92846897300259617 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4AE08BDB2846897300259617 /* Localizable.strings */; };
 		4AFFBFA328397908009FFC36 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFFBFA228397908009FFC36 /* History.swift */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,7 @@
 		4A9FCAE3283EBD2D004D9ABE /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		4AA2FA262825B55900E4AF61 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		4AA2FA282825B9B300E4AF61 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		4ADBFEBD284923A90091F108 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		4AE08BD12846874400259617 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		4AE08BD22846874400259617 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4AE08BD42846882200259617 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				4A67D1D728454E910075E47C /* First Launch sec screen.swift */,
 				4A858544282131E200604655 /* ViewController.swift */,
 				4A9174CB2847E45B00D44AA3 /* Exercises table.swift */,
+				4ADBFEBD284923A90091F108 /* UserSettings.swift */,
 				4A1119D3282A919E0001908C /* AddExercise.swift */,
 				4A97F7FF282953E600CAE0D1 /* Picker.swift */,
 				4AFFBFA228397908009FFC36 /* History.swift */,
@@ -225,6 +228,7 @@
 				4A85855B282137B900604655 /* Entity+CoreDataClass.swift in Sources */,
 				4A97F800282953E600CAE0D1 /* Picker.swift in Sources */,
 				4A85855C282137B900604655 /* Entity+CoreDataProperties.swift in Sources */,
+				4ADBFEBE284923A90091F108 /* UserSettings.swift in Sources */,
 				4AFFBFA328397908009FFC36 /* History.swift in Sources */,
 				4A9FCAE4283EBD2D004D9ABE /* Chart.swift in Sources */,
 				4A85854B282131E200604655 /* Exercises.xcdatamodeld in Sources */,

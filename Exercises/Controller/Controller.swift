@@ -88,7 +88,7 @@ class AllowedText {
     }
 }
 
-class SaveValues {
+class UserValues {
     func save(birthday: Date, name: String, sex: String, weight: String){
         let userVar = UserVariables()
         let dataModel = DataModel()
