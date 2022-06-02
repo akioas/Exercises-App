@@ -56,7 +56,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                selector: #selector(refresh),
                                                name: NSNotification.Name(rawValue: notificationKey),
                                                object: nil)
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .secondarySystemBackground
     }
     
     @objc func buttonAction(_ sender: UIButton!) {
@@ -89,14 +89,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         tableView.delegate = self
         let frame = self.view.bounds
-        print(botPadding)
-        print(view.safeAreaInsets)
-        print("!")
-        print(view.bounds)
-        print(topPadding)
-        print(frame.height)
-        print(frame.height - topPadding - botPadding)
         tableView.frame = CGRect(x: 0, y: 50, width: frame.width, height: frame.height - frame.width / 10  - topPadding  - botPadding - 54)
+        tableView.backgroundColor = .secondarySystemBackground
+
         view.addSubview(tableView)
     }
     func setupBotButtons(buttonNum num: Int, view: UIView, selector: Selector? = nil, systemName: String = "", named: String = ""){
@@ -109,11 +104,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let configuration = UIImage.SymbolConfiguration(pointSize: frame.width / 8)
             img = UIImage(systemName: systemName, withConfiguration: configuration) ?? UIImage()
         } else {
-            img = UIImage(named: named) ?? UIImage()
+            img = UIImage(named: named)?.withRenderingMode(.alwaysTemplate) ?? UIImage()
         }
         button.setImage(img, for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
-        button.backgroundColor = UIColor.systemBackground
+        button.backgroundColor = UIColor.secondarySystemBackground
         button.tintColor = UIColor.label
         if let selector = selector {
             button.addTarget(self, action: selector, for: .touchUpInside)
@@ -129,7 +124,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         text.numberOfLines = 2
         text.text = "Hello, Name \nLast trainings"
         text.textAlignment = .center
-        header.backgroundColor = .systemBackground
+        header.backgroundColor = .secondarySystemBackground
         header.layer.borderWidth = 1
         header.layer.borderColor = UIColor.label.cgColor
         view.addSubview(header)
@@ -282,10 +277,10 @@ extension ViewController {
             deleteButton.addTarget(self, action: #selector(deleteObject), for: .touchUpInside)
             cell.accessoryView = deleteButton
             
-            
         } else {
             cell.accessoryView = nil
         }
+        cell.backgroundColor = .secondarySystemBackground
         return cell
     }
     

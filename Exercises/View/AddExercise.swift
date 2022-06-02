@@ -21,7 +21,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .secondarySystemBackground
         setupTableView()
         setupHeader()
 //        setupNavBar()
@@ -38,17 +38,18 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundColor = .secondarySystemBackground
         tableView.frame = CGRect(x: 0, y: 50 + topPadding, width: view.frame.width, height: view.frame.height - topPadding * 2 - botPadding )
         view.addSubview(tableView)
-        let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50))
-        let buttonCancel = UIButton(frame: CGRect(x: 20, y: 0, width: 100, height: 50))
+        let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 70))
+        let buttonCancel = UIButton(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
         buttonCancel.setTitle("Cancel", for: .normal)
-        buttonCancel.backgroundColor = .systemPink
+        buttonCancel.backgroundColor = UIColor(red: 1.0, green: 0.5, blue: 0.5, alpha: 1.0)
         buttonCancel.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         customView.addSubview(buttonCancel)
-        let buttonDone = UIButton(frame: CGRect(x: view.frame.width - 120, y: 0, width: 100, height: 50))
+        let buttonDone = UIButton(frame: CGRect(x: view.frame.width - 120, y: 20, width: 100, height: 50))
         buttonDone.setTitle("Done", for: .normal)
-        buttonDone.backgroundColor = .systemBlue
+        buttonDone.backgroundColor = .systemGray2
         buttonDone.addTarget(self, action: #selector(done), for: .touchUpInside)
         customView.addSubview(buttonDone)
         tableView.tableFooterView = customView
@@ -60,7 +61,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         text.numberOfLines = 2
         text.text = "Hello, Name \nAdd an activity"
         text.textAlignment = .center
-        header.backgroundColor = .systemBackground
+        header.backgroundColor = .secondarySystemBackground
         header.layer.borderWidth = 1
         header.layer.borderColor = UIColor.label.cgColor
         view.addSubview(header)
@@ -165,7 +166,7 @@ extension AddExercise {
             cell.accessoryView = nil
         }
         cell.selectionStyle = .none
-
+        cell.backgroundColor = .secondarySystemBackground
         return cell
     }
     

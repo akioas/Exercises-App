@@ -33,7 +33,7 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         self.view.backgroundColor = .clear
         picker.delegate = self
         picker.dataSource = self
-        picker.backgroundColor = .systemBackground
+        picker.backgroundColor = .secondarySystemBackground
         picker.contentMode = .center
         
         
@@ -45,7 +45,7 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
-        
+        toolBar.backgroundColor = .secondarySystemBackground
         
         toolBar.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300) / 2 - 50, width: UIScreen.main.bounds.size.width, height: 50)
         picker.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300) / 2, width: UIScreen.main.bounds.size.width, height: 200)

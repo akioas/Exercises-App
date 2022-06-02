@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jCF-8M-4Bh">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -81,7 +81,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ro3-Jg-1vv"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Kre-f9-Nx9" firstAttribute="centerY" secondItem="Mko-9T-3cv" secondAttribute="centerY" id="8O9-pz-s2U"/>
                             <constraint firstItem="Kre-f9-Nx9" firstAttribute="centerX" secondItem="Mko-9T-3cv" secondAttribute="centerX" id="Uqk-6J-Sns"/>
@@ -214,7 +214,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4Br-LL-4gS"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="jDI-MB-PnL" firstAttribute="centerX" secondItem="Kt5-dy-RZU" secondAttribute="centerX" id="G9R-6u-rzL"/>
                             <constraint firstItem="1mQ-jJ-9wi" firstAttribute="centerY" secondItem="Kt5-dy-RZU" secondAttribute="centerY" id="Mpx-s7-221"/>
@@ -245,6 +245,9 @@
         </systemColor>
         <systemColor name="placeholderTextColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemFillColor">
             <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>

@@ -61,6 +61,7 @@ class StartText {
         button.setAttributedTitle(attrString, for: .normal)
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.label.cgColor
         button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     

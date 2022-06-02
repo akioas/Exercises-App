@@ -18,7 +18,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .secondarySystemBackground
         setupTableView()
         setupHeader()
 
@@ -31,9 +31,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         newView.backgroundColor = .lightGray
         view.addSubview(newView)
 
-        let newBotView = UIView()
-        newBotView.frame = CGRect(x: 5.0, y: tableView.frame.height + topPadding , width: view.frame.width - 10.0, height: 3)
-        newBotView.backgroundColor = .blue
+      
 //        setupNavBar()
     }
     
@@ -41,15 +39,18 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.dismiss(animated: false)
     }
     @objc func addNewEx(){
+        /*
         weak var pvc = self.presentingViewController
 
         self.dismiss(animated: false, completion: {
             let vc = AddExercise()
             vc.modalPresentationStyle = .fullScreen
-
             pvc?.present(vc, animated: false, completion: nil)
         })
-        
+        */
+        let vc = AddExercise()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: false)
     }
     
     func setupTableView(){
@@ -60,6 +61,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         tableView.frame = CGRect(x: 0, y: 50 + topPadding, width: frame.width, height: frame.height - frame.width / 10  - topPadding  - botPadding - 54)
         tableView.isUserInteractionEnabled = false
+        tableView.backgroundColor = .secondarySystemBackground
         view.addSubview(tableView)
        
     }
@@ -70,7 +72,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         text.numberOfLines = 1
         text.text = "Exercises"
         text.textAlignment = .center
-        header.backgroundColor = .systemBackground
+        header.backgroundColor = .secondarySystemBackground
         header.layer.borderWidth = 1
         header.layer.borderColor = UIColor.label.cgColor
         view.addSubview(header)
@@ -79,7 +81,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         let configuration = UIImage.SymbolConfiguration(pointSize: view.frame.width / 15)
         let img = UIImage(systemName: "plus.circle", withConfiguration: configuration) ?? UIImage()
         button.setImage(img, for: .normal)
-        button.tintColor = .link
+        button.tintColor = .label
         button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(displayAlert), for: .touchUpInside)
         header.addSubview(button)
@@ -121,11 +123,11 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
             let configuration = UIImage.SymbolConfiguration(pointSize: frame.width / 8)
             img = UIImage(systemName: systemName, withConfiguration: configuration) ?? UIImage()
         } else {
-            img = UIImage(named: named) ?? UIImage()
+            img = UIImage(named: named)?.withRenderingMode(.alwaysTemplate) ?? UIImage()
         }
         button.setImage(img, for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
-        button.backgroundColor = UIColor.systemBackground
+        button.backgroundColor = UIColor.secondarySystemBackground
         button.tintColor = UIColor.label
         if let selector = selector {
             button.addTarget(self, action: selector, for: .touchUpInside)
@@ -153,6 +155,7 @@ extension ExercisesTable {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         cell.textLabel?.text = exercises[indexPath.row]
+        cell.backgroundColor = .secondarySystemBackground
 
         return cell
     }
@@ -161,6 +164,11 @@ extension ExercisesTable {
         print(indexPath.row)
     }
     
-    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
 }
 
