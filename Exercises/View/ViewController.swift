@@ -21,7 +21,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var exercises: [NSManagedObject] = []
     var users: [NSManagedObject] = []
     
-    var callBackStepper:((_ value:Int, _ num: Int, _ name: String)->())?
+//    var callBackStepper:((_ value:Int, _ num: Int, _ name: String)->())?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -58,6 +58,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                name: NSNotification.Name(rawValue: notificationKey),
                                                object: nil)
         view.backgroundColor = .secondarySystemBackground
+       
     }
     
     @objc func buttonAction(_ sender: UIButton!) {
@@ -170,6 +171,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.present(vc, animated: false)
     }
     @objc func toExTable(){
+        print("s")
         let vc = ExercisesTable()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: false)
@@ -177,6 +179,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @objc func userSettings(){
         let vc = UserSettings()
         vc.modalPresentationStyle = .fullScreen
+
         self.present(vc, animated: false)
     }
     @objc func clockItem(){

@@ -39,6 +39,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.dismiss(animated: false)
     }
     @objc func userSettings(){
+        
             weak var pvc = self.presentingViewController
 
             self.dismiss(animated: false, completion: {

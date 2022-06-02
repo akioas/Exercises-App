@@ -49,14 +49,17 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     @objc func cancel(){
         self.dismiss(animated: false)
+
     }
     @objc func addNewEx(){
         
         let vc = AddExercise()
         vc.modalPresentationStyle = .fullScreen
+
         self.present(vc, animated: false)
     }
     @objc func toExTable(){
+        
         weak var pvc = self.presentingViewController
 
         self.dismiss(animated: false, completion: {
@@ -65,6 +68,8 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
             pvc?.present(vc, animated: false, completion: nil)
         })
         
+        
+
     }
     func setupTableView(){
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
@@ -80,20 +85,28 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     func setupHeader(){
         let header = UIView.init(frame: CGRect.init(x: 0, y: topPadding, width: tableView.frame.width, height: 50))
+        let person = UIImageView()
+        person.frame = CGRect.init(x: 10, y: 10, width: 30, height: 30)
+        person.image = UIImage(systemName: "person.fill")
         let text = UILabel()
-        text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width - 90, height: 50)
+        text.frame = CGRect.init(x: 60, y: 0, width: tableView.frame.width - 120, height: 50)
         text.numberOfLines = 1
         if let object = objects.last{
 
             text.text = vals.getName(object)
         }
         text.textAlignment = .center
+        let editButton = UIButton()
+        editButton.frame = CGRect.init(x: tableView.frame.width - 50, y: 10, width: 30, height: 30)
+        editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
+        editButton.tintColor = .label
         header.backgroundColor = .secondarySystemBackground
         header.layer.borderWidth = 1
         header.layer.borderColor = UIColor.label.cgColor
         view.addSubview(header)
-
+        header.addSubview(person)
         header.addSubview(text)
+        header.addSubview(editButton)
     }
     
     
