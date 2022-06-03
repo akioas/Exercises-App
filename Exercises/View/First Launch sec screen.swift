@@ -18,7 +18,7 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     
     let sexes = [NSLocalizedString("Female", comment: ""),
                  NSLocalizedString("Male", comment: ""),
-                 NSLocalizedString("Other", comment: ""),]
+                 NSLocalizedString("Other", comment: "")]
     
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var birthdayButton: UIButton!

@@ -53,7 +53,6 @@ class UserValues {
         case weight
     }
     func save(birthday: Date, name: String, sex: String, weight: String){
-        
         userVar.wasLaunched()
         let user = dataModel.addUser()
         user.setValue(birthday, forKey: userVar.birthdayKey)
@@ -61,6 +60,26 @@ class UserValues {
         user.setValue(sex, forKey: userVar.sexKey)
         user.setValue(Int(weight), forKey: userVar.weightKey)
         dataModel.saveModel()
+    }
+    func saveOne(value: Any, key: Keys, user: NSManagedObject){
+        var newKey = ""
+        switch key{
+        case .weight:
+            newKey = userVar.weightKey
+        case .name:
+            newKey = userVar.nameKey
+        case .sex:
+            newKey = userVar.sexKey
+        case .birthday:
+            newKey = userVar.birthdayKey
+        }
+        if key == .weight{
+            user.setValue(Int(value as? String ?? ""), forKey: newKey)
+
+         
+        } else {
+            user.setValue(value, forKey: newKey)
+        }
     }
     func get(user: NSManagedObject, key: Keys) -> String{
         switch key{
@@ -102,12 +121,14 @@ class UserValues {
     func getDate(_ user: NSManagedObject) -> String{
         let currDate = Date()
         let date = (user.value(forKey: userVar.birthdayKey) as? Date ?? currDate)
-        if date == currDate{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
+        let text = dateFormatter.string(from: date)
+        let currDateStr = dateFormatter.string(from: currDate)
+        if currDateStr == text{
             return "Not set"
         } else {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
-            let text = dateFormatter.string(from: date)
+            
             return text
         }
     }

@@ -4,8 +4,6 @@ import UIKit
 import CoreData
 import NotificationCenter
 
-
-
 let notificationKey = "Key"
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -21,7 +19,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let cellId = "cellId"
     var exercises: [NSManagedObject] = []
     var users: [NSManagedObject] = []
-        
+    let textLabel = UILabel()
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetch(isFiltered)
@@ -36,6 +35,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(refresh),
                                                name: NSNotification.Name(rawValue: notificationKey),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(newHeader),
+                                               name: NSNotification.Name(rawValue: "header"),
                                                object: nil)
         view.backgroundColor = .secondarySystemBackground
     }
@@ -86,7 +89,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     func setupHeader(_ view: UIView, text: String, width: CGFloat){
         let header = UIView.init(frame: CGRect.init(x: 0, y: 0, width: width, height: 50))
-        let textLabel = UILabel()
         textLabel.frame = CGRect.init(x: 10, y: 0, width: width, height: 50)
         textLabel.numberOfLines = 2
         textLabel.text = text
@@ -224,12 +226,19 @@ extension ViewController {
             self.users = try context.fetch(fetchRequest)
             if let user = users.last{
                 yourName = UserValues().getName(user)
+                if yourName == "Not set"{
+                    yourName = "User"
+                }
             }
             
         } catch let err as NSError {
             print(err)
         }
         
+    }
+    
+    @objc func newHeader(){
+        textLabel.text = ("Hello, " + yourName + "\nLast trainings")
     }
 }
 
