@@ -41,6 +41,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                name: NSNotification.Name(rawValue: "header"),
                                                object: nil)
         view.backgroundColor = .secondarySystemBackground
+//        self.hideOnTap()
+
     }
     func createViews(){
         topPadding = view.safeAreaInsets.top
@@ -89,7 +91,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     func setupHeader(_ view: UIView, text: String, width: CGFloat){
         let header = UIView.init(frame: CGRect.init(x: 0, y: 0, width: width, height: 50))
-        textLabel.frame = CGRect.init(x: 10, y: 0, width: width, height: 50)
+        textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 100, height: 50)
         textLabel.numberOfLines = 2
         textLabel.text = text
         textLabel.textAlignment = .center
@@ -97,26 +99,33 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         header.layer.borderWidth = 1
         header.layer.borderColor = UIColor.label.cgColor
         header.addSubview(textLabel)
+        let calButton = UIButton(frame: CGRect(x: width - 50, y: 0, width: 50, height: 50))
+        calButton.setImage(UIImage(systemName: "calendar"), for: .normal)
+        calButton.tintColor = .link
+        calButton.addTarget(self, action: #selector(clockItem), for: .touchUpInside)
+        header.addSubview(calButton)
+
         view.addSubview(header)
     }
     func createDatePicker(){
         
         datePicker = UIDatePicker()
+        if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+        }
+        datePicker.backgroundColor = .secondarySystemBackground
         setupDatePicker(datePicker: datePicker, toolBar: toolBar)
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDate))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let spaceButton = UIBarButtonItem(title: "Clear selection", style: .plain, target: self, action: #selector(clearDate))
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDate))
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        view.addSubview(datePicker)
         view.addSubview(toolBar)
+        view.addSubview(datePicker)
     }
     
 }
 
 extension ViewController {
-    @objc func buttonAction(_ sender: UIButton!) {
-        print("Button tapped")
-    }
     
     func deleteLast(_ object: NSManagedObject){
         DataModel().delete(object)
@@ -137,7 +146,6 @@ extension ViewController {
         } catch let err as NSError {
             print(err)
         }
-        
     }
     
     
@@ -193,7 +201,11 @@ extension ViewController {
         setDate(datePicker.date)
         cancelDate()
     }
-    
+    @objc func clearDate(){
+        isFiltered = false
+        fetch(isFiltered)
+        cancelDate()
+    }
     @objc func cancelDate() {
         datePicker.removeFromSuperview()
         toolBar.removeFromSuperview()
@@ -321,3 +333,19 @@ extension ViewController {
     }
 }
 
+/*
+extension ViewController {
+
+    @objc func hideOnTap() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:    #selector(ViewController.dismissView))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissView() {
+        if let _ = datePicker{
+            doneDate()
+        }
+    }
+}
+ */

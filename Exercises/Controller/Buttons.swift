@@ -77,12 +77,12 @@ class Items {
     
 }
 func setupDatePicker(datePicker: UIDatePicker, toolBar: UIToolbar){
-    datePicker.frame = CGRect.init(x: 0.0, y: 50, width: UIScreen.main.bounds.size.width, height: 100)
+    datePicker.frame = CGRect.init(x: 0.0, y: 100, width: UIScreen.main.bounds.size.width, height: 100)
     datePicker.backgroundColor = .lightGray
     datePicker.datePickerMode = UIDatePicker.Mode.date
     datePicker.contentMode = .bottom
     
     toolBar.barStyle = .default
-    toolBar.sizeToFit()
+    toolBar.frame = CGRect.init(x: 0.0, y: 50, width: UIScreen.main.bounds.size.width, height: 50)
     toolBar.isUserInteractionEnabled = true
 }
