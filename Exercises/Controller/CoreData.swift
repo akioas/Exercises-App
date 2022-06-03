@@ -1,5 +1,4 @@
 
-import UIKit
 import CoreData
 
 
@@ -41,50 +40,6 @@ class GetData {
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
         let text = dateFormatter.string(from: (currentEx.value(forKey: "date") as! Date))
         return text
-    }
-}
-
-class StartText {
-    func changeText(button: UIButton, with text: String){
-        if let attributedTitle = button.attributedTitle(for: .normal) {
-            let mutableAttributedTitle = NSMutableAttributedString(attributedString: attributedTitle)
-            mutableAttributedTitle.replaceCharacters(in: NSMakeRange(0, mutableAttributedTitle.length), with: text)
-            button.setAttributedTitle(mutableAttributedTitle, for: .normal)
-            button.tintColor = .label
-        }
-    }
-
-    func setBotButtonText(button: UIButton, text: String){
-        let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.label,
-                           NSAttributedString.Key.font: UIFont(name: "System Font Regular", size: 40)]
-        let attrString = NSAttributedString(string: text, attributes: attributes as [NSAttributedString.Key : Any] )
-        button.setAttributedTitle(attrString, for: .normal)
-        button.layer.cornerRadius = 15
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.label.cgColor
-        button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    }
-    
-    func setButtonText(button: UIButton, text: String){
-        let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.placeholderText,
-                           NSAttributedString.Key.font: UIFont(name: "System Font Regular", size: 25)]
-        let attrString = NSAttributedString(string: text, attributes: attributes as [NSAttributedString.Key : Any] )
-        button.setAttributedTitle(attrString, for: .normal)
-        button.layer.cornerRadius = 5
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.systemFill.cgColor
-        button.layer.backgroundColor = UIColor.secondarySystemFill.cgColor
-    }
-}
-
-class AllowedText {
-    var allowedCharacters = CharacterSet(charactersIn:"")
-    var characterSet = CharacterSet(charactersIn:"")
-
-    func textDigits(string:String) -> Bool{
-        allowedCharacters = CharacterSet(charactersIn:"0123456789")
-        characterSet = CharacterSet(charactersIn: string)
-        return allowedCharacters.isSuperset(of: characterSet)
     }
 }
 
@@ -158,7 +113,3 @@ class UserValues {
     }
 }
 
-var botPadding = 0.0
-var topPadding = 0.0
-var yBot = 0.0
-var yourName = ""

@@ -20,36 +20,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let cellId = "cellId"
     var exercises: [NSManagedObject] = []
     var users: [NSManagedObject] = []
-    
-//    var callBackStepper:((_ value:Int, _ num: Int, _ name: String)->())?
-    
+        
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetch(isFiltered)
         fetchUser()
     }
     override func viewDidAppear(_ animated: Bool) {
-        topPadding = view.safeAreaInsets.top
-        botPadding = view.safeAreaInsets.bottom
-        setupTableView()
-        setupHeader()
-
-        setupBotButtons(buttonNum: 1, view: view, systemName: "house.fill")
-        setupBotButtons(buttonNum: 2, view: view, selector: #selector(toExTable), named: "Dumbbell")
-        setupBotButtons(buttonNum: 3, view: view, selector: #selector(addItem), systemName: "plus.circle")
-        setupBotButtons(buttonNum: 4, view: view, selector: #selector(userSettings), systemName: "gearshape.circle")
-        let newView = UIView()
-        newView.frame = CGRect(x: 5.0, y: tableView.frame.maxY , width: view.frame.width - 10.0, height: 1)
-        newView.backgroundColor = .lightGray
-        view.addSubview(newView)
-
-        let newBotView = UIView()
-        newBotView.frame = CGRect(x: 5.0, y: tableView.frame.height + topPadding , width: view.frame.width - 10.0, height: 3)
-        newBotView.backgroundColor = .blue
-//        view.addSubview(newBotView)
         
-//                setupNavBar()
-        
+        createViews()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,9 +37,86 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                name: NSNotification.Name(rawValue: notificationKey),
                                                object: nil)
         view.backgroundColor = .secondarySystemBackground
-       
+    }
+    func createViews(){
+        topPadding = view.safeAreaInsets.top
+        botPadding = view.safeAreaInsets.bottom
+        setupTableView()
+        setupHeader()
+        botButtons()
+        setupViews()
     }
     
+    func setupViews(){
+        let newView = UIView()
+        newView.frame = CGRect(x: 5.0, y: tableView.frame.maxY , width: view.frame.width - 10.0, height: 1)
+        newView.backgroundColor = .lightGray
+        view.addSubview(newView)
+
+        let newBotView = UIView()
+        newBotView.frame = CGRect(x: 5.0, y: tableView.frame.height + topPadding , width: view.frame.width - 10.0, height: 3)
+        newBotView.backgroundColor = .blue
+    }
+    func setupTableView(){
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.dataSource = self
+        tableView.delegate = self
+        let frame = self.view.bounds
+        tableView.frame = CGRect(x: 0, y: 50, width: frame.width, height: frame.height - frame.width / 10  - topPadding  - botPadding - 54)
+        tableView.backgroundColor = .secondarySystemBackground
+
+        view.addSubview(tableView)
+    }
+    
+    
+    func setupHeader(){
+        let header = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
+        let text = UILabel()
+        text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width, height: 50)
+        text.numberOfLines = 2
+        text.text = "Hello, " + yourName + "\nLast trainings"
+        text.textAlignment = .center
+        header.backgroundColor = .secondarySystemBackground
+        header.layer.borderWidth = 1
+        header.layer.borderColor = UIColor.label.cgColor
+        view.addSubview(header)
+        header.addSubview(text)
+    }
+    func botButtons(){
+        let but1 = UIButton()
+        let but2 = UIButton()
+        let but3 = UIButton()
+        let but4 = UIButton()
+        setupBotButtons(but1, buttonNum: 1, view: view, systemName: "house.fill")
+        setupBotButtons(but2, buttonNum: 2, view: view, named: "Dumbbell")
+        setupBotButtons(but3, buttonNum: 3, view: view, systemName: "plus.circle")
+        setupBotButtons(but4, buttonNum: 4, view: view, systemName: "gearshape.circle")
+        but2.addTarget(self, action: #selector(toExTable), for: .touchUpInside)
+        but3.addTarget(self, action: #selector(addItem), for: .touchUpInside)
+        but4.addTarget(self, action: #selector(userSettings), for: .touchUpInside)
+    }
+    
+    func setupDatePicker(){
+        
+        datePicker = UIDatePicker()
+        datePicker.frame = CGRect.init(x: 0.0, y: 50, width: UIScreen.main.bounds.size.width, height: 100)
+        datePicker.backgroundColor = .lightGray
+        datePicker.datePickerMode = UIDatePicker.Mode.date
+        datePicker.contentMode = .bottom
+        view.addSubview(datePicker)
+        
+        toolBar.barStyle = .default
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDate))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDate))
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        view.addSubview(toolBar)
+        toolBar.sizeToFit()
+    }
     @objc func buttonAction(_ sender: UIButton!) {
         print("Button tapped")
     }
@@ -86,66 +142,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
-    func setupTableView(){
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
-        tableView.dataSource = self
-        tableView.delegate = self
-        let frame = self.view.bounds
-        tableView.frame = CGRect(x: 0, y: 50, width: frame.width, height: frame.height - frame.width / 10  - topPadding  - botPadding - 54)
-        tableView.backgroundColor = .secondarySystemBackground
-
-        view.addSubview(tableView)
-    }
-    func setupBotButtons(buttonNum num: Int, view: UIView, selector: Selector? = nil, systemName: String = "", named: String = ""){
-        let frame = view.frame
-        var img = UIImage()
-        let button = UIButton()
-        yBot = frame.height - frame.width / 10  - topPadding - botPadding
-        button.frame = CGRect(x: CGFloat(num - 1) * frame.width / 4 , y: yBot , width: frame.width / 4 + 1.5, height: frame.width / 10)
-        if systemName != ""{
-            let configuration = UIImage.SymbolConfiguration(pointSize: frame.width / 8)
-            img = UIImage(systemName: systemName, withConfiguration: configuration) ?? UIImage()
-        } else {
-            img = UIImage(named: named)?.withRenderingMode(.alwaysTemplate) ?? UIImage()
-        }
-        button.setImage(img, for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.backgroundColor = UIColor.secondarySystemBackground
-        button.tintColor = UIColor.label
-        if let selector = selector {
-            button.addTarget(self, action: selector, for: .touchUpInside)
-        }
-            
-        view.addSubview(button)
-    }
     
-    func setupHeader(){
-        let header = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
-        let text = UILabel()
-        text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width, height: 50)
-        text.numberOfLines = 2
-        text.text = "Hello, " + yourName + "\nLast trainings"
-        text.textAlignment = .center
-        header.backgroundColor = .secondarySystemBackground
-        header.layer.borderWidth = 1
-        header.layer.borderColor = UIColor.label.cgColor
-        view.addSubview(header)
-        header.addSubview(text)
-    }
-    
-    func setupNavBar(){
-        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
-        view.addSubview(navBar)
-        
-        let navItem = UINavigationItem(title: "")
-        let historyItem = UIBarButtonItem(title: "History", style: .plain, target: self, action: #selector(historyItem))
-        let addItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
-        let clockItem = UIBarButtonItem(title: "Date", style: .plain, target: self, action: #selector(clockItem))
-        
-        navItem.rightBarButtonItems = [addItem, clockItem, historyItem]
-        navBar.setItems([navItem], animated: false)
-        
-    }
     
     
     func setDate(_ getDate: Date){
@@ -171,7 +168,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.present(vc, animated: false)
     }
     @objc func toExTable(){
-        print("s")
         let vc = ExercisesTable()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: false)
@@ -202,27 +198,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
-    func setupDatePicker(){
-        
-        datePicker = UIDatePicker()
-        datePicker.frame = CGRect.init(x: 0.0, y: 50, width: UIScreen.main.bounds.size.width, height: 100)
-        datePicker.backgroundColor = .lightGray
-        datePicker.datePickerMode = UIDatePicker.Mode.date
-        datePicker.contentMode = .bottom
-        view.addSubview(datePicker)
-        
-        toolBar.barStyle = .default
-        toolBar.sizeToFit()
-        
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDate))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDate))
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        toolBar.isUserInteractionEnabled = true
-        
-        view.addSubview(toolBar)
-        toolBar.sizeToFit()
-    }
+    
     
     
     @objc func doneDate() {
@@ -309,15 +285,7 @@ extension ViewController {
         return cell
     }
     
-    /*
-     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-     if section == 0{
-     return nil
-     } else {
-     return nil
-     }
-     }
-     */
+   
     func tableView(_ tableView: UITableView, titleForHeaderInSection
                    section: Int) -> String? {
         if section == 0{

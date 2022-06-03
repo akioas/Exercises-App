@@ -25,16 +25,25 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
         setupHeader()
-        setupBotButtons(buttonNum: 1, view: view, selector: #selector(cancel), systemName: "house.fill")
-        setupBotButtons(buttonNum: 2, view: view, selector: #selector(toExTable), named: "Dumbbell")
-        setupBotButtons(buttonNum: 3, view: view, selector: #selector(addNewEx), systemName: "plus.circle")
-        setupBotButtons(buttonNum: 4, view: view, systemName: "gearshape.circle")
+        botButtons()
         let newView = UIView()
         newView.frame = CGRect(x: 5.0, y: tableView.frame.maxY , width: view.frame.width - 10.0, height: 1)
         newView.backgroundColor = .lightGray
         view.addSubview(newView)
     }
-    
+    func botButtons(){
+        let but1 = UIButton()
+        let but2 = UIButton()
+        let but3 = UIButton()
+        let but4 = UIButton()
+        setupBotButtons(but1, buttonNum: 1, view: view, systemName: "house.fill")
+        setupBotButtons(but2, buttonNum: 2, view: view, named: "Dumbbell")
+        setupBotButtons(but3, buttonNum: 3, view: view, systemName: "plus.circle")
+        setupBotButtons(but4, buttonNum: 4, view: view, systemName: "gearshape.circle")
+        but1.addTarget(self, action: #selector(cancel), for: .touchUpInside)
+        but2.addTarget(self, action: #selector(toExTable), for: .touchUpInside)
+        but3.addTarget(self, action: #selector(addNewEx), for: .touchUpInside)
+    }
     func fetch(){
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
     
@@ -117,27 +126,7 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
     
-    func setupBotButtons(buttonNum num: Int, view: UIView, selector: Selector? = nil, systemName: String = "", named: String = ""){
-        let frame = view.frame
-        var img = UIImage()
-        let button = UIButton()
-        button.frame = CGRect(x: CGFloat(num - 1) * frame.width / 4 , y: yBot + topPadding , width: frame.width / 4 + 1.5, height: frame.width / 10)
-        if systemName != ""{
-            let configuration = UIImage.SymbolConfiguration(pointSize: frame.width / 8)
-            img = UIImage(systemName: systemName, withConfiguration: configuration) ?? UIImage()
-        } else {
-            img = UIImage(named: named)?.withRenderingMode(.alwaysTemplate) ?? UIImage()
-        }
-        button.setImage(img, for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.backgroundColor = UIColor.secondarySystemBackground
-        button.tintColor = UIColor.label
-        if let selector = selector {
-            button.addTarget(self, action: selector, for: .touchUpInside)
-        }
-            
-        view.addSubview(button)
-    }
+   
 }
 
 
