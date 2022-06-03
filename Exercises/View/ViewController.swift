@@ -15,6 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var isFiltered = false
     let data = GetData()
+    let items = Items()
     var date = Date()
     var selected = ""
     let cellId = "cellId"
@@ -27,7 +28,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         fetchUser()
     }
     override func viewDidAppear(_ animated: Bool) {
-        
+
         createViews()
     }
     override func viewDidLoad() {
@@ -42,7 +43,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         topPadding = view.safeAreaInsets.top
         botPadding = view.safeAreaInsets.bottom
         setupTableView()
-        setupHeader()
+        setupHeader(view, text: ("Hello, " + yourName + "\nLast trainings"), width: tableView.frame.width)
         botButtons()
         setupViews()
     }
@@ -69,54 +70,48 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
-    func setupHeader(){
-        let header = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
-        let text = UILabel()
-        text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width, height: 50)
-        text.numberOfLines = 2
-        text.text = "Hello, " + yourName + "\nLast trainings"
-        text.textAlignment = .center
-        header.backgroundColor = .secondarySystemBackground
-        header.layer.borderWidth = 1
-        header.layer.borderColor = UIColor.label.cgColor
-        view.addSubview(header)
-        header.addSubview(text)
-    }
+    
     func botButtons(){
         let but1 = UIButton()
         let but2 = UIButton()
         let but3 = UIButton()
         let but4 = UIButton()
-        setupBotButtons(but1, buttonNum: 1, view: view, systemName: "house.fill")
-        setupBotButtons(but2, buttonNum: 2, view: view, named: "Dumbbell")
-        setupBotButtons(but3, buttonNum: 3, view: view, systemName: "plus.circle")
-        setupBotButtons(but4, buttonNum: 4, view: view, systemName: "gearshape.circle")
+        items.setupBotButtons(but1, buttonNum: 1, view: view, systemName: "house.fill", isCore: true)
+        items.setupBotButtons(but2, buttonNum: 2, view: view, named: "Dumbbell", isCore: true)
+        items.setupBotButtons(but3, buttonNum: 3, view: view, systemName: "plus.circle", isCore: true)
+        items.setupBotButtons(but4, buttonNum: 4, view: view, systemName: "gearshape.circle", isCore: true)
         but2.addTarget(self, action: #selector(toExTable), for: .touchUpInside)
         but3.addTarget(self, action: #selector(addItem), for: .touchUpInside)
         but4.addTarget(self, action: #selector(userSettings), for: .touchUpInside)
     }
-    
-    func setupDatePicker(){
+    func setupHeader(_ view: UIView, text: String, width: CGFloat){
+        let header = UIView.init(frame: CGRect.init(x: 0, y: 0, width: width, height: 50))
+        let textLabel = UILabel()
+        textLabel.frame = CGRect.init(x: 10, y: 0, width: width, height: 50)
+        textLabel.numberOfLines = 2
+        textLabel.text = text
+        textLabel.textAlignment = .center
+        header.backgroundColor = .secondarySystemBackground
+        header.layer.borderWidth = 1
+        header.layer.borderColor = UIColor.label.cgColor
+        header.addSubview(textLabel)
+        view.addSubview(header)
+    }
+    func createDatePicker(){
         
         datePicker = UIDatePicker()
-        datePicker.frame = CGRect.init(x: 0.0, y: 50, width: UIScreen.main.bounds.size.width, height: 100)
-        datePicker.backgroundColor = .lightGray
-        datePicker.datePickerMode = UIDatePicker.Mode.date
-        datePicker.contentMode = .bottom
-        view.addSubview(datePicker)
-        
-        toolBar.barStyle = .default
-        toolBar.sizeToFit()
-        
+        setupDatePicker(datePicker: datePicker, toolBar: toolBar)
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDate))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDate))
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        toolBar.isUserInteractionEnabled = true
-        
+        view.addSubview(datePicker)
         view.addSubview(toolBar)
-        toolBar.sizeToFit()
     }
+    
+}
+
+extension ViewController {
     @objc func buttonAction(_ sender: UIButton!) {
         print("Button tapped")
     }
@@ -153,14 +148,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
-    func dates(for date: Date) -> (start: Date, end: Date){
-        let startDate = Calendar.current.startOfDay(for: date)
-        var components = DateComponents()
-        components.day = 1
-        components.second = -1
-        let endDate = Calendar.current.date(byAdding: components, to: startDate)!
-        return (startDate, endDate)
-    }
+    
     
     @objc func addItem(){
         let vc = AddExercise()
@@ -179,7 +167,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.present(vc, animated: false)
     }
     @objc func clockItem(){
-        setupDatePicker()
+        createDatePicker()
     }
     @objc func historyItem(){
         showHistory()
@@ -197,16 +185,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         })
         
     }
-    
-    
-    
-    
+       
     @objc func doneDate() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .full
+  
         setDate(datePicker.date)
         cancelDate()
-        
     }
     
     @objc func cancelDate() {
@@ -248,8 +231,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
     }
-    
 }
+
 
 extension ViewController {
     

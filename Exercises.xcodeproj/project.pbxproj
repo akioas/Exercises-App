@@ -29,6 +29,7 @@
 		4AA2FA292825B9B300E4AF61 /* ButtonsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA2FA282825B9B300E4AF61 /* ButtonsModel.swift */; };
 		4ADBFEBE284923A90091F108 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADBFEBD284923A90091F108 /* UserSettings.swift */; };
 		4ADDCC4F284A5CED0018F24D /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADDCC4E284A5CED0018F24D /* Buttons.swift */; };
+		4ADDCC51284A73300018F24D /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADDCC50284A73300018F24D /* Controller.swift */; };
 		4AE08BD92846897300259617 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4AE08BDB2846897300259617 /* Localizable.strings */; };
 		4AFFBFA328397908009FFC36 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFFBFA228397908009FFC36 /* History.swift */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		4AA2FA282825B9B300E4AF61 /* ButtonsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsModel.swift; sourceTree = "<group>"; };
 		4ADBFEBD284923A90091F108 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		4ADDCC4E284A5CED0018F24D /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		4ADDCC50284A73300018F24D /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		4AE08BD12846874400259617 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		4AE08BD22846874400259617 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4AE08BD42846882200259617 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				4AA2FA262825B55900E4AF61 /* CoreData.swift */,
 				4ADDCC4E284A5CED0018F24D /* Buttons.swift */,
+				4ADDCC50284A73300018F24D /* Controller.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				4A67D1D628454D630075E47C /* User+CoreDataProperties.swift in Sources */,
 				4A8585582821322000604655 /* Model.swift in Sources */,
 				4A858545282131E200604655 /* ViewController.swift in Sources */,
+				4ADDCC51284A73300018F24D /* Controller.swift in Sources */,
 				4A85855B282137B900604655 /* Entity+CoreDataClass.swift in Sources */,
 				4A97F800282953E600CAE0D1 /* Picker.swift in Sources */,
 				4A85855C282137B900604655 /* Entity+CoreDataProperties.swift in Sources */,

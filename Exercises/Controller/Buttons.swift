@@ -50,22 +50,39 @@ var botPadding = 0.0
 var topPadding = 0.0
 var yBot = 0.0
 var yourName = ""
-
-func setupBotButtons(_ button: UIButton, buttonNum num: Int, view: UIView, systemName: String = "", named: String = ""){
-    let frame = view.frame
-    var img = UIImage()
-    yBot = frame.height - frame.width / 10  - topPadding - botPadding
-    button.frame = CGRect(x: CGFloat(num - 1) * frame.width / 4 , y: yBot , width: frame.width / 4 + 1.5, height: frame.width / 10)
-    if systemName != ""{
-        let configuration = UIImage.SymbolConfiguration(pointSize: frame.width / 8)
-        img = UIImage(systemName: systemName, withConfiguration: configuration) ?? UIImage()
-    } else {
-        img = UIImage(named: named)?.withRenderingMode(.alwaysTemplate) ?? UIImage()
+class Items {
+    func setupBotButtons(_ button: UIButton, buttonNum num: Int, view: UIView, systemName: String = "", named: String = "", isCore: Bool = false){
+        let frame = view.frame
+        var img = UIImage()
+        var heightVar = 0.0
+        if !isCore{
+            heightVar = topPadding
+        }
+        yBot = frame.height - frame.width / 10 - topPadding + heightVar
+        button.frame = CGRect(x: CGFloat(num - 1) * frame.width / 4 , y: yBot , width: frame.width / 4 + 1.5, height: frame.width / 10)
+        if systemName != ""{
+            let configuration = UIImage.SymbolConfiguration(pointSize: frame.width / 8)
+            img = UIImage(systemName: systemName, withConfiguration: configuration) ?? UIImage()
+        } else {
+            img = UIImage(named: named)?.withRenderingMode(.alwaysTemplate) ?? UIImage()
+        }
+        button.setImage(img, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.backgroundColor = UIColor.secondarySystemBackground
+        button.tintColor = UIColor.label
+            
+        view.addSubview(button)
     }
-    button.setImage(img, for: .normal)
-    button.imageView?.contentMode = .scaleAspectFit
-    button.backgroundColor = UIColor.secondarySystemBackground
-    button.tintColor = UIColor.label
-        
-    view.addSubview(button)
+
+    
+}
+func setupDatePicker(datePicker: UIDatePicker, toolBar: UIToolbar){
+    datePicker.frame = CGRect.init(x: 0.0, y: 50, width: UIScreen.main.bounds.size.width, height: 100)
+    datePicker.backgroundColor = .lightGray
+    datePicker.datePickerMode = UIDatePicker.Mode.date
+    datePicker.contentMode = .bottom
+    
+    toolBar.barStyle = .default
+    toolBar.sizeToFit()
+    toolBar.isUserInteractionEnabled = true
 }

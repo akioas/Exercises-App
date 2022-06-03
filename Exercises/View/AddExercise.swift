@@ -9,7 +9,6 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     let cellId = "cellId"
     let data = GetData()
     var callBackStepper:((_ value:Int, _ name: String)->())?
-//    var toolBar = UIToolbar()
 
 
     override func viewDidLoad() {
@@ -24,7 +23,6 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
         setupHeader()
-//        setupNavBar()
     }
     
     func loadObject(_ object: NSManagedObject){
@@ -67,21 +65,16 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         view.addSubview(header)
         header.addSubview(text)
     }
-    func setupNavBar(){
-        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
-        
-        
-        let navItem = UINavigationItem(title: "")
-        let addItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
-        let cancelItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
-        navItem.rightBarButtonItems = [addItem, cancelItem]
-        
-        
-        navBar.setItems([navItem], animated: false)
-        let tableView = UITableView()
-        view.addSubview(tableView)
-        view.addSubview(navBar)
-        print(navBar.frame)
+    func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
+        let stepper = Stepper()
+        stepper.minimumValue = 0
+        stepper.maximumValue = max
+        stepper.value = value
+        stepper.stepValue = step
+        stepper.setNum(num: tag)
+        stepper.setName(name: name)
+        stepper.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
+        cell.accessoryView = stepper
     }
     
     @objc func cancel(){
@@ -174,17 +167,6 @@ extension AddExercise {
         print(indexPath.row)
     }
     
-    func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
-        let stepper = Stepper()
-        stepper.minimumValue = 0
-        stepper.maximumValue = max
-        stepper.value = value
-        stepper.stepValue = step
-        stepper.setNum(num: tag)
-        stepper.setName(name: name)
-        stepper.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
-        cell.accessoryView = stepper
-    }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 20
     }

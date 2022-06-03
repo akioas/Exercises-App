@@ -8,8 +8,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     let cellId = "cellId"
     let list = ExercisesList()
     var exercises: [String] = []
-//    var toolBar = UIToolbar()
-
+    let items = Items()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +32,10 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         let but2 = UIButton()
         let but3 = UIButton()
         let but4 = UIButton()
-        setupBotButtons(but1, buttonNum: 1, view: view, systemName: "house.fill")
-        setupBotButtons(but2, buttonNum: 2, view: view, named: "Dumbbell")
-        setupBotButtons(but3, buttonNum: 3, view: view, systemName: "plus.circle")
-        setupBotButtons(but4, buttonNum: 4, view: view, systemName: "gearshape.circle")
+        items.setupBotButtons(but1, buttonNum: 1, view: view, systemName: "house.fill")
+        items.setupBotButtons(but2, buttonNum: 2, view: view, named: "Dumbbell")
+        items.setupBotButtons(but3, buttonNum: 3, view: view, systemName: "plus.circle")
+        items.setupBotButtons(but4, buttonNum: 4, view: view, systemName: "gearshape.circle")
         but1.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         but3.addTarget(self, action: #selector(addNewEx), for: .touchUpInside)
         but4.addTarget(self, action: #selector(userSettings), for: .touchUpInside)

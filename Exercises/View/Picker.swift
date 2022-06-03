@@ -50,42 +50,14 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         toolBar.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300) / 2 - 50, width: UIScreen.main.bounds.size.width, height: 50)
         picker.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300) / 2, width: UIScreen.main.bounds.size.width, height: 200)
         
-        //        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 350, width: UIScreen.main.bounds.size.width, height: 50))
-        
+       
         view.addSubview(picker)
         
         view.addSubview(toolBar)
-//        toolBar.sizeToFit()
         
         
     }
-    
-    
-    @objc func displayAlert() {
-        
-        let alertController = UIAlertController(title: "Добавить упражнение", message: "", preferredStyle: UIAlertController.Style.alert)
-        alertController.addTextField { (textField : UITextField!) -> Void in
-            textField.placeholder = "Упражнение"
-        }
-        let saveAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: { alert -> Void in
-            let firstTextField = alertController.textFields![0] as UITextField
-            self.exercises.insert(firstTextField.text ?? "", at: self.exercises.endIndex)
-            self.list.save(self.exercises)
-            self.picker.reloadAllComponents()
-        })
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
-            (action : UIAlertAction!) -> Void in })
-        
-        alertController.addAction(cancelAction)
-        
-        
-        alertController.addAction(saveAction)
-        
-        self.present(alertController, animated: true, completion: nil)
-        
-    }
-    
-    
+
     func setNum(_ num: Int, ex: NSManagedObject){
         pickerNum = num
         object = ex
@@ -120,10 +92,7 @@ extension Picker{
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        //        callBackPicker?(allExersizes[row], (pickerView.getNum()))
-        print(pickerNum)
         selected = exercises[row]
-        print(selected)
     }
 }
 
