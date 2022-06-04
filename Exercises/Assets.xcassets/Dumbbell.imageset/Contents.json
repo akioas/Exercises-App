@@ -1,15 +1,29 @@
 {
   "images" : [
     {
-      "filename" : "dumbbell-solid.svg",
+      "alignment-insets" : {
+        "bottom" : 0,
+        "left" : 0,
+        "right" : 0,
+        "top" : 3
+      },
+      "filename" : "dumbbell-solid@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "alignment-insets" : {
+        "bottom" : 0,
+        "left" : 0,
+        "right" : 0,
+        "top" : 3
+      },
+      "filename" : "dumbbell-solid@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "dumbbell-solid@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
@@ -17,5 +31,8 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }

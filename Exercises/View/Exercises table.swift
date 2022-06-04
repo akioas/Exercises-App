@@ -20,7 +20,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
         setupHeader()
-        botButtons()
+//        botButtons()
         let newView = UIView()
         newView.frame = CGRect(x: 5.0, y: tableView.frame.maxY , width: view.frame.width - 10.0, height: 1)
         newView.backgroundColor = .lightGray

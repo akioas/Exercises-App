@@ -49,16 +49,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         botPadding = view.safeAreaInsets.bottom
         setupTableView()
         setupHeader(view, text: ("Hello, " + yourName + "\nLast trainings"), width: tableView.frame.width)
-        botButtons()
+//        botButtons()
         setupViews()
     }
     
     func setupViews(){
+        /*
         let newView = UIView()
         newView.frame = CGRect(x: 5.0, y: tableView.frame.maxY , width: view.frame.width - 10.0, height: 1)
         newView.backgroundColor = .lightGray
         view.addSubview(newView)
-
+*/
         let newBotView = UIView()
         newBotView.frame = CGRect(x: 5.0, y: tableView.frame.height + topPadding , width: view.frame.width - 10.0, height: 3)
         newBotView.backgroundColor = .blue
@@ -68,7 +69,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         tableView.delegate = self
         let frame = self.view.bounds
-        tableView.frame = CGRect(x: 0, y: 50, width: frame.width, height: frame.height - frame.width / 10  - topPadding  - botPadding - 54)
+        tableView.frame = CGRect(x: 0, y: 50, width: frame.width, height: frame.height - frame.width / 10  - topPadding   )
         tableView.backgroundColor = .secondarySystemBackground
 
         view.addSubview(tableView)
