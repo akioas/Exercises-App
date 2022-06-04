@@ -93,10 +93,10 @@
         <scene sceneID="mWb-bh-UJQ">
             <objects>
                 <tabBarController id="KmD-fN-s6m" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XPh-NJ-1IF">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" itemPositioning="fill" id="XPh-NJ-1IF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="v3V-mM-Tfz" kind="relationship" relationship="viewControllers" id="9dP-eY-QGe"/>
@@ -113,13 +113,15 @@
         <scene sceneID="wJ2-qr-Tm6">
             <objects>
                 <navigationController id="q3p-Xh-Esy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="plus.circle.fill" catalog="system" id="Y80-ln-V6T"/>
+                    <tabBarItem key="tabBarItem" title="" image="plus.circle.fill" catalog="system" id="Y80-ln-V6T">
+                        <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNM-vA-cca">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="WPp-4g-p0X" kind="relationship" relationship="rootViewController" id="wSj-rR-GNj"/>
+                        <segue destination="36J-05-uXs" kind="relationship" relationship="rootViewController" id="Cvi-rB-xbS"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BNq-nO-lMP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -264,6 +266,7 @@
                 <navigationController id="v3V-mM-Tfz" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="hR1-EQ-yHg">
                         <imageReference key="image" image="house.fill" catalog="system" symbolScale="large"/>
+                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="10"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ThJ-aK-zcl">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -280,14 +283,15 @@
         <!--View Controller-->
         <scene sceneID="NfV-8a-BpP">
             <objects>
-                <viewController storyboardIdentifier="viewcontroller" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9Oh-0G-bvh" customClass="ViewController" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="viewcontroller" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9Oh-0G-bvh" customClass="ViewController" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qpk-HA-t7I">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="4g7-dW-6za"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="vcd-GI-Twv"/>
+                    <navigationItem key="navigationItem" id="Fg9-6n-zvS"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qx1-DZ-pBj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -298,7 +302,7 @@
             <objects>
                 <navigationController id="5PC-Fy-eSq" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="Dumbbell" id="1an-vE-Xh7">
-                        <inset key="imageInsets" minX="0.0" minY="-8" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageInsets" minX="0.0" minY="-10" maxX="0.0" maxY="0.0"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="0ig-u2-rAo">
@@ -306,7 +310,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="ydS-PN-Fw5" kind="relationship" relationship="rootViewController" id="FMp-UT-h8C"/>
+                        <segue destination="FIx-VP-x0R" kind="relationship" relationship="rootViewController" id="AXM-fw-SdW"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Go1-Py-Q9e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -317,13 +321,15 @@
         <scene sceneID="xYo-pn-KrI">
             <objects>
                 <navigationController id="1MI-qB-Z50" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="gear.circle.fill" catalog="system" id="TmC-ks-WAX"/>
+                    <tabBarItem key="tabBarItem" title="" image="gear.circle.fill" catalog="system" id="TmC-ks-WAX">
+                        <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JuX-Tf-O2v">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Mqi-ql-yuN" kind="relationship" relationship="rootViewController" id="jBP-UJ-8gZ"/>
+                        <segue destination="EN2-9Q-2DZ" kind="relationship" relationship="rootViewController" id="yLr-fr-do3"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KTG-LU-mYd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -331,50 +337,53 @@
             <point key="canvasLocation" x="2336" y="115"/>
         </scene>
         <!--Add Exercise-->
-        <scene sceneID="t5C-RB-Mtm">
+        <scene sceneID="Vsw-AB-hWi">
             <objects>
-                <viewController id="ydS-PN-Fw5" customClass="AddExercise" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="wou-lz-5ID">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FIx-VP-x0R" customClass="AddExercise" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="e5H-tf-CCG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="scx-33-X7h"/>
+                        <viewLayoutGuide key="safeArea" id="nAh-6x-CrT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="VBA-0M-GS8"/>
+                    <navigationItem key="navigationItem" id="TTz-Pd-Sca"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mje-RE-Kvh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3hB-B0-mlr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="512" y="897"/>
         </scene>
         <!--Exercises Table-->
-        <scene sceneID="4OE-cM-Lpj">
+        <scene sceneID="85W-Td-Kf3">
             <objects>
-                <viewController id="WPp-4g-p0X" customClass="ExercisesTable" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="XWv-8s-PLe">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="36J-05-uXs" customClass="ExercisesTable" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jmU-ef-ImZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="oSO-sI-gbw"/>
+                        <viewLayoutGuide key="safeArea" id="i7r-SP-N2I"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="oFB-hc-LRb"/>
+                    <navigationItem key="navigationItem" id="f0c-UW-HKZ"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Zb8-oB-zZb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NpW-UH-HMN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1535" y="897"/>
         </scene>
         <!--User Settings-->
-        <scene sceneID="Xr3-fv-2ox">
+        <scene sceneID="kGa-tI-kTj">
             <objects>
-                <viewController id="Mqi-ql-yuN" customClass="UserSettings" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ecv-Y7-Vw1">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EN2-9Q-2DZ" customClass="UserSettings" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="p9p-2D-ZFz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="grF-HR-o20"/>
+                        <viewLayoutGuide key="safeArea" id="a2R-kh-SKH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="cme-H7-XvW"/>
+                    <navigationItem key="navigationItem" id="aRR-qY-6If"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vc5-uF-ObQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="an1-hg-7wf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2335" y="897"/>
         </scene>

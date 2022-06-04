@@ -37,7 +37,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         tableView.dataSource = self
         tableView.delegate = self
         tableView.backgroundColor = .secondarySystemBackground
-        tableView.frame = CGRect(x: 0, y: 50 + topPadding, width: view.frame.width, height: view.frame.height - topPadding * 2 - botPadding )
+        tableView.frame = CGRect(x: 0, y: 50 , width: view.frame.width, height: view.frame.height - 50)
         view.addSubview(tableView)
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 70))
         let buttonCancel = UIButton(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
@@ -53,17 +53,21 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         tableView.tableFooterView = customView
     }
     func setupHeader(){
-        let header = UIView.init(frame: CGRect.init(x: 0, y: topPadding, width: tableView.frame.width, height: 50))
+//        let header = UIView.init(frame: CGRect.init(x: 0, y: topPadding, width: tableView.frame.width, height: 50))
+        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 44, width: view.frame.size.width, height: 44))
+        self.navigationController?.view.addSubview(navBar)
+
+        let navItem = UINavigationItem()
+
+        navBar.setItems([navItem], animated: false)
+
         let text = UILabel()
         text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width, height: 50)
         text.numberOfLines = 2
         text.text = "Hello, " + yourName + " \nAdd an activity"
         text.textAlignment = .center
-        header.backgroundColor = .secondarySystemBackground
-        header.layer.borderWidth = 1
-        header.layer.borderColor = UIColor.label.cgColor
-        view.addSubview(header)
-        header.addSubview(text)
+       
+        navBar.addSubview(text)
     }
     func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
         let stepper = Stepper()

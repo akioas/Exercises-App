@@ -21,11 +21,12 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         setupTableView()
         setupHeader()
 //        botButtons()
+        /*
         let newView = UIView()
         newView.frame = CGRect(x: 5.0, y: tableView.frame.maxY , width: view.frame.width - 10.0, height: 1)
         newView.backgroundColor = .lightGray
         view.addSubview(newView)
-
+*/
     }
     func botButtons(){
         let but1 = UIButton()
@@ -69,19 +70,30 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         let frame = self.view.bounds
 
-        tableView.frame = CGRect(x: 0, y: 50 + topPadding, width: frame.width, height: frame.height - frame.width / 10  - topPadding  - botPadding - 54)
-        tableView.isUserInteractionEnabled = false
+        tableView.frame = CGRect(x: 0, y: 50 , width: frame.width, height: frame.height - 50)
+        tableView.isUserInteractionEnabled = true
         tableView.backgroundColor = .secondarySystemBackground
         view.addSubview(tableView)
        
     }
     func setupHeader(){
-        let header = UIView.init(frame: CGRect.init(x: 0, y: topPadding, width: tableView.frame.width, height: 50))
+//        let header = UIView.init(frame: CGRect.init(x: 0, y: topPadding, width: tableView.frame.width, height: 50))
+        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 44, width: view.frame.size.width, height: 44))
+        self.navigationController?.view.addSubview(navBar)
+
+        let navItem = UINavigationItem()
+        let clock = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .plain, target: self, action: #selector(displayAlert))
+        navItem.rightBarButtonItem = clock
+
+        navBar.setItems([navItem], animated: false)
         let text = UILabel()
         text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width - 90, height: 50)
         text.numberOfLines = 1
         text.text = "Exercises"
         text.textAlignment = .center
+        navBar.addSubview(text)
+
+        /*
         header.backgroundColor = .secondarySystemBackground
         header.layer.borderWidth = 1
         header.layer.borderColor = UIColor.label.cgColor
@@ -95,7 +107,8 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: #selector(displayAlert), for: .touchUpInside)
         header.addSubview(button)
-        header.addSubview(text)
+         */
+
     }
     
     @objc func refresh(){

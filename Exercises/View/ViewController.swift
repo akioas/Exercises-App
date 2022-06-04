@@ -43,14 +43,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         view.backgroundColor = .secondarySystemBackground
 //        self.hideOnTap()
 
+        if UserVariables().isFirstLaunch(){ //! if  1
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "launch") as! FirstLaunch
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: false)
+        }
     }
     func createViews(){
         topPadding = view.safeAreaInsets.top
         botPadding = view.safeAreaInsets.bottom
         setupTableView()
         setupHeader(view, text: ("Hello, " + yourName + "\nLast trainings"), width: tableView.frame.width)
+        
 //        botButtons()
-        setupViews()
+//        setupViews()
     }
     
     func setupViews(){
@@ -69,7 +76,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         tableView.delegate = self
         let frame = self.view.bounds
-        tableView.frame = CGRect(x: 0, y: 50, width: frame.width, height: frame.height - frame.width / 10  - topPadding   )
+        tableView.frame = CGRect(x: 0, y: 50, width: frame.width, height: frame.height - 50   )
         tableView.backgroundColor = .secondarySystemBackground
 
         view.addSubview(tableView)
@@ -91,7 +98,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         but4.addTarget(self, action: #selector(userSettings), for: .touchUpInside)
     }
     func setupHeader(_ view: UIView, text: String, width: CGFloat){
-        let header = UIView.init(frame: CGRect.init(x: 0, y: 0, width: width, height: 50))
+        
+        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 44, width: view.frame.size.width, height: 44))
+        self.navigationController?.view.addSubview(navBar)
+
+        let navItem = UINavigationItem()
+        let clock = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(clockItem))
+        navItem.rightBarButtonItem = clock
+
+        navBar.setItems([navItem], animated: false)
+        let header = UIView.init(frame: CGRect.init(x: 0, y: view.safeAreaInsets.top - 44, width: width, height: 50))
         textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 100, height: 50)
         textLabel.numberOfLines = 2
         textLabel.text = text
@@ -99,14 +115,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         header.backgroundColor = .secondarySystemBackground
         header.layer.borderWidth = 1
         header.layer.borderColor = UIColor.label.cgColor
-        header.addSubview(textLabel)
+        navBar.addSubview(textLabel)
         let calButton = UIButton(frame: CGRect(x: width - 50, y: 0, width: 50, height: 50))
         calButton.setImage(UIImage(systemName: "calendar"), for: .normal)
         calButton.tintColor = .link
         calButton.addTarget(self, action: #selector(clockItem), for: .touchUpInside)
-        header.addSubview(calButton)
+//        header.addSubview(calButton)
 
-        view.addSubview(header)
+//        view.addSubview(header)
     }
     func createDatePicker(){
         
@@ -120,7 +136,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let spaceButton = UIBarButtonItem(title: "Clear selection", style: .plain, target: self, action: #selector(clearDate))
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDate))
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        view.addSubview(toolBar)
+        self.navigationController?.view.addSubview(toolBar)
+
         view.addSubview(datePicker)
     }
     
@@ -321,6 +338,7 @@ extension ViewController {
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 5
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
