@@ -29,6 +29,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidAppear(_ animated: Bool) {
 
         createViews()
+        if let tabBar = self.tabBarController?.tabBar{
+            tabBar.backgroundColor = .white
+            tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
+            tabBar.layer.shadowRadius = 2
+            tabBar.layer.shadowColor = UIColor.black.cgColor
+            tabBar.layer.shadowOpacity = 0.3
+        }
+//        if let tabBarItem = self.tabBarItem{
+//            tabBarItem.accessibilityFrame = CGRect(x: 0, y: 0, width: 80, height: 40)
+//        }
+        
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()

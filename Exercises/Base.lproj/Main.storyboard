@@ -93,15 +93,16 @@
         <scene sceneID="mWb-bh-UJQ">
             <objects>
                 <tabBarController id="KmD-fN-s6m" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" itemPositioning="fill" id="XPh-NJ-1IF">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" itemPositioning="fill" id="XPh-NJ-1IF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="selectedImageTintColor" red="0.18431372549019609" green="0.50196078431372548" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="v3V-mM-Tfz" kind="relationship" relationship="viewControllers" id="9dP-eY-QGe"/>
-                        <segue destination="q3p-Xh-Esy" kind="relationship" relationship="viewControllers" id="8Hm-xN-tWf"/>
                         <segue destination="5PC-Fy-eSq" kind="relationship" relationship="viewControllers" id="iMv-73-SI6"/>
+                        <segue destination="q3p-Xh-Esy" kind="relationship" relationship="viewControllers" id="8Hm-xN-tWf"/>
                         <segue destination="1MI-qB-Z50" kind="relationship" relationship="viewControllers" id="JkP-P6-Krs"/>
                         <segue destination="dua-eG-O2R" kind="relationship" relationship="viewControllers" id="xy7-ci-OZ5"/>
                     </connections>
@@ -116,6 +117,9 @@
                 <navigationController id="q3p-Xh-Esy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="Y80-ln-V6T">
                         <imageReference key="image" image="PlusCircle" symbolScale="large"/>
+                        <inset key="imageInsets" minX="-8" minY="-8" maxX="-8" maxY="-8"/>
+                        <inset key="landscapeImageInsets" minX="0.0" minY="-2" maxX="0.0" maxY="0.0"/>
+                        <inset key="largeContentSizeImageInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNM-vA-cca">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -267,6 +271,7 @@
                 <navigationController id="v3V-mM-Tfz" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="hR1-EQ-yHg">
                         <imageReference key="image" image="homenav" symbolScale="large"/>
+                        <inset key="imageInsets" minX="3" minY="-1" maxX="3" maxY="3"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ThJ-aK-zcl">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -314,7 +319,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Go1-Py-Q9e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="512" y="115"/>
+            <point key="canvasLocation" x="568" y="115"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xYo-pn-KrI">
@@ -333,10 +338,10 @@
             </objects>
             <point key="canvasLocation" x="2336" y="115"/>
         </scene>
-        <!--Add Exercise-->
+        <!--Exercises Table-->
         <scene sceneID="Vsw-AB-hWi">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FIx-VP-x0R" customClass="AddExercise" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FIx-VP-x0R" customClass="ExercisesTable" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="e5H-tf-CCG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -350,10 +355,10 @@
             </objects>
             <point key="canvasLocation" x="512" y="897"/>
         </scene>
-        <!--Exercises Table-->
+        <!--Add Exercise-->
         <scene sceneID="85W-Td-Kf3">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="36J-05-uXs" customClass="ExercisesTable" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="36J-05-uXs" customClass="AddExercise" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jmU-ef-ImZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
