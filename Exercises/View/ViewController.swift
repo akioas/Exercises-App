@@ -70,7 +70,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         topImage(view: view)
 
         setupHeader(view, text: ("Hello, " + yourName + "\nLast trainings"), width: tableView.frame.width)
-
+        self.navigationController?.isNavigationBarHidden = true
 //        botButtons()
 //        setupViews()
     }
@@ -91,7 +91,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         tableView.delegate = self
         let frame = self.view.bounds
-        tableView.frame = CGRect(x: 0, y: 50, width: frame.width, height: frame.height - 50   )
+        tableView.frame = CGRect(x: 0, y: 70 + 44, width: frame.width, height: frame.height - 50   )
         tableView.backgroundColor = .secondarySystemBackground
 
         view.addSubview(tableView)
@@ -115,21 +115,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func setupHeader(_ view: UIView, text: String, width: CGFloat){
         
         let header = UIView.init(frame: CGRect.init(x: 0, y: 44, width: width, height: 50))
-                textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 60, height: 50)
-                textLabel.numberOfLines = 2
-                textLabel.text = text
+        textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 60, height: 50)
+        textLabel.numberOfLines = 2
+        textLabel.text = text
         textLabel.textColor = .white
-                textLabel.textAlignment = .center
-                header.backgroundColor = .clear
-               
-                header.addSubview(textLabel)
-                let calButton = UIButton(frame: CGRect(x: width - 50, y: 0, width: 60, height: 50))
-                calButton.setImage(UIImage(systemName: "calendar"), for: .normal)
-                calButton.tintColor = .white
-                calButton.addTarget(self, action: #selector(clockItem), for: .touchUpInside)
-                header.addSubview(calButton)
-
-                view.addSubview(header)
+        textLabel.textAlignment = .center
+        header.backgroundColor = .clear
+        
+        header.addSubview(textLabel)
+        let calButton = UIButton(frame: CGRect(x: width - 60, y: 0, width: 50, height: 50))
+        calButton.setImage(UIImage(systemName: "calendar"), for: .normal)
+        calButton.tintColor = .white
+        calButton.addTarget(self, action: #selector(clockItem), for: .touchUpInside)
+        calButton.isUserInteractionEnabled = true
+        header.addSubview(calButton)
+        
+        view.addSubview(header)
     }
     func createDatePicker(){
         
@@ -332,7 +333,7 @@ extension ViewController {
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0{
-            return 20
+            return 40
         } else if data.setText(item: 0, currentEx: exercises[section]) != data.setText(item: 0, currentEx: exercises[section - 1]) {
             return 20
         } else {

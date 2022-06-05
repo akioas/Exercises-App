@@ -50,7 +50,10 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
+        topImage(view: view)
         setupHeader()
+        self.navigationController?.isNavigationBarHidden = true
+
 //        botButtons()
         /*
         let newView = UIView()
@@ -193,21 +196,15 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
         tableView.delegate = self
         let frame = self.view.bounds
 
-        tableView.frame = CGRect(x: 0, y: 50 , width: frame.width, height: frame.height - 50)
+        tableView.frame = CGRect(x: 0, y: 44 , width: frame.width, height: frame.height - 50)
         tableView.backgroundColor = .secondarySystemBackground
         view.addSubview(tableView)
        
     }
     func setupHeader(){
-//        let header = UIView.init(frame: CGRect.init(x: 0, y: topPadding, width: tableView.frame.width, height: 50))
-        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 44, width: view.frame.size.width, height: 44))
-        self.navigationController?.view.addSubview(navBar)
-
-        let navItem = UINavigationItem()
-        let clock = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(edit))
-        navItem.rightBarButtonItem = clock
-
-        navBar.setItems([navItem], animated: false)
+        let header = UIView.init(frame: CGRect.init(x: 0, y: 44, width: tableView.frame.width, height: 50))
+        
+    
         let person = UIImageView()
         person.frame = CGRect.init(x: 10, y: 10, width: 30, height: 30)
         person.image = UIImage(systemName: "person.fill")
@@ -215,19 +212,19 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
         text.numberOfLines = 1
         text.text = yourName
         text.textAlignment = .center
-        /*
+        text.textColor = .white
+        
         editButton.frame = CGRect.init(x: tableView.frame.width - 50, y: 10, width: 30, height: 30)
         editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
-        editButton.tintColor = .label
+        editButton.tintColor = .white
         editButton.addTarget(self, action: #selector(edit), for: .touchUpInside)
-        header.backgroundColor = .secondarySystemBackground
-        header.layer.borderWidth = 1
-        header.layer.borderColor = UIColor.label.cgColor
+        header.backgroundColor = .clear
+        
         view.addSubview(header)
-         */
-        navBar.addSubview(person)
-        navBar.addSubview(text)
-        navBar.addSubview(editButton)
+         
+        header.addSubview(person)
+        header.addSubview(text)
+        header.addSubview(editButton)
     }
     
     
@@ -332,7 +329,7 @@ extension UserSettings {
         return UIView()
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return 70
     }
     
     

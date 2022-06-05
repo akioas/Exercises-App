@@ -19,7 +19,10 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
+        topImage(view: view)
         setupHeader()
+        self.navigationController?.isNavigationBarHidden = true
+
 //        botButtons()
         /*
         let newView = UIView()
@@ -78,20 +81,26 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     func setupHeader(){
 //        let header = UIView.init(frame: CGRect.init(x: 0, y: topPadding, width: tableView.frame.width, height: 50))
-        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 44, width: view.frame.size.width, height: 44))
-        self.navigationController?.view.addSubview(navBar)
-
-        let navItem = UINavigationItem()
-        let clock = UIBarButtonItem(image: UIImage(systemName: "plus.circle"), style: .plain, target: self, action: #selector(displayAlert))
-        navItem.rightBarButtonItem = clock
-
-        navBar.setItems([navItem], animated: false)
-        let text = UILabel()
-        text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width - 90, height: 50)
-        text.numberOfLines = 1
-        text.text = "Exercises"
-        text.textAlignment = .center
-        navBar.addSubview(text)
+        
+        let textLabel = UILabel()
+        textLabel.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width - 90, height: 50)
+        textLabel.numberOfLines = 1
+        textLabel.text = "Exercises"
+        textLabel.textAlignment = .center
+        textLabel.textColor = .white
+        let width = UIScreen.main.bounds.width
+        let header = UIView.init(frame: CGRect.init(x: 0, y: 44, width: width, height: 50))
+     
+        header.backgroundColor = .clear
+        
+        header.addSubview(textLabel)
+        let plusButton = UIButton(frame: CGRect(x: width - 60, y: 0, width: 50, height: 50))
+        plusButton.setImage(UIImage(systemName: "plus.circle"), for: .normal)
+        plusButton.tintColor = .white
+        plusButton.addTarget(self, action: #selector(displayAlert), for: .touchUpInside)
+        header.addSubview(plusButton)
+        
+        view.addSubview(header)
 
         /*
         header.backgroundColor = .secondarySystemBackground
@@ -169,7 +178,7 @@ extension ExercisesTable {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return 70
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()

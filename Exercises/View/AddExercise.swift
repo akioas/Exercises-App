@@ -22,7 +22,10 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
+        topImage(view: view)
         setupHeader()
+        self.navigationController?.isNavigationBarHidden = true
+
     }
     
     func loadObject(_ object: NSManagedObject){
@@ -53,21 +56,22 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         tableView.tableFooterView = customView
     }
     func setupHeader(){
-//        let header = UIView.init(frame: CGRect.init(x: 0, y: topPadding, width: tableView.frame.width, height: 50))
-        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 44, width: view.frame.size.width, height: 44))
-        self.navigationController?.view.addSubview(navBar)
+        let width = UIScreen.main.bounds.width
 
-        let navItem = UINavigationItem()
+        let header = UIView.init(frame: CGRect.init(x: 0, y: 44, width: width, height: 50))
+        let textLabel = UILabel()
+        textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 60, height: 50)
+        textLabel.numberOfLines = 2
+        textLabel.text = "Hello, " + yourName + " \nAdd an activity"
+        textLabel.textColor = .white
+        textLabel.textAlignment = .center
+        header.backgroundColor = .clear
+        
+        header.addSubview(textLabel)
+        
+        
+        view.addSubview(header)
 
-        navBar.setItems([navItem], animated: false)
-
-        let text = UILabel()
-        text.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width, height: 50)
-        text.numberOfLines = 2
-        text.text = "Hello, " + yourName + " \nAdd an activity"
-        text.textAlignment = .center
-       
-        navBar.addSubview(text)
     }
     func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
         let stepper = Stepper()
@@ -172,7 +176,7 @@ extension AddExercise {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return 70
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()
