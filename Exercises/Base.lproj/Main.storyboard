@@ -408,10 +408,10 @@
             </objects>
             <point key="canvasLocation" x="3290" y="115"/>
         </scene>
-        <!--More-->
+        <!--More Info-->
         <scene sceneID="ACc-9m-Km6">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="adj-D6-Pjm" customClass="More" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="adj-D6-Pjm" customClass="MoreInfo" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XnY-T1-vJa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

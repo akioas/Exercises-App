@@ -8,3 +8,4 @@ func dates(for date: Date) -> (start: Date, end: Date){
     let endDate = Calendar.current.date(byAdding: components, to: startDate)!
     return (startDate, endDate)
 }
+

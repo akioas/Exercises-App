@@ -86,3 +86,12 @@ func setupDatePicker(datePicker: UIDatePicker, toolBar: UIToolbar){
     toolBar.frame = CGRect.init(x: 0.0, y: 50, width: UIScreen.main.bounds.size.width, height: 50)
     toolBar.isUserInteractionEnabled = true
 }
+
+
+func topImage(view: UIView){
+    let imgView = UIImageView()
+    imgView.frame = CGRect.init(x: 0, y: 44, width: UIScreen.main.bounds.width, height: 150)
+    imgView.image = UIImage(named: "Decor")
+    imgView.contentMode = .scaleAspectFill
+    view.addSubview(imgView)
+}

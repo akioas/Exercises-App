@@ -65,9 +65,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func createViews(){
         topPadding = view.safeAreaInsets.top
         botPadding = view.safeAreaInsets.bottom
+
         setupTableView()
+        topImage(view: view)
+
         setupHeader(view, text: ("Hello, " + yourName + "\nLast trainings"), width: tableView.frame.width)
-        
+
 //        botButtons()
 //        setupViews()
     }
@@ -111,30 +114,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     func setupHeader(_ view: UIView, text: String, width: CGFloat){
         
-        let navBar = UINavigationBar(frame: CGRect(x: 0, y: 44, width: view.frame.size.width, height: 44))
-        self.navigationController?.view.addSubview(navBar)
+        let header = UIView.init(frame: CGRect.init(x: 0, y: 44, width: width, height: 50))
+                textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 60, height: 50)
+                textLabel.numberOfLines = 2
+                textLabel.text = text
+        textLabel.textColor = .white
+                textLabel.textAlignment = .center
+                header.backgroundColor = .clear
+               
+                header.addSubview(textLabel)
+                let calButton = UIButton(frame: CGRect(x: width - 50, y: 0, width: 60, height: 50))
+                calButton.setImage(UIImage(systemName: "calendar"), for: .normal)
+                calButton.tintColor = .white
+                calButton.addTarget(self, action: #selector(clockItem), for: .touchUpInside)
+                header.addSubview(calButton)
 
-        let navItem = UINavigationItem()
-        let clock = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(clockItem))
-        navItem.rightBarButtonItem = clock
-
-        navBar.setItems([navItem], animated: false)
-        let header = UIView.init(frame: CGRect.init(x: 0, y: view.safeAreaInsets.top - 44, width: width, height: 50))
-        textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 100, height: 50)
-        textLabel.numberOfLines = 2
-        textLabel.text = text
-        textLabel.textAlignment = .center
-        header.backgroundColor = .secondarySystemBackground
-        header.layer.borderWidth = 1
-        header.layer.borderColor = UIColor.label.cgColor
-        navBar.addSubview(textLabel)
-        let calButton = UIButton(frame: CGRect(x: width - 50, y: 0, width: 50, height: 50))
-        calButton.setImage(UIImage(systemName: "calendar"), for: .normal)
-        calButton.tintColor = .link
-        calButton.addTarget(self, action: #selector(clockItem), for: .touchUpInside)
-//        header.addSubview(calButton)
-
-//        view.addSubview(header)
+                view.addSubview(header)
     }
     func createDatePicker(){
         
