@@ -66,17 +66,39 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
             (action : UIAlertAction!) -> Void in })
-        
         alertController.addAction(cancelAction)
+        alertController.addAction(saveAction)
         
+        self.present(alertController, animated: true, completion: nil)
         
+    }
+    @objc func editObject(_ sender:Button!) {
+        
+        let alertController = UIAlertController(title: "Изменить упражнение", message: "", preferredStyle: UIAlertController.Style.alert)
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Упражнение"
+            textField.text = self.exercises[sender.num]
+        }
+        let saveAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: { alert -> Void in
+            let firstTextField = alertController.textFields![0] as UITextField
+            self.exercises[sender.num] = firstTextField.text ?? ""
+            self.list.save(self.exercises)
+            self.refresh()
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
+            (action : UIAlertAction!) -> Void in })
+        alertController.addAction(cancelAction)
         alertController.addAction(saveAction)
         
         self.present(alertController, animated: true, completion: nil)
         
     }
     
-     
+    @objc func deleteObject(_ sender:Button!){
+        self.exercises.remove(at: sender.num)
+        self.list.save(self.exercises)
+        self.refresh()
+    }
 }
 
 
@@ -98,6 +120,21 @@ extension ExercisesTable {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         cell.textLabel?.text = exercises[indexPath.row]
         cell.backgroundColor = .secondarySystemBackground
+        let deleteButton = Button(frame: CGRect(x: 50, y: 0, width: 50, height: 50))
+        deleteButton.setNum(num: indexPath.row)
+        deleteButton.setImage(UIImage(systemName: "trash"), for: .normal)
+        deleteButton.tintColor = .link
+        deleteButton.addTarget(self, action: #selector(deleteObject), for: .touchUpInside)
+        let editButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        editButton.setNum(num: indexPath.row)
+        editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
+        editButton.tintColor = .link
+        editButton.addTarget(self, action: #selector(editObject), for: .touchUpInside)
+        let buttons = UIView(frame: CGRect.init(x: 0, y: 0, width: 100, height: 50))
+        buttons.addSubview(deleteButton)
+        buttons.addSubview(editButton)
+        cell.accessoryView = buttons
+        cell.selectionStyle = .none
 
         return cell
     }

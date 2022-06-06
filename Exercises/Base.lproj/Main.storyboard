@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KmD-fN-s6m">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KmD-fN-s6m">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +13,10 @@
         <scene sceneID="q9V-vK-WMr">
             <objects>
                 <viewController storyboardIdentifier="launch" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jCF-8M-4Bh" customClass="FirstLaunch" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Xhe-Ad-FjX"/>
+                        <viewControllerLayoutGuide type="bottom" id="h66-V4-ypZ"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Mko-9T-3cv" customClass="UITableView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -100,7 +103,6 @@
                 <view contentMode="scaleToFill" id="dH9-1b-8Qd">
                     <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <viewLayoutGuide key="safeArea" id="xl8-Z7-yM1"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
             </objects>
@@ -151,6 +153,10 @@
         <scene sceneID="gCV-6p-nUv">
             <objects>
                 <viewController storyboardIdentifier="firstlaunchtext" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="q3D-Pd-A9y" customClass="FirstLaunchText" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zKa-jC-4UN"/>
+                        <viewControllerLayoutGuide type="bottom" id="tYS-Kd-TaN"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Kt5-dy-RZU" customClass="UITableView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -293,15 +299,14 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="4Br-LL-4gS"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="h8R-uH-JpX" firstAttribute="width" secondItem="Kt5-dy-RZU" secondAttribute="width" multiplier="0.9" id="SZb-cc-cgE"/>
                             <constraint firstItem="1mQ-jJ-9wi" firstAttribute="centerX" secondItem="Kt5-dy-RZU" secondAttribute="centerX" id="oYC-0a-AIN"/>
                             <constraint firstItem="H4q-gn-N2G" firstAttribute="width" secondItem="Kt5-dy-RZU" secondAttribute="width" multiplier="0.9" id="tuT-9J-WGq"/>
                             <constraint firstItem="H4q-gn-N2G" firstAttribute="centerX" secondItem="Kt5-dy-RZU" secondAttribute="centerX" id="vIo-HD-8a1"/>
-                            <constraint firstItem="4Br-LL-4gS" firstAttribute="bottom" secondItem="H4q-gn-N2G" secondAttribute="bottom" constant="40" id="wuw-6d-pIl"/>
-                            <constraint firstItem="1mQ-jJ-9wi" firstAttribute="top" secondItem="4Br-LL-4gS" secondAttribute="top" constant="100" id="zSz-c4-UhY"/>
+                            <constraint firstItem="tYS-Kd-TaN" firstAttribute="top" secondItem="H4q-gn-N2G" secondAttribute="bottom" constant="40" id="wuw-6d-pIl"/>
+                            <constraint firstItem="1mQ-jJ-9wi" firstAttribute="top" secondItem="zKa-jC-4UN" secondAttribute="bottom" constant="100" id="zSz-c4-UhY"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
@@ -344,10 +349,13 @@
         <scene sceneID="NfV-8a-BpP">
             <objects>
                 <viewController storyboardIdentifier="viewcontroller" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9Oh-0G-bvh" customClass="ViewController" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XEX-7H-vyG"/>
+                        <viewControllerLayoutGuide type="bottom" id="eGl-uH-VnA"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Qpk-HA-t7I">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="4g7-dW-6za"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="Fg9-6n-zvS"/>
@@ -379,14 +387,14 @@
         <!--Navigation Controller-->
         <scene sceneID="xYo-pn-KrI">
             <objects>
-                <navigationController id="1MI-qB-Z50" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="1MI-qB-Z50" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="" image="Vector" id="TmC-ks-WAX"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JuX-Tf-O2v">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="EN2-9Q-2DZ" kind="relationship" relationship="rootViewController" id="yLr-fr-do3"/>
+                        <segue destination="Uyj-j8-W1G" kind="relationship" relationship="rootViewController" id="ljb-3h-rTh"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KTG-LU-mYd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -397,10 +405,13 @@
         <scene sceneID="Vsw-AB-hWi">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FIx-VP-x0R" customClass="ExercisesTable" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="s2e-bF-zDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="Koe-9c-nZR"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="e5H-tf-CCG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="nAh-6x-CrT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="TTz-Pd-Sca"/>
@@ -409,23 +420,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3hB-B0-mlr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="512" y="897"/>
-        </scene>
-        <!--User Settings-->
-        <scene sceneID="kGa-tI-kTj">
-            <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EN2-9Q-2DZ" customClass="UserSettings" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="p9p-2D-ZFz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="a2R-kh-SKH"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="aRR-qY-6If"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="an1-hg-7wf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2335" y="897"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="c3N-Ot-8cR">
@@ -450,10 +444,13 @@
         <scene sceneID="ACc-9m-Km6">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="adj-D6-Pjm" customClass="MoreInfo" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="h2s-MW-1B9"/>
+                        <viewControllerLayoutGuide type="bottom" id="Yr6-eS-9sF"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="XnY-T1-vJa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="W3I-3k-IfY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="QR0-NP-5RS"/>
@@ -467,10 +464,13 @@
         <scene sceneID="AtY-Tp-UPO">
             <objects>
                 <viewController storyboardIdentifier="addex" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2YC-rT-sYT" customClass="AddExercise" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ep7-Mr-0k4"/>
+                        <viewControllerLayoutGuide type="bottom" id="KLv-Hi-Yuu"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cTh-bJ-lze">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="ol2-Rs-z99"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="YVw-uO-163"/>
@@ -479,6 +479,156 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D83-8r-5de" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1206" y="1685"/>
+        </scene>
+        <!--User Settings-->
+        <scene sceneID="Tav-Qu-K14">
+            <objects>
+                <viewController storyboardIdentifier="usersettings" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Uyj-j8-W1G" customClass="UserSettings" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3dk-N4-BXh"/>
+                        <viewControllerLayoutGuide type="bottom" id="JzB-dF-Cmg"/>
+                    </layoutGuides>
+                    <view key="view" autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" id="1uz-Jm-yeh" customClass="UITableView">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Yfz-aU-gs0">
+                                <rect key="frame" x="20.5" y="144" width="373" height="517.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKi-AO-K2k">
+                                        <rect key="frame" x="0.0" y="0.0" width="373" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rnz-yb-Awz">
+                                        <rect key="frame" x="0.0" y="39.5" width="373" height="48"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="cSJ-br-wa4"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="name"/>
+                                        <connections>
+                                            <action selector="nameEdited:" destination="Uyj-j8-W1G" eventType="editingDidEnd" id="rxV-Ue-CIy"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AjW-mM-xVm">
+                                        <rect key="frame" x="0.0" y="107.5" width="373" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iEw-7s-3qQ">
+                                        <rect key="frame" x="0.0" y="147" width="373" height="48"/>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="ghm-fY-hR6"/>
+                                        </constraints>
+                                        <color key="tintColor" systemColor="placeholderTextColor"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Button">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content=" ">
+                                                    <attributes>
+                                                        <font key="NSFont" metaFont="system" size="25"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="17" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                        <connections>
+                                            <action selector="sexEdited:" destination="Uyj-j8-W1G" eventType="touchUpInside" id="tUm-hN-w3X"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Birthday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dzB-ga-6KJ">
+                                        <rect key="frame" x="0.0" y="215" width="373" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jXc-gs-t1d">
+                                        <rect key="frame" x="0.0" y="254.5" width="373" height="48"/>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="60D-Gd-EHj"/>
+                                        </constraints>
+                                        <color key="tintColor" systemColor="placeholderTextColor"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Button">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content=" ">
+                                                    <attributes>
+                                                        <font key="NSFont" metaFont="toolTip"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                        <connections>
+                                            <action selector="birthdayEdited:" destination="Uyj-j8-W1G" eventType="touchUpInside" id="K8z-X3-Jzw"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Height" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eF-DM-lSz">
+                                        <rect key="frame" x="0.0" y="322.5" width="373" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dGu-jK-7ek">
+                                        <rect key="frame" x="0.0" y="362" width="373" height="48"/>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="Efs-2M-Gmk"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="honorifix-suffix"/>
+                                        <connections>
+                                            <action selector="heightEdited:" destination="Uyj-j8-W1G" eventType="editingDidEnd" id="MRw-jH-0jb"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S5k-iI-TJh">
+                                        <rect key="frame" x="0.0" y="430" width="373" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1cW-xd-Yu7">
+                                        <rect key="frame" x="0.0" y="469.5" width="373" height="48"/>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="h0N-zA-qKC"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="honorifix-suffix"/>
+                                        <connections>
+                                            <action selector="weightEdited:" destination="Uyj-j8-W1G" eventType="editingDidEnd" id="ldt-6a-JGN"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Rnz-yb-Awz" firstAttribute="width" secondItem="1uz-Jm-yeh" secondAttribute="width" multiplier="0.9" id="AmW-wq-6Rq"/>
+                            <constraint firstItem="Yfz-aU-gs0" firstAttribute="centerX" secondItem="1uz-Jm-yeh" secondAttribute="centerX" id="KLs-Ky-NP5"/>
+                            <constraint firstItem="Yfz-aU-gs0" firstAttribute="top" secondItem="3dk-N4-BXh" secondAttribute="bottom" constant="100" id="a1X-jP-PO2"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hmU-hd-8c3"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="birthdayButton" destination="jXc-gs-t1d" id="Y4M-Ie-HdD"/>
+                        <outlet property="heightField" destination="dGu-jK-7ek" id="rET-UU-Rsf"/>
+                        <outlet property="nameField" destination="Rnz-yb-Awz" id="4TS-3v-MSN"/>
+                        <outlet property="sexButton" destination="iEw-7s-3qQ" id="2CN-3n-RdA"/>
+                        <outlet property="stackView" destination="Yfz-aU-gs0" id="atm-8h-yWp"/>
+                        <outlet property="weightField" destination="1cW-xd-Yu7" id="B9a-9g-rYG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S0k-Zz-Vwo" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2335" y="845"/>
         </scene>
     </scenes>
     <resources>

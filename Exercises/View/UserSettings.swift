@@ -2,10 +2,9 @@
 import UIKit
 import CoreData
 
-class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
+class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
     
     
-    let tableView = UITableView()
     var objects: [NSManagedObject] = []
     let cellId = "cellId"
     let data = GetData()
@@ -20,8 +19,8 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
     var weight = ""
     var height = ""
 
-    let txtField = UITextField()
-    let weightField = UITextField()
+//    let txtField = UITextField()
+//    let weightField = UITextField()
     let sexes = [NSLocalizedString("Female", comment: ""),
                  NSLocalizedString("Male", comment: ""),
                  NSLocalizedString("Other", comment: "")]
@@ -31,34 +30,56 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
     let datePicker = UIDatePicker()
     let picker = UIPickerView()
     let dateFormatter = DateFormatter()
-    let sexButton = UIButton()
-    let birthdayButton = UIButton()
-    let text = UILabel()
-
+//    let sexButton = UIButton()
+//    let birthdayButton = UIButton()
+//    let text = UILabel()
+    
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var nameField: UITextField!
+    
+    
+    @IBOutlet weak var sexButton: UIButton!
+    @IBOutlet weak var birthdayButton: UIButton!
+    @IBOutlet weak var heightField: UITextField!
+    @IBOutlet weak var weightField: UITextField!
+    
     override func viewWillAppear(_ animated: Bool) {
         fetch()
         getUser()
+        print(birthday)
+        setToFalse()
 
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+
         self.hideOnTap()
         setupDatePicker()
         setupPicker()
-
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
-        setupTableView()
-        topImage(view: view, type: .common)
-        setupHeader(view, text: "Personal Info", button: editButton, imgName: "square.and.pencil")
-       
-        editButton.addTarget(self, action: #selector(edit), for: .touchUpInside)
+//        setupTableView()
         self.navigationController?.isNavigationBarHidden = true
+        
 
-        txtFieldsBtns()
+        topImage(view: view, type: .firstScreen)
+        setupHeader(view, text: "Personal Info", button: editButton, imgName: "square.and.pencil", type: .launch)
+
+        editButton.addTarget(self, action: #selector(edit), for: .touchUpInside)
+        textFieldAppearance(nameField)
+        textFieldAppearance(weightField)
+        textFieldAppearance(heightField)
+        start.setButtonText(button: birthdayButton, text: birthday)
+        start.setButtonText(button: sexButton, text: sex)
+        nameField.text = name
+        weightField.text = weight
+        heightField.text = height
+        sexButton.tintColor = .black
+        birthdayButton.tintColor = .black
+//        txtFieldsBtns()
     }
     
     
@@ -73,6 +94,13 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
             print(err)
         }
         
+    }
+    func setToFalse(){
+        sexButton.isUserInteractionEnabled = false
+        birthdayButton.isUserInteractionEnabled = false
+        nameField.isUserInteractionEnabled = false
+        heightField.isUserInteractionEnabled = false
+        weightField.isUserInteractionEnabled = false
     }
     func setupDatePicker(){
         datePicker.datePickerMode = .date
@@ -93,42 +121,26 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
         picker.backgroundColor = .systemBackground
     }
     
-     @objc func birthdayEdited(_ sender: Any) {
+    @IBAction func birthdayEdited(_ sender: Any) {
          self.view.addSubview(datePicker)
          isPickingDate = true
      }
-     @objc func sexEdited(_ sender: Any) {
+    @IBAction func sexEdited(_ sender: Any) {
          self.view.addSubview(picker)
          isPickingSex = true
      }
+    @IBAction func nameEdited(_ sender: Any) {
+        name = nameField.text ?? ""
+    }
+    @IBAction func weightEdited(_ sender: Any){
+        weight = weightField.text ?? ""
+    }
+    @IBAction func heightEdited(_ sender: Any){
+        height = heightField.text ?? ""
+    }
     @objc func addItem(){
         let vc = storyboard?.instantiateViewController(withIdentifier: "addex") as! AddExercise
         self.present(vc, animated: true)
-    }
-    func txtFieldsBtns(){
-        txtField.frame = CGRect.init(x: 0, y: 0, width: 100, height: 20)
-        weightField.frame = CGRect.init(x: 0, y: 0, width: 100, height: 20)
-        txtField.keyboardType = .namePhonePad
-        txtField.delegate = self
-        weightField.keyboardType = .numberPad
-        weightField.delegate = self
-        txtField.addTarget(self, action: #selector(nameChanged), for: .editingChanged)
-        weightField.addTarget(self, action: #selector(weightChanged), for: .editingChanged)
-        birthdayButton.frame = CGRect(x: 0, y: 0, width: 100, height: 20)
-        birthdayButton.addTarget(self, action: #selector(birthdayEdited), for: .touchUpInside)
-        sexButton.frame = CGRect(x: 0, y: 0, width: 100, height: 20)
-        sexButton.addTarget(self, action: #selector(sexEdited), for: .touchUpInside)
-        sexButton.setTitle("Пол", for: .normal)
-        birthdayButton.setTitle("ДР", for: .normal)
-        sexButton.setTitleColor(.label, for: .normal)
-        birthdayButton.setTitleColor(.label, for: .normal)
-        sexButton.contentMode = .right
-        birthdayButton.contentMode = .right
-        txtField.layer.borderWidth = 1
-        weightField.layer.borderWidth = 1
-        sexButton.layer.borderWidth = 1
-        birthdayButton.layer.borderWidth = 1
-
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -136,169 +148,53 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     
       
-    @objc func nameChanged(){
-        name = txtField.text ?? ""
-    }
-    @objc func weightChanged(){
-        weight = weightField.text ?? ""
-    }
+   
     func getUser(){
         if let object = objects.last{
             name = vals.get(user: object, key: .name)
             birthday = vals.get(user: object, key: .birthday)
             weight = vals.get(user: object, key: .weight)
+            height = vals.get(user: object, key: .height)
+
             sex = vals.get(user: object, key: .sex)
         }
-        refresh()
     }
-    @objc func cancel(){
-        self.dismiss(animated: false, completion: {
-            
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "header"), object: self)
-            
-        })
+   
 
-    }
-    @objc func addNewEx(){
-        
-        let vc = AddExercise()
-        vc.modalPresentationStyle = .fullScreen
-
-        self.present(vc, animated: false)
-    }
-    @objc func toExTable(){
-        
-        weak var pvc = self.presentingViewController
-
-        self.dismiss(animated: false, completion: {
-            let vc = ExercisesTable()
-            vc.modalPresentationStyle = .fullScreen
-            pvc?.present(vc, animated: false, completion: nil)
-        })
-        
-        
-
-    }
-    func setupTableView(){
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
-        tableView.dataSource = self
-        tableView.delegate = self
-        let frame = self.view.bounds
-
-        tableView.frame = CGRect(x: 0, y: 44 , width: frame.width, height: frame.height - 50)
-        tableView.backgroundColor = .secondarySystemBackground
-        view.addSubview(tableView)
-       
-    }
+   
     
     
     @objc func edit(){
         isEdit = !isEdit
         if isEdit {
-            
             editButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
-        } else {
-            vals.save(birthday: birthdayDate, name: name, sex: sex, weight: (weight), height: height)
-            editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
-        }
-        self.tableView.reloadData()
-    }
-   
-    @objc func refresh(){
-        self.tableView.reloadData()
-        
-    }
-    
-   
-}
-
-
-
-extension UserSettings {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-   
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        let text = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 20))
-        if indexPath.row == 0{
-            cell.textLabel?.text = "Name:"
-        } else if indexPath.row == 1{
-            cell.textLabel?.text = "Birthday:"
-        } else if indexPath.row == 2 {
-            cell.textLabel?.text = "Weight:"
-        } else {
-            cell.textLabel?.text = "Sex:"
-        }
-        if !isEdit{
-            
-                if indexPath.row == 0{
-                    text.text = name
-                } else if indexPath.row == 1{
-                    text.text = birthday
-                } else if indexPath.row == 2 {
-                    text.text = (weight)
-                } else {
-                    text.text = sex
-                }
-            
-            cell.accessoryView = text
-
-        } else {
-            if let object = objects.last{
-                
-                if indexPath.row == 0{
-                    
-                    txtField.text = name
-                    txtField.placeholder = "Имя"
-                    cell.accessoryView = txtField
-                } else if indexPath.row == 2{
-                    if weight == "Not set"{
-                        weightField.text = "0"
-                    } else {
-                        weightField.text = weight
-
-                    }
-                    weightField.placeholder = "Вес"
-                    cell.accessoryView = weightField
-                } else if indexPath.row == 3 {
-                    cell.accessoryView = sexButton
-                } else {
-                    
-
-                    cell.accessoryView = birthdayButton
-
-                }
-            
+            sexButton.isUserInteractionEnabled = true
+            birthdayButton.isUserInteractionEnabled = true
+            nameField.isUserInteractionEnabled = true
+            heightField.isUserInteractionEnabled = true
+            weightField.isUserInteractionEnabled = true
+            if nameField.text == "Not set"{
+                nameField.text = ""
             }
-        }
+            if heightField.text == "Not set"{
+                heightField.text = ""
+            }
+            if weightField.text == "Not set"{
+                weightField.text = ""
+            }
 
-        cell.selectionStyle = .none
-        cell.backgroundColor = .secondarySystemBackground
-        return cell
+        } else {
+            editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
+
+            vals.save(birthday: birthdayDate, name: name, sex: sex, weight: (weight), height: height)
+            setToFalse()
+        }
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    }
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 70
-    }
-    
-    
-    
+
+   
 }
+
+ 
 
 extension UserSettings {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -328,18 +224,27 @@ extension UserSettings {
 }
 
 extension UserSettings {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if (textField == txtField){
-            name = txtField.text ?? ""
+    func textFieldShouldReturn(_ textField: UITextField!) -> Bool {
+        print(textField)
+        if (textField == nameField){
+            name = nameField.text ?? ""
             if let user = objects.last{
                 yourName = name
-                text.text = yourName
+//                text.text = yourName
+                print(name)
+
                 vals.saveOne(value: name, key: .name, user: user)
             }
-        } else {
+        } else if (textField == weightField){
             weight = weightField.text ?? ""
             if let user = objects.last{
                 vals.saveOne(value: weight, key: .weight, user: user)
+            }
+        } else {
+            height = heightField.text ?? ""
+            if let user = objects.last{
+                print("saved")
+                vals.saveOne(value: height, key: .height, user: user)
             }
         }
         textField.resignFirstResponder()
@@ -360,7 +265,8 @@ extension UserSettings {
             birthdayDate = datePicker.date
             dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
             birthday = dateFormatter.string(from: birthdayDate)
-            birthdayButton.setTitle(birthday, for: .normal)
+            start.changeText(button: birthdayButton, with: birthday)
+            print(birthdayDate)
             if let user = objects.last{
                 vals.saveOne(value: birthdayDate, key: .birthday, user: user)
             }
@@ -370,7 +276,7 @@ extension UserSettings {
             if sex == "Not set"{
                 sex = sexes.first ?? ""
             }
-            sexButton.setTitle(sex, for: .normal)
+            start.changeText(button: sexButton, with: sex)
             if let user = objects.last{
                 vals.saveOne(value: sex, key: .sex, user: user)
             }
@@ -380,7 +286,8 @@ extension UserSettings {
             if let user = objects.last{
                 vals.saveOne(value: name, key: .name, user: user)
                 yourName = name
-                text.text = yourName
+//                text.text = yourName
+                vals.saveOne(value: height, key: .height, user: user)
                 vals.saveOne(value: weight, key: .weight, user: user)
             }
             view.endEditing(true)
