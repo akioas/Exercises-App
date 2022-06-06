@@ -2,7 +2,7 @@
 import UIKit
 import CoreData
 
-class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITabBarControllerDelegate{
+class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
     
     
     let tableView = UITableView()
@@ -47,7 +47,7 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
         self.hideOnTap()
         setupDatePicker()
         setupPicker()
-        self.tabBarController?.delegate = self
+//        self.tabBarController?.delegate = self
 
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -66,17 +66,7 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
          */
         txtFieldsBtns()
     }
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-
-
-        if viewController == (self.tabBarController?.viewControllers?[2])! {
-
-         addItem()
-          return false
-
-        }
-        return true
-    }
+    
     func botButtons(){
         let but1 = UIButton()
         let but2 = UIButton()
@@ -130,10 +120,8 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
          isPickingSex = true
      }
     @objc func addItem(){
-        let vc = AddExercise()
-        self.presentDetail(vc)
-
-//        self.present(vc, animated: true)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "addex") as! AddExercise
+        self.present(vc, animated: true)
     }
     func txtFieldsBtns(){
         txtField.frame = CGRect.init(x: 0, y: 0, width: 100, height: 20)

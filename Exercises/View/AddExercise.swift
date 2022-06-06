@@ -15,7 +15,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(refresh),
-                                               name: NSNotification.Name(rawValue: notificationKey),
+                                               name: NSNotification.Name(rawValue: "refreshAdd"),
                                                object: nil)
         setupTableView()
         topImage(view: view, type: .common)
@@ -92,6 +92,8 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         if isNewObject{
             context.delete(object)
             print("success")
+            DataModel().saveModel()
+            print("saved")
         }
         self.dismiss(animated: true)
     }
@@ -100,7 +102,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     @objc func done(){
         DataModel().saveModel()
         self.dismiss(animated: true, completion: {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: notificationKey), object: self)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "fetch"), object: self)
         })
         
     }

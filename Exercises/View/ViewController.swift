@@ -65,6 +65,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                selector: #selector(refresh),
                                                name: NSNotification.Name(rawValue: notificationKey),
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(fetchObs),
+                                               name: NSNotification.Name(rawValue: "fetch"),
+                                               object: nil)
         
         view.backgroundColor = .secondarySystemBackground
 //        self.hideOnTap()
@@ -172,7 +176,9 @@ extension ViewController {
         DataModel().delete(object)
         refresh()
     }
-    
+    @objc func fetchObs(){
+        fetch(isFiltered)
+    }
     func fetch(_ isFiltered: Bool){
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entity")
         if isFiltered{
@@ -202,11 +208,8 @@ extension ViewController {
     
     
     @objc func addItem(){
-//        let vc = AddExercise()
         let vc = storyboard?.instantiateViewController(withIdentifier: "addex") as! AddExercise
-//        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true)
-//        self.presentDetail(vc)
     }
     @objc func toExTable(){
         let vc = ExercisesTable()
@@ -227,6 +230,7 @@ extension ViewController {
     }
     
     @objc func refresh(){
+        print("refreshed")
         self.tableView.reloadData()
     }
     
@@ -255,6 +259,7 @@ extension ViewController {
     }
     
     @objc func deleteObject(_ sender:Button!){
+        refresh()
         tableView.beginUpdates()
         tableView.deleteSections(IndexSet([sender.num]), with: .fade)
         DataModel().delete(exercises[sender.num])

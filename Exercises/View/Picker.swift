@@ -65,7 +65,7 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     
     @objc func cancelPicker() {
         self.dismiss(animated: false, completion: {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: notificationKey), object: self)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "refreshAdd"), object: self)
         })
     }
     
