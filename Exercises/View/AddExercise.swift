@@ -19,7 +19,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
                                                object: nil)
         setupTableView()
         topImage(view: view, type: .common)
-        setupHeader()
+        setupHeader(view, text: "Add an activity", button: nil, imgName: nil)
         self.navigationController?.isNavigationBarHidden = true
 
         
@@ -56,26 +56,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         customView.addSubview(buttonDone)
         tableView.tableFooterView = customView
     }
-    func setupHeader(){
-        let width = UIScreen.main.bounds.width
-
-        let header = UIView.init(frame: CGRect.init(x: 0, y: 44, width: width, height: 50))
-        let textLabel = UILabel()
-        textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 20, height: 50)
-        textLabel.numberOfLines = 2
-        textLabel.text = "Add an activity"
-        textLabel.font = .systemFont(ofSize: 24)
-
-        textLabel.textColor = .white
-        textLabel.textAlignment = .center
-        header.backgroundColor = .clear
-        
-        header.addSubview(textLabel)
-        
-        
-        view.addSubview(header)
-
-    }
+    
     func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
         let stepper = Stepper()
         stepper.minimumValue = 0
@@ -91,9 +72,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     @objc func cancel(){
         if isNewObject{
             context.delete(object)
-            print("success")
             DataModel().saveModel()
-            print("saved")
         }
         self.dismiss(animated: true)
     }

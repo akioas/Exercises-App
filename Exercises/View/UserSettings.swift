@@ -47,39 +47,21 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
         self.hideOnTap()
         setupDatePicker()
         setupPicker()
-//        self.tabBarController?.delegate = self
 
     }
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
         topImage(view: view, type: .common)
-        setupHeader()
+        setupHeader(view, text: "Personal Info", button: editButton, imgName: "square.and.pencil")
+       
+        editButton.addTarget(self, action: #selector(edit), for: .touchUpInside)
         self.navigationController?.isNavigationBarHidden = true
 
-//        botButtons()
-        /*
-        let newView = UIView()
-        newView.frame = CGRect(x: 5.0, y: tableView.frame.maxY , width: view.frame.width - 10.0, height: 1)
-        newView.backgroundColor = .lightGray
-        view.addSubview(newView)
-         */
         txtFieldsBtns()
     }
     
-    func botButtons(){
-        let but1 = UIButton()
-        let but2 = UIButton()
-        let but3 = UIButton()
-        let but4 = UIButton()
-        items.setupBotButtons(but1, buttonNum: 1, view: view, systemName: "house.fill")
-        items.setupBotButtons(but2, buttonNum: 2, view: view, named: "Dumbbell")
-        items.setupBotButtons(but3, buttonNum: 3, view: view, systemName: "plus.circle")
-        items.setupBotButtons(but4, buttonNum: 4, view: view, systemName: "gearshape.circle")
-        but1.addTarget(self, action: #selector(cancel), for: .touchUpInside)
-        but2.addTarget(self, action: #selector(toExTable), for: .touchUpInside)
-        but3.addTarget(self, action: #selector(addNewEx), for: .touchUpInside)
-    }
+    
     func fetch(){
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
     
@@ -207,30 +189,6 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
         tableView.backgroundColor = .secondarySystemBackground
         view.addSubview(tableView)
        
-    }
-    func setupHeader(){
-        let header = UIView.init(frame: CGRect.init(x: 0, y: 44, width: tableView.frame.width, height: 50))
-        
-    
-        
-        text.frame = CGRect.init(x: 60, y: 0, width: tableView.frame.width - 120, height: 50)
-        text.numberOfLines = 1
-        text.text = "Personal Info"
-        text.font = .systemFont(ofSize: 24)
-
-        text.textAlignment = .center
-        text.textColor = .white
-        
-        editButton.frame = CGRect.init(x: tableView.frame.width - 50, y: 10, width: 30, height: 30)
-        editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
-        editButton.tintColor = .white
-        editButton.addTarget(self, action: #selector(edit), for: .touchUpInside)
-        header.backgroundColor = .clear
-        
-        view.addSubview(header)
-         
-        header.addSubview(text)
-        header.addSubview(editButton)
     }
     
     

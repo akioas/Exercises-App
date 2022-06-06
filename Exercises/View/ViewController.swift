@@ -19,7 +19,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let cellId = "cellId"
     var exercises: [NSManagedObject] = []
     var users: [NSManagedObject] = []
-    let textLabel = UILabel()
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -38,12 +37,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
           
         }
         self.tabBarController?.delegate = self
-       
-//        if let tabBarItem = self.tabBarItem{
-//            tabBarItem.accessibilityFrame = CGRect(x: 0, y: 0, width: 80, height: 40)
-//        }
-        
-        
+     
     }
     
     
@@ -71,7 +65,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                object: nil)
         
         view.backgroundColor = .secondarySystemBackground
-//        self.hideOnTap()
 
         if UserVariables().isFirstLaunch(){ //! if  1
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -86,11 +79,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         setupTableView()
         topImage(view: view, type: .common)
+        let calButton = UIButton()
+        setupHeader(view, text: ("Last trainings"), button: calButton, imgName: "calendar")
+        calButton.addTarget(self, action: #selector(clockItem), for: .touchUpInside)
 
-        setupHeader(view, text: ("Last trainings"), width: tableView.frame.width)
         self.navigationController?.isNavigationBarHidden = true
-//        botButtons()
-//        setupViews()
+
     }
     
     func setupViews(){
@@ -116,41 +110,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     
+   
     
-    func botButtons(){
-        let but1 = UIButton()
-        let but2 = UIButton()
-        let but3 = UIButton()
-        let but4 = UIButton()
-        items.setupBotButtons(but1, buttonNum: 1, view: view, systemName: "house.fill", isCore: true)
-        items.setupBotButtons(but2, buttonNum: 2, view: view, named: "Dumbbell", isCore: true)
-        items.setupBotButtons(but3, buttonNum: 3, view: view, systemName: "plus.circle", isCore: true)
-        items.setupBotButtons(but4, buttonNum: 4, view: view, systemName: "gearshape.circle", isCore: true)
-        but2.addTarget(self, action: #selector(toExTable), for: .touchUpInside)
-        but3.addTarget(self, action: #selector(addItem), for: .touchUpInside)
-        but4.addTarget(self, action: #selector(userSettings), for: .touchUpInside)
-    }
-    func setupHeader(_ view: UIView, text: String, width: CGFloat){
-        
-        let header = UIView.init(frame: CGRect.init(x: 0, y: 44, width: width, height: 50))
-        textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 70, height: 50)
-        textLabel.numberOfLines = 2
-        textLabel.text = text
-        textLabel.font = .systemFont(ofSize: 24)
-        textLabel.textColor = .white
-        textLabel.textAlignment = .center
-        header.backgroundColor = .clear
-        
-        header.addSubview(textLabel)
-        let calButton = UIButton(frame: CGRect(x: width - 60, y: 0, width: 50, height: 50))
-        calButton.setImage(UIImage(systemName: "calendar"), for: .normal)
-        calButton.tintColor = .white
-        calButton.addTarget(self, action: #selector(clockItem), for: .touchUpInside)
-        calButton.isUserInteractionEnabled = true
-        header.addSubview(calButton)
-        
-        view.addSubview(header)
-    }
     func createDatePicker(){
         
         datePicker = UIDatePicker()
@@ -162,7 +123,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDate))
         let spaceButton = UIBarButtonItem(title: "Clear selection", style: .plain, target: self, action: #selector(clearDate))
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDate))
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+
+        toolBar.setItems([cancelButton, flexibleSpace, spaceButton, flexibleSpace, doneButton], animated: false)
         self.navigationController?.view.addSubview(toolBar)
 
         view.addSubview(datePicker)
@@ -297,9 +260,6 @@ extension ViewController {
         
     }
     
-    @objc func newHeader(){
-        textLabel.text = ("Last trainings")
-    }
 }
 
 

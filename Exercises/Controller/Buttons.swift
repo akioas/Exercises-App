@@ -105,3 +105,47 @@ func topImage(view: UIView, type: YCoord){
     imgView.contentMode = .scaleAspectFill
     view.addSubview(imgView)
 }
+
+
+func textFieldAppearance(_ field: UITextField){
+    field.layer.cornerRadius = 15
+    field.layer.borderWidth = 1
+    field.layer.borderColor = UIColor.init(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
+    field.layer.backgroundColor = UIColor.init(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0).cgColor
+}
+
+enum viewType{
+    case launch
+    case other
+}
+
+func setupHeader(_ view: UIView, text: String, button: UIButton?, imgName named: String?, type: viewType = .other){
+    let header = UIView()
+    if type == .launch{
+        header.frame = CGRect.init(x: 0, y: 0, width: view.frame.width, height: 50)
+    } else {
+        header.frame = CGRect.init(x: 0, y: 44, width: view.frame.width, height: 50)
+    }
+    let textLabel = UILabel()
+    if let button = button {
+        textLabel.frame = CGRect.init(x: 10, y: 0, width: view.frame.width - 70, height: 50)
+        button.frame = CGRect(x: view.frame.width - 60, y: 0, width: 50, height: 50)
+        let configuratoin = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large)
+        button.setImage(UIImage(systemName: named ?? "", withConfiguration: configuratoin), for: .normal)
+        button.tintColor = .white
+        button.isUserInteractionEnabled = true
+        header.addSubview(button)
+    } else {
+        textLabel.frame = CGRect.init(x: 10, y: 0, width: view.frame.width - 20, height: 50)
+    }
+    textLabel.numberOfLines = 2
+    textLabel.text = text
+    textLabel.font = .systemFont(ofSize: 28)
+    textLabel.textColor = .white
+    textLabel.textAlignment = .center
+    header.backgroundColor = .clear
+    
+    header.addSubview(textLabel)
+    
+    view.addSubview(header)
+}

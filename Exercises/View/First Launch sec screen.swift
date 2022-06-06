@@ -47,25 +47,18 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
         let height = self.view.safeAreaLayoutGuide.layoutFrame.height
         let startBConstraint = NSLayoutConstraint(item: startButton!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: height * 0.85)
         NSLayoutConstraint.activate([startBConstraint])
-        nameField.layer.cornerRadius = 15
-        nameField.layer.borderWidth = 1
-        nameField.layer.borderColor = UIColor.init(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
-        nameField.layer.backgroundColor = UIColor.init(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0).cgColor
-        weightField.layer.cornerRadius = 15
-        weightField.layer.borderWidth = 1
-        weightField.layer.borderColor = UIColor.init(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
-        weightField.layer.backgroundColor = UIColor.init(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0).cgColor
-        heightField.layer.cornerRadius = 15
-        heightField.layer.borderWidth = 1
-        heightField.layer.borderColor = UIColor.init(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
-        heightField.layer.backgroundColor = UIColor.init(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0).cgColor
+        
+       
         startButton.layer.cornerRadius = 20
         startButton.layer.backgroundColor = UIColor.init(red: 0.09, green: 0.49, blue: 0.9, alpha: 1.0).cgColor
+        textFieldAppearance(nameField)
+        textFieldAppearance(weightField)
+        textFieldAppearance(heightField)
         
     }
     override func viewDidAppear(_ animated: Bool) {
         topImage(view: view, type: .firstScreen)
-        setupHeader(view, width: view.frame.width)
+        setupHeader(view, text: "Tell us about you", button: nil, imgName: nil, type: .launch)
         stackView.spacing = view.frame.height / 50
 
     }
@@ -111,24 +104,7 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
 
         self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
     }
-    func setupHeader(_ view: UIView, width: CGFloat){
-        
-        let header = UIView.init(frame: CGRect.init(x: 0, y: 0, width: width, height: 50))
-        let textLabel = UILabel()
-        
-        textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 20, height: 50)
-        textLabel.numberOfLines = 2
-        textLabel.text = "Tell us about you"
-        textLabel.font = .systemFont(ofSize: 24)
-        textLabel.textColor = .white
-        textLabel.textAlignment = .center
-        header.backgroundColor = .clear
-        
-        header.addSubview(textLabel)
-        
-        
-        view.addSubview(header)
-    }
+    
 }
 
 extension FirstLaunchText {
