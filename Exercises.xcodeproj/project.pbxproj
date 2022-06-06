@@ -21,10 +21,11 @@
 		4A8585582821322000604655 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8585572821322000604655 /* Model.swift */; };
 		4A85855B282137B900604655 /* Entity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A858559282137B900604655 /* Entity+CoreDataClass.swift */; };
 		4A85855C282137B900604655 /* Entity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A85855A282137B900604655 /* Entity+CoreDataProperties.swift */; };
-		4A9174CC2847E45B00D44AA3 /* Exercises table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9174CB2847E45B00D44AA3 /* Exercises table.swift */; };
+		4A9174CC2847E45B00D44AA3 /* ExercisesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9174CB2847E45B00D44AA3 /* ExercisesTable.swift */; };
 		4A937D472843E00D0078A6E3 /* FirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A937D462843E00D0078A6E3 /* FirstLaunch.swift */; };
 		4A97F800282953E600CAE0D1 /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97F7FF282953E600CAE0D1 /* Picker.swift */; };
 		4A9DCACE284CE641007A7F95 /* MoreInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9DCACD284CE641007A7F95 /* MoreInfo.swift */; };
+		4A9DCAD2284D126B007A7F95 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9DCAD1284D126B007A7F95 /* Extensions.swift */; };
 		4A9FCAE4283EBD2D004D9ABE /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9FCAE3283EBD2D004D9ABE /* Chart.swift */; };
 		4AA2FA272825B55900E4AF61 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA2FA262825B55900E4AF61 /* CoreData.swift */; };
 		4AA2FA292825B9B300E4AF61 /* ButtonsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA2FA282825B9B300E4AF61 /* ButtonsModel.swift */; };
@@ -52,10 +53,11 @@
 		4A8585572821322000604655 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		4A858559282137B900604655 /* Entity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4A85855A282137B900604655 /* Entity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		4A9174CB2847E45B00D44AA3 /* Exercises table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercises table.swift"; sourceTree = "<group>"; };
+		4A9174CB2847E45B00D44AA3 /* ExercisesTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesTable.swift; sourceTree = "<group>"; };
 		4A937D462843E00D0078A6E3 /* FirstLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunch.swift; sourceTree = "<group>"; };
 		4A97F7FF282953E600CAE0D1 /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
 		4A9DCACD284CE641007A7F95 /* MoreInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfo.swift; sourceTree = "<group>"; };
+		4A9DCAD1284D126B007A7F95 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4A9FCAE3283EBD2D004D9ABE /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		4AA2FA262825B55900E4AF61 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		4AA2FA282825B9B300E4AF61 /* ButtonsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsModel.swift; sourceTree = "<group>"; };
@@ -134,7 +136,7 @@
 				4A937D462843E00D0078A6E3 /* FirstLaunch.swift */,
 				4A67D1D728454E910075E47C /* First Launch sec screen.swift */,
 				4A858544282131E200604655 /* ViewController.swift */,
-				4A9174CB2847E45B00D44AA3 /* Exercises table.swift */,
+				4A9174CB2847E45B00D44AA3 /* ExercisesTable.swift */,
 				4A1119D3282A919E0001908C /* AddExercise.swift */,
 				4ADBFEBD284923A90091F108 /* UserSettings.swift */,
 				4A97F7FF282953E600CAE0D1 /* Picker.swift */,
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				4AA2FA262825B55900E4AF61 /* CoreData.swift */,
+				4A9DCAD1284D126B007A7F95 /* Extensions.swift */,
 				4ADDCC4E284A5CED0018F24D /* Buttons.swift */,
 				4ADDCC50284A73300018F24D /* Controller.swift */,
 			);
@@ -228,9 +231,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A9DCAD2284D126B007A7F95 /* Extensions.swift in Sources */,
 				4A1119D4282A919E0001908C /* AddExercise.swift in Sources */,
 				4A937D472843E00D0078A6E3 /* FirstLaunch.swift in Sources */,
-				4A9174CC2847E45B00D44AA3 /* Exercises table.swift in Sources */,
+				4A9174CC2847E45B00D44AA3 /* ExercisesTable.swift in Sources */,
 				4A67D1D628454D630075E47C /* User+CoreDataProperties.swift in Sources */,
 				4A8585582821322000604655 /* Model.swift in Sources */,
 				4A858545282131E200604655 /* ViewController.swift in Sources */,

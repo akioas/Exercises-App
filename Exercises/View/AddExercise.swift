@@ -60,9 +60,11 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
         let header = UIView.init(frame: CGRect.init(x: 0, y: 44, width: width, height: 50))
         let textLabel = UILabel()
-        textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 60, height: 50)
+        textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 20, height: 50)
         textLabel.numberOfLines = 2
-        textLabel.text = "Hello, " + yourName + " \nAdd an activity"
+        textLabel.text = "Add an activity"
+        textLabel.font = .systemFont(ofSize: 24)
+
         textLabel.textColor = .white
         textLabel.textAlignment = .center
         header.backgroundColor = .clear
@@ -88,14 +90,15 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     @objc func cancel(){
         if isNewObject{
             context.delete(object)
+            print("success")
         }
-        self.dismiss(animated: false)
+        self.dismiss(animated: true)
     }
     
     
     @objc func done(){
         DataModel().saveModel()
-        self.dismiss(animated: false, completion: {
+        self.dismiss(animated: true, completion: {
             NotificationCenter.default.post(name: Notification.Name(rawValue: notificationKey), object: self)
         })
         

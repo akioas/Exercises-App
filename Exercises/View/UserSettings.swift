@@ -2,7 +2,7 @@
 import UIKit
 import CoreData
 
-class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
+class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITabBarControllerDelegate{
     
     
     let tableView = UITableView()
@@ -45,7 +45,8 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
         self.hideOnTap()
         setupDatePicker()
         setupPicker()
-        
+        self.tabBarController?.delegate = self
+
     }
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
@@ -62,6 +63,17 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
         view.addSubview(newView)
          */
         txtFieldsBtns()
+    }
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+
+
+        if viewController == (self.tabBarController?.viewControllers?[2])! {
+
+         addItem()
+          return false
+
+        }
+        return true
     }
     func botButtons(){
         let but1 = UIButton()
@@ -115,7 +127,12 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
          self.view.addSubview(picker)
          isPickingSex = true
      }
-     
+    @objc func addItem(){
+        let vc = AddExercise()
+        self.presentDetail(vc)
+
+//        self.present(vc, animated: true)
+    }
     func txtFieldsBtns(){
         txtField.frame = CGRect.init(x: 0, y: 0, width: 100, height: 20)
         weightField.frame = CGRect.init(x: 0, y: 0, width: 100, height: 20)
@@ -205,12 +222,12 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
         let header = UIView.init(frame: CGRect.init(x: 0, y: 44, width: tableView.frame.width, height: 50))
         
     
-        let person = UIImageView()
-        person.frame = CGRect.init(x: 10, y: 10, width: 30, height: 30)
-        person.image = UIImage(systemName: "person.fill")
+        
         text.frame = CGRect.init(x: 60, y: 0, width: tableView.frame.width - 120, height: 50)
         text.numberOfLines = 1
-        text.text = yourName
+        text.text = "Personal Info"
+        text.font = .systemFont(ofSize: 24)
+
         text.textAlignment = .center
         text.textColor = .white
         
@@ -222,7 +239,6 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         view.addSubview(header)
          
-        header.addSubview(person)
         header.addSubview(text)
         header.addSubview(editButton)
     }

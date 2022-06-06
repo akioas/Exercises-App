@@ -6,7 +6,7 @@ import NotificationCenter
 
 let notificationKey = "Key"
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarDelegate, UITabBarControllerDelegate {
     let tableView = UITableView()
     var datePicker : UIDatePicker!
     let toolBar = UIToolbar()
@@ -35,23 +35,37 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             tabBar.layer.shadowRadius = 2
             tabBar.layer.shadowColor = UIColor.black.cgColor
             tabBar.layer.shadowOpacity = 0.3
+          
         }
+        self.tabBarController?.delegate = self
+       
 //        if let tabBarItem = self.tabBarItem{
 //            tabBarItem.accessibilityFrame = CGRect(x: 0, y: 0, width: 80, height: 40)
 //        }
         
         
     }
+    
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+
+
+        if viewController == (self.tabBarController?.viewControllers?[2])! {
+
+         addItem()
+          return false
+
+        }
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(refresh),
                                                name: NSNotification.Name(rawValue: notificationKey),
                                                object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(newHeader),
-                                               name: NSNotification.Name(rawValue: "header"),
-                                               object: nil)
+        
         view.backgroundColor = .secondarySystemBackground
 //        self.hideOnTap()
 
@@ -69,7 +83,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         setupTableView()
         topImage(view: view)
 
-        setupHeader(view, text: ("Hello, " + yourName + "\nLast trainings"), width: tableView.frame.width)
+        setupHeader(view, text: ("Last trainings"), width: tableView.frame.width)
         self.navigationController?.isNavigationBarHidden = true
 //        botButtons()
 //        setupViews()
@@ -115,9 +129,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func setupHeader(_ view: UIView, text: String, width: CGFloat){
         
         let header = UIView.init(frame: CGRect.init(x: 0, y: 44, width: width, height: 50))
-        textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 60, height: 50)
+        textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 70, height: 50)
         textLabel.numberOfLines = 2
         textLabel.text = text
+        textLabel.font = .systemFont(ofSize: 24)
         textLabel.textColor = .white
         textLabel.textAlignment = .center
         header.backgroundColor = .clear
@@ -188,8 +203,7 @@ extension ViewController {
     
     @objc func addItem(){
         let vc = AddExercise()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false)
+        self.presentDetail(vc)
     }
     @objc func toExTable(){
         let vc = ExercisesTable()
@@ -276,7 +290,7 @@ extension ViewController {
     }
     
     @objc func newHeader(){
-        textLabel.text = ("Hello, " + yourName + "\nLast trainings")
+        textLabel.text = ("Last trainings")
     }
 }
 
@@ -376,3 +390,4 @@ extension ViewController {
     }
 }
  */
+

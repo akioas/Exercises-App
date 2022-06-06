@@ -38,7 +38,7 @@ class GetData {
     func caseDate(_ currentEx: NSManagedObject) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
-        let text = dateFormatter.string(from: (currentEx.value(forKey: "date") as! Date))
+        let text = dateFormatter.string(from: (currentEx.value(forKey: "date") as? Date ?? Date()))
         return text
     }
 }

@@ -2,7 +2,7 @@
 import UIKit
 import CoreData
 
-class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarControllerDelegate{
     let tableView = UITableView()
 
     let cellId = "cellId"
@@ -13,6 +13,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         exercises = list.load()
+        self.tabBarController?.delegate = self
 
         
     }
@@ -30,6 +31,17 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         newView.backgroundColor = .lightGray
         view.addSubview(newView)
 */
+    }
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+
+
+        if viewController == (self.tabBarController?.viewControllers?[2])! {
+
+         addItem()
+          return false
+
+        }
+        return true
     }
     func botButtons(){
         let but1 = UIButton()
@@ -66,7 +78,12 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: false)
     }
-    
+    @objc func addItem(){
+        let vc = AddExercise()
+        self.presentDetail(vc)
+
+//        self.present(vc, animated: true)
+    }
     func setupTableView(){
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.dataSource = self
@@ -83,9 +100,11 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        let header = UIView.init(frame: CGRect.init(x: 0, y: topPadding, width: tableView.frame.width, height: 50))
         
         let textLabel = UILabel()
-        textLabel.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width - 90, height: 50)
+        textLabel.frame = CGRect.init(x: 10, y: 0, width: tableView.frame.width - 70, height: 50)
         textLabel.numberOfLines = 1
         textLabel.text = "Exercises"
+        textLabel.font = .systemFont(ofSize: 24)
+
         textLabel.textAlignment = .center
         textLabel.textColor = .white
         let width = UIScreen.main.bounds.width
