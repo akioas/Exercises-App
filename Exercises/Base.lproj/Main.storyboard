@@ -9,21 +9,16 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="TimesNewRoman.ttf">
-            <string>.SFUI-Regular</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--First Launch-->
         <scene sceneID="q9V-vK-WMr">
             <objects>
                 <viewController storyboardIdentifier="launch" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jCF-8M-4Bh" customClass="FirstLaunch" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Mko-9T-3cv" customClass="UITableView">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Mko-9T-3cv" customClass="UITableView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="FirstLaunch" translatesAutoresizingMaskIntoConstraints="NO" id="SwX-YP-tVv">
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="FirstLaunch" translatesAutoresizingMaskIntoConstraints="NO" id="SwX-YP-tVv">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -52,65 +47,53 @@
                                 <color key="textColor" red="0.99215686270000003" green="0.4549019608" blue="0.40784313729999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="Kre-f9-Nx9">
-                                <rect key="frame" x="207" y="448" width="0.0" height="0.0"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="46" translatesAutoresizingMaskIntoConstraints="NO" id="5NU-zB-hsh">
+                                <rect key="frame" x="24.5" y="698.5" width="365" height="153.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Small text" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NiG-bb-2ZK">
-                                        <color key="tintColor" systemColor="labelColor"/>
-                                        <fontDescription key="fontDescription" name=".SFUI-Regular" family=".AppleSystemUIFont" pointSize="0.0"/>
-                                        <nil key="textColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The best place for your improvement" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46O-Wo-mI3">
+                                        <rect key="frame" x="0.0" y="0.0" width="365" height="57.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="365" id="c9d-3k-DqS"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btm-WQ-CDq">
+                                        <rect key="frame" x="335" y="103.5" width="30" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="kMt-Cb-fyW"/>
+                                            <constraint firstAttribute="width" constant="30" id="le6-Y1-unH"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AppleSymbols" family="Apple Symbols" pointSize="40"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal">
+                                            <color key="titleColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <imageReference key="image" image="chevron.right" catalog="system" symbolScale="large"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="q3D-Pd-A9y" kind="show" animates="NO" id="ec5-Ld-Cyq"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="btm-WQ-CDq">
-                                <rect key="frame" x="354" y="727" width="30" height="128"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Next">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="&gt;">
-                                            <attributes>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                <font key="NSFont" size="40" name="LaoMN"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="30" tighteningFactorForTruncation="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                                <connections>
-                                    <segue destination="q3D-Pd-A9y" kind="show" animates="NO" id="ec5-Ld-Cyq"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="The best place for your improvement" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46O-Wo-mI3">
-                                <rect key="frame" x="78" y="600" width="259" height="107"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="365" id="c9d-3k-DqS"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="Ro3-Jg-1vv"/>
                         <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Kre-f9-Nx9" firstAttribute="centerY" secondItem="Mko-9T-3cv" secondAttribute="centerY" id="8O9-pz-s2U"/>
-                            <constraint firstItem="46O-Wo-mI3" firstAttribute="centerY" secondItem="Mko-9T-3cv" secondAttribute="centerY" id="Hnr-3H-2PQ"/>
                             <constraint firstItem="Qah-5W-Ih8" firstAttribute="centerY" secondItem="Mko-9T-3cv" secondAttribute="centerY" id="JIy-Yh-UJF"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="5NU-zB-hsh" secondAttribute="bottom" constant="44" id="Qx2-Hn-j98"/>
                             <constraint firstItem="esB-Re-kfR" firstAttribute="centerY" secondItem="Mko-9T-3cv" secondAttribute="centerY" id="SHx-1Z-tF1"/>
-                            <constraint firstItem="Kre-f9-Nx9" firstAttribute="centerX" secondItem="Mko-9T-3cv" secondAttribute="centerX" id="Uqk-6J-Sns"/>
-                            <constraint firstItem="Ro3-Jg-1vv" firstAttribute="bottom" secondItem="46O-Wo-mI3" secondAttribute="bottom" constant="56" id="XvP-bD-Ntq"/>
                             <constraint firstItem="esB-Re-kfR" firstAttribute="centerX" secondItem="Mko-9T-3cv" secondAttribute="centerX" id="Z0M-IE-GAb"/>
                             <constraint firstItem="Qah-5W-Ih8" firstAttribute="centerX" secondItem="Mko-9T-3cv" secondAttribute="centerX" id="d6p-pm-Tpc"/>
                             <constraint firstItem="KNy-VX-v13" firstAttribute="centerY" secondItem="Mko-9T-3cv" secondAttribute="centerY" id="e2a-O3-rWB"/>
                             <constraint firstItem="KNy-VX-v13" firstAttribute="centerX" secondItem="Mko-9T-3cv" secondAttribute="centerX" id="lp9-Fc-Vop"/>
-                            <constraint firstItem="Ro3-Jg-1vv" firstAttribute="trailing" secondItem="btm-WQ-CDq" secondAttribute="trailing" constant="30" id="nR2-pC-zed"/>
-                            <constraint firstItem="46O-Wo-mI3" firstAttribute="centerY" secondItem="Mko-9T-3cv" secondAttribute="centerY" id="zLO-FU-QkK"/>
+                            <constraint firstItem="5NU-zB-hsh" firstAttribute="centerX" secondItem="Mko-9T-3cv" secondAttribute="centerX" id="pMa-pH-y6v"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="nextButton" destination="btm-WQ-CDq" id="vdX-zF-6Hl"/>
+                        <outlet property="texts" destination="5NU-zB-hsh" id="pO1-4w-Liz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Fr-J2-bkh" sceneMemberID="firstResponder"/>
@@ -148,7 +131,6 @@
         <!--Navigation Controller-->
         <scene sceneID="wJ2-qr-Tm6">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BNq-nO-lMP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController id="q3p-Xh-Esy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="Y80-ln-V6T">
                         <imageReference key="image" image="PlusCircle" symbolScale="large"/>
@@ -161,6 +143,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BNq-nO-lMP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1535" y="115"/>
         </scene>
@@ -446,7 +429,8 @@
         <image name="PlusCircle" width="25" height="25"/>
         <image name="Vector" width="25" height="25"/>
         <image name="Vector-1" width="25" height="25"/>
-        <image name="circle.fill" catalog="system" width="32" height="32"/>
+        <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="circle.fill" catalog="system" width="128" height="121"/>
         <image name="homenav" width="26" height="27"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

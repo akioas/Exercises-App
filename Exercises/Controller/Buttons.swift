@@ -6,18 +6,18 @@ class StartText {
             let mutableAttributedTitle = NSMutableAttributedString(attributedString: attributedTitle)
             mutableAttributedTitle.replaceCharacters(in: NSMakeRange(0, mutableAttributedTitle.length), with: text)
             button.setAttributedTitle(mutableAttributedTitle, for: .normal)
-            button.tintColor = .label
+            button.tintColor = .white
         }
     }
 
     func setBotButtonText(button: UIButton, text: String){
-        let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.label,
+        let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.white,
                            NSAttributedString.Key.font: UIFont(name: "System Font Regular", size: 40)]
         let attrString = NSAttributedString(string: text, attributes: attributes as [NSAttributedString.Key : Any] )
         button.setAttributedTitle(attrString, for: .normal)
-        button.layer.cornerRadius = 15
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.label.cgColor
+//        button.layer.cornerRadius = 15
+//        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.white.cgColor
         button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
@@ -28,7 +28,7 @@ class StartText {
         button.setAttributedTitle(attrString, for: .normal)
         button.layer.cornerRadius = 5
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.systemFill.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         button.layer.backgroundColor = UIColor.secondarySystemFill.cgColor
     }
 }
