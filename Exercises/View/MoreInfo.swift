@@ -9,7 +9,7 @@ class MoreInfo: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        topImage(view: view)
+        topImage(view: view, type: .common)
         let text = UILabel()
         text.frame = CGRect.init(x: 20, y: 20, width: view.frame.width, height: view.frame.height)
         text.text = "Здесь скоро будет волшебство"

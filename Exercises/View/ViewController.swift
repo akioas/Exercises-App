@@ -81,7 +81,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         botPadding = view.safeAreaInsets.bottom
 
         setupTableView()
-        topImage(view: view)
+        topImage(view: view, type: .common)
 
         setupHeader(view, text: ("Last trainings"), width: tableView.frame.width)
         self.navigationController?.isNavigationBarHidden = true

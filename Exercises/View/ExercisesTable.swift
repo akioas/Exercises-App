@@ -20,7 +20,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
-        topImage(view: view)
+        topImage(view: view, type: .common)
         setupHeader()
         self.navigationController?.isNavigationBarHidden = true
 

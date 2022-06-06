@@ -18,6 +18,8 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
     var birthdayDate = Date()
     var sex = ""
     var weight = ""
+    var height = ""
+
     let txtField = UITextField()
     let weightField = UITextField()
     let sexes = [NSLocalizedString("Female", comment: ""),
@@ -51,7 +53,7 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
-        topImage(view: view)
+        topImage(view: view, type: .common)
         setupHeader()
         self.navigationController?.isNavigationBarHidden = true
 
@@ -250,7 +252,7 @@ class UserSettings: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             editButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
         } else {
-            vals.save(birthday: birthdayDate, name: name, sex: sex, weight: (weight))
+            vals.save(birthday: birthdayDate, name: name, sex: sex, weight: (weight), height: height)
             editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         }
         self.tableView.reloadData()

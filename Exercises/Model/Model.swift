@@ -70,6 +70,8 @@ class UserVariables{
     let nameKey = "name"
     let sexKey = "sex"
     let weightKey = "weight"
+    let heightKey = "height"
+
     let birthdayKey = "birthday"
     /*
     func save(_ name: Any, forKey key: String){

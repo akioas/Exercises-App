@@ -150,20 +150,16 @@
         <!--First Launch Text-->
         <scene sceneID="gCV-6p-nUv">
             <objects>
-                <viewController storyboardIdentifier="firstlaunchtext" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="q3D-Pd-A9y" customClass="FirstLaunchText" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="firstlaunchtext" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="q3D-Pd-A9y" customClass="FirstLaunchText" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kt5-dy-RZU" customClass="UITableView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Fiit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDI-MB-PnL">
-                                <rect key="frame" x="181.5" y="104" width="51.5" height="48"/>
-                                <color key="tintColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H4q-gn-N2G">
-                                <rect key="frame" x="165.5" y="760" width="83" height="62"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H4q-gn-N2G">
+                                <rect key="frame" x="20.5" y="782" width="373" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="6LC-ck-TV9"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" family="Helvetica Neue" pointSize="40"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -171,7 +167,7 @@
                                     <attributedString key="attributedTitle">
                                         <fragment content="Start">
                                             <attributes>
-                                                <font key="NSFont" metaFont="system" size="40"/>
+                                                <font key="NSFont" metaFont="system" size="16"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="30" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
                                         </fragment>
@@ -182,13 +178,19 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="1mQ-jJ-9wi">
-                                <rect key="frame" x="20.5" y="338" width="373" height="220"/>
+                                <rect key="frame" x="20.5" y="144" width="373" height="517.5"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h8R-uH-JpX">
-                                        <rect key="frame" x="0.0" y="0.0" width="373" height="40"/>
-                                        <color key="backgroundColor" systemColor="secondarySystemFillColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qxk-gb-ki5">
+                                        <rect key="frame" x="0.0" y="0.0" width="373" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h8R-uH-JpX">
+                                        <rect key="frame" x="0.0" y="39.5" width="373" height="48"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="mnQ-I1-SR9"/>
+                                            <constraint firstAttribute="height" constant="48" id="mnQ-I1-SR9"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="name"/>
@@ -196,39 +198,23 @@
                                             <action selector="nameEdited:" destination="q3D-Pd-A9y" eventType="editingDidEnd" id="bOk-sW-L7B"/>
                                         </connections>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LNR-7I-hNi">
-                                        <rect key="frame" x="0.0" y="60" width="373" height="40"/>
-                                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="Mj1-Hm-tKa"/>
-                                        </constraints>
-                                        <color key="tintColor" systemColor="placeholderTextColor"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Button">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Birthday">
-                                                    <attributes>
-                                                        <font key="NSFont" metaFont="system" size="25"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="17" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </state>
-                                        <connections>
-                                            <action selector="birthdayEdited:" destination="q3D-Pd-A9y" eventType="touchUpInside" id="mf1-kV-Jbe"/>
-                                        </connections>
-                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U75-p1-SCg">
+                                        <rect key="frame" x="0.0" y="107.5" width="373" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Prq-02-bej">
-                                        <rect key="frame" x="0.0" y="120" width="373" height="40"/>
-                                        <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                        <rect key="frame" x="0.0" y="147" width="373" height="48"/>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="zBy-jm-1hc"/>
+                                            <constraint firstAttribute="height" constant="48" id="zBy-jm-1hc"/>
                                         </constraints>
                                         <color key="tintColor" systemColor="placeholderTextColor"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="Button">
                                             <attributedString key="attributedTitle">
-                                                <fragment content="Sex">
+                                                <fragment content=" ">
                                                     <attributes>
                                                         <font key="NSFont" metaFont="system" size="25"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="17" tighteningFactorForTruncation="0.0"/>
@@ -240,11 +226,63 @@
                                             <action selector="sexEdited:" destination="q3D-Pd-A9y" eventType="touchUpInside" id="2b8-0o-1QB"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Weight" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PjU-TZ-UeV">
-                                        <rect key="frame" x="0.0" y="180" width="373" height="40"/>
-                                        <color key="backgroundColor" systemColor="secondarySystemFillColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Birthday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgp-MO-23j">
+                                        <rect key="frame" x="0.0" y="215" width="373" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LNR-7I-hNi">
+                                        <rect key="frame" x="0.0" y="254.5" width="373" height="48"/>
+                                        <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="o6U-gC-Bl1"/>
+                                            <constraint firstAttribute="height" constant="48" id="Mj1-Hm-tKa"/>
+                                        </constraints>
+                                        <color key="tintColor" systemColor="placeholderTextColor"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Button">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content=" ">
+                                                    <attributes>
+                                                        <font key="NSFont" metaFont="toolTip"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
+                                        <connections>
+                                            <action selector="birthdayEdited:" destination="q3D-Pd-A9y" eventType="touchUpInside" id="mf1-kV-Jbe"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Height" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzb-RZ-dI5">
+                                        <rect key="frame" x="0.0" y="322.5" width="373" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VHm-NQ-EpT">
+                                        <rect key="frame" x="0.0" y="362" width="373" height="48"/>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="8EQ-Wf-hzg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="honorifix-suffix"/>
+                                        <connections>
+                                            <action selector="heightEdited:" destination="q3D-Pd-A9y" eventType="editingDidEnd" id="Z4F-XD-LpT"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOB-sz-UAG">
+                                        <rect key="frame" x="0.0" y="430" width="373" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PjU-TZ-UeV">
+                                        <rect key="frame" x="0.0" y="469.5" width="373" height="48"/>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="o6U-gC-Bl1"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="honorifix-suffix"/>
@@ -258,19 +296,22 @@
                         <viewLayoutGuide key="safeArea" id="4Br-LL-4gS"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="jDI-MB-PnL" firstAttribute="centerX" secondItem="Kt5-dy-RZU" secondAttribute="centerX" id="G9R-6u-rzL"/>
-                            <constraint firstItem="1mQ-jJ-9wi" firstAttribute="centerY" secondItem="Kt5-dy-RZU" secondAttribute="centerY" id="Mpx-s7-221"/>
                             <constraint firstItem="h8R-uH-JpX" firstAttribute="width" secondItem="Kt5-dy-RZU" secondAttribute="width" multiplier="0.9" id="SZb-cc-cgE"/>
                             <constraint firstItem="1mQ-jJ-9wi" firstAttribute="centerX" secondItem="Kt5-dy-RZU" secondAttribute="centerX" id="oYC-0a-AIN"/>
+                            <constraint firstItem="H4q-gn-N2G" firstAttribute="width" secondItem="Kt5-dy-RZU" secondAttribute="width" multiplier="0.9" id="tuT-9J-WGq"/>
                             <constraint firstItem="H4q-gn-N2G" firstAttribute="centerX" secondItem="Kt5-dy-RZU" secondAttribute="centerX" id="vIo-HD-8a1"/>
+                            <constraint firstItem="4Br-LL-4gS" firstAttribute="bottom" secondItem="H4q-gn-N2G" secondAttribute="bottom" constant="40" id="wuw-6d-pIl"/>
+                            <constraint firstItem="1mQ-jJ-9wi" firstAttribute="top" secondItem="4Br-LL-4gS" secondAttribute="top" constant="100" id="zSz-c4-UhY"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="osi-4H-oSx"/>
                     <connections>
-                        <outlet property="appLabel" destination="jDI-MB-PnL" id="DS8-jd-y95"/>
                         <outlet property="birthdayButton" destination="LNR-7I-hNi" id="FC5-nr-Qgc"/>
+                        <outlet property="heightField" destination="VHm-NQ-EpT" id="SrJ-Zu-3yD"/>
                         <outlet property="nameField" destination="h8R-uH-JpX" id="d3o-Gx-Ndi"/>
                         <outlet property="sexButton" destination="Prq-02-bej" id="dKA-Ga-keU"/>
+                        <outlet property="stackView" destination="1mQ-jJ-9wi" id="mnB-WG-Wpt"/>
                         <outlet property="startButton" destination="H4q-gn-N2G" id="Gcg-LF-ozV"/>
                         <outlet property="weightField" destination="PjU-TZ-UeV" id="jeR-UO-Foe"/>
                     </connections>
@@ -440,9 +481,6 @@
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="secondarySystemFillColor">
-            <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

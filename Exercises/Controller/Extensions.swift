@@ -7,7 +7,7 @@ extension UIViewController {
         transition.duration = 0.3
         transition.type = CATransitionType.moveIn
         transition.subtype = CATransitionSubtype.fromTop
-        self.view.window!.layer.add(transition, forKey: kCATransition)
+        self.view.window?.layer.add(transition, forKey: kCATransition)
 
         present(viewControllerToPresent, animated: false)
     }

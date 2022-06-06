@@ -6,13 +6,13 @@ class StartText {
             let mutableAttributedTitle = NSMutableAttributedString(attributedString: attributedTitle)
             mutableAttributedTitle.replaceCharacters(in: NSMakeRange(0, mutableAttributedTitle.length), with: text)
             button.setAttributedTitle(mutableAttributedTitle, for: .normal)
-            button.tintColor = .white
+            button.tintColor = .label
         }
     }
 
     func setBotButtonText(button: UIButton, text: String){
         let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.white,
-                           NSAttributedString.Key.font: UIFont(name: "System Font Regular", size: 40)]
+                           NSAttributedString.Key.font: UIFont(name: "System Font Regular", size: 16)]
         let attrString = NSAttributedString(string: text, attributes: attributes as [NSAttributedString.Key : Any] )
         button.setAttributedTitle(attrString, for: .normal)
 //        button.layer.cornerRadius = 15
@@ -26,10 +26,10 @@ class StartText {
                            NSAttributedString.Key.font: UIFont(name: "System Font Regular", size: 25)]
         let attrString = NSAttributedString(string: text, attributes: attributes as [NSAttributedString.Key : Any] )
         button.setAttributedTitle(attrString, for: .normal)
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 15
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.white.cgColor
-        button.layer.backgroundColor = UIColor.secondarySystemFill.cgColor
+        button.layer.borderColor = UIColor.init(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
+        button.layer.backgroundColor = UIColor.init(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0).cgColor
     }
 }
 
@@ -87,10 +87,20 @@ func setupDatePicker(datePicker: UIDatePicker, toolBar: UIToolbar){
     toolBar.isUserInteractionEnabled = true
 }
 
-
-func topImage(view: UIView){
+enum YCoord{
+    case firstScreen
+    case common
+}
+func topImage(view: UIView, type: YCoord){
+    
     let imgView = UIImageView()
-    imgView.frame = CGRect.init(x: 0, y: 44, width: UIScreen.main.bounds.width, height: 150)
+    switch type {
+    case .firstScreen:
+        imgView.frame = CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 150)
+    case .common:
+        imgView.frame = CGRect.init(x: 0, y: 44, width: UIScreen.main.bounds.width, height: 150)
+
+    }
     imgView.image = UIImage(named: "Decor")
     imgView.contentMode = .scaleAspectFill
     view.addSubview(imgView)

@@ -51,14 +51,16 @@ class UserValues {
         case birthday
         case sex
         case weight
+        case height
     }
-    func save(birthday: Date, name: String, sex: String, weight: String){
+    func save(birthday: Date, name: String, sex: String, weight: String, height: String){
         userVar.wasLaunched()
         let user = dataModel.addUser()
         user.setValue(birthday, forKey: userVar.birthdayKey)
         user.setValue(name, forKey: userVar.nameKey)
         user.setValue(sex, forKey: userVar.sexKey)
         user.setValue(Int(weight), forKey: userVar.weightKey)
+        user.setValue(Int(height), forKey: userVar.heightKey)
         dataModel.saveModel()
     }
     func saveOne(value: Any, key: Keys, user: NSManagedObject){
@@ -66,6 +68,8 @@ class UserValues {
         switch key{
         case .weight:
             newKey = userVar.weightKey
+        case .height:
+            newKey = userVar.heightKey
         case .name:
             newKey = userVar.nameKey
         case .sex:
@@ -75,8 +79,8 @@ class UserValues {
         }
         if key == .weight{
             user.setValue(Int(value as? String ?? ""), forKey: newKey)
-
-         
+        } else if key == .height{
+            user.setValue(Int(value as? String ?? ""), forKey: newKey)
         } else {
             user.setValue(value, forKey: newKey)
         }
@@ -91,6 +95,8 @@ class UserValues {
             return getWeight(user)
         case .birthday:
             return getDate(user)
+        case .height:
+            return getHeight(user)
         }
     
     }
@@ -114,6 +120,14 @@ class UserValues {
         let weight = user.value(forKey: userVar.weightKey) as? Int16 ?? 0
         if weight != 0 {
             return String(weight)
+        } else {
+            return "Not set"
+        }
+    }
+    func getHeight(_ user: NSManagedObject) -> String{
+        let height = user.value(forKey: userVar.heightKey) as? Int16 ?? 0
+        if height != 0 {
+            return String(height)
         } else {
             return "Not set"
         }

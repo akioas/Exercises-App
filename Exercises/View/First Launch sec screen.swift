@@ -11,10 +11,12 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     var isPickingDate = false
     var isPickingSex = false
     
+    @IBOutlet weak var stackView: UIStackView!
     var name = ""
     var birthday = Date()
     var sex = ""
     var weight = ""
+    var height = ""
     
     let sexes = [NSLocalizedString("Female", comment: ""),
                  NSLocalizedString("Male", comment: ""),
@@ -25,27 +27,48 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     @IBOutlet weak var sexButton: UIButton!
     @IBOutlet weak var weightField: UITextField!
     
-    @IBOutlet weak var appLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var heightField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
+
         self.hideOnTap()
         nameField.delegate = self
         weightField.delegate = self
+        heightField.delegate = self
         setupDatePicker()
         setupPicker()
         start.setBotButtonText(button: startButton, text: NSLocalizedString("Start", comment: "start button"))
-        start.setButtonText(button: birthdayButton, text: NSLocalizedString("Birthday", comment: ""))
-        start.setButtonText(button: sexButton, text: NSLocalizedString("Sex", comment: ""))
+        start.setButtonText(button: birthdayButton, text: NSLocalizedString(" ", comment: ""))
+        start.setButtonText(button: sexButton, text: NSLocalizedString(" ", comment: ""))
 
         let height = self.view.safeAreaLayoutGuide.layoutFrame.height
         let startBConstraint = NSLayoutConstraint(item: startButton!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: height * 0.85)
-        let appLabelConstraint = NSLayoutConstraint(item: appLabel!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: height * 0.15)
-        NSLayoutConstraint.activate([startBConstraint, appLabelConstraint])
+        NSLayoutConstraint.activate([startBConstraint])
+        nameField.layer.cornerRadius = 15
+        nameField.layer.borderWidth = 1
+        nameField.layer.borderColor = UIColor.init(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
+        nameField.layer.backgroundColor = UIColor.init(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0).cgColor
+        weightField.layer.cornerRadius = 15
+        weightField.layer.borderWidth = 1
+        weightField.layer.borderColor = UIColor.init(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
+        weightField.layer.backgroundColor = UIColor.init(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0).cgColor
+        heightField.layer.cornerRadius = 15
+        heightField.layer.borderWidth = 1
+        heightField.layer.borderColor = UIColor.init(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
+        heightField.layer.backgroundColor = UIColor.init(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0).cgColor
+        startButton.layer.cornerRadius = 20
+        startButton.layer.backgroundColor = UIColor.init(red: 0.09, green: 0.49, blue: 0.9, alpha: 1.0).cgColor
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        topImage(view: view, type: .firstScreen)
+        setupHeader(view, width: view.frame.width)
+        stackView.spacing = view.frame.height / 50
 
     }
-    
     @IBAction func nameEdited(_ sender: Any) {
         name = nameField.text ?? ""
     }
@@ -59,6 +82,9 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     }
     @IBAction func weightEdited(_ sender: Any) {
         weight = weightField.text ?? ""
+    }
+    @IBAction func heightEdited(_ sender: Any) {
+        height = heightField.text ?? ""
     }
     
     func setupDatePicker(){
@@ -81,11 +107,28 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     }
     
     @IBAction func startAction(_ sender: Any) {
-        UserValues().save(birthday: birthday, name: name, sex: sex, weight: weight)
+        UserValues().save(birthday: birthday, name: name, sex: sex, weight: weight, height: height)
 
         self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
     }
-    
+    func setupHeader(_ view: UIView, width: CGFloat){
+        
+        let header = UIView.init(frame: CGRect.init(x: 0, y: 0, width: width, height: 50))
+        let textLabel = UILabel()
+        
+        textLabel.frame = CGRect.init(x: 10, y: 0, width: width - 20, height: 50)
+        textLabel.numberOfLines = 2
+        textLabel.text = "Tell us about you"
+        textLabel.font = .systemFont(ofSize: 24)
+        textLabel.textColor = .white
+        textLabel.textAlignment = .center
+        header.backgroundColor = .clear
+        
+        header.addSubview(textLabel)
+        
+        
+        view.addSubview(header)
+    }
 }
 
 extension FirstLaunchText {
@@ -108,7 +151,7 @@ extension FirstLaunchText {
 
 extension FirstLaunchText {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-           if textField == weightField {
+           if (textField == weightField) || (textField == heightField) {
                return AllowedText().textDigits(string: string)
             }
             return true
