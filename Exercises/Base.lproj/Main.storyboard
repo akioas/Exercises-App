@@ -463,6 +463,23 @@
             </objects>
             <point key="canvasLocation" x="3290" y="897"/>
         </scene>
+        <!--Add Exercise-->
+        <scene sceneID="AtY-Tp-UPO">
+            <objects>
+                <viewController storyboardIdentifier="addex" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2YC-rT-sYT" customClass="AddExercise" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cTh-bJ-lze">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="ol2-Rs-z99"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="YVw-uO-163"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D83-8r-5de" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1206" y="1685"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Barbell" width="25" height="25"/>

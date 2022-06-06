@@ -69,7 +69,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         view.backgroundColor = .secondarySystemBackground
 //        self.hideOnTap()
 
-        if !UserVariables().isFirstLaunch(){ //! if  1
+        if UserVariables().isFirstLaunch(){ //! if  1
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "launch") as! FirstLaunch
             vc.modalPresentationStyle = .fullScreen
@@ -202,8 +202,11 @@ extension ViewController {
     
     
     @objc func addItem(){
-        let vc = AddExercise()
-        self.presentDetail(vc)
+//        let vc = AddExercise()
+        let vc = storyboard?.instantiateViewController(withIdentifier: "addex") as! AddExercise
+//        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+//        self.presentDetail(vc)
     }
     @objc func toExTable(){
         let vc = ExercisesTable()
