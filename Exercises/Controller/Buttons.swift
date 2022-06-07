@@ -22,14 +22,29 @@ class StartText {
     }
     
     func setButtonText(button: UIButton, text: String){
-        let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.placeholderText,
-                           NSAttributedString.Key.font: UIFont(name: "System Font Regular", size: 25)]
+        let attributes = [ NSAttributedString.Key.foregroundColor: UIColor.black,
+                           NSAttributedString.Key.font: UIFont(name: "System Font Regular", size: 25),
+                           ]
         let attrString = NSAttributedString(string: text, attributes: attributes as [NSAttributedString.Key : Any] )
         button.setAttributedTitle(attrString, for: .normal)
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.init(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
         button.layer.backgroundColor = UIColor.init(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0).cgColor
+        button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.left
+        if #available(iOS 15.0, *) {
+            var configuration = UIButton.Configuration.gray()
+            configuration.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+            configuration.baseForegroundColor = UIColor.label
+
+            configuration.baseBackgroundColor = UIColor.init(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0)
+            print(configuration)
+            button.configuration = configuration
+        } else {
+            button.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+
+        }
+        
     }
     func smallButton(button: UIButton){
         let constraint = NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: .none, attribute: .notAnAttribute, multiplier: 1.0, constant: 30)
@@ -124,6 +139,8 @@ func textFieldAppearance(_ field: UITextField){
     field.layer.borderWidth = 1
     field.layer.borderColor = UIColor.init(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
     field.layer.backgroundColor = UIColor.init(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0).cgColor
+    field.textAlignment = .natural
+    field.leftSpace(5)
 }
 
 enum viewType{

@@ -1,15 +1,9 @@
 import UIKit
 
-extension UIViewController {
-
-    func presentDetail(_ viewControllerToPresent: UIViewController) {
-        let transition = CATransition()
-        transition.duration = 0.4
-        transition.type = CATransitionType.moveIn
-        transition.subtype = CATransitionSubtype.fromTop
-        self.view.window?.layer.add(transition, forKey: kCATransition)
-        
-
-        present(viewControllerToPresent, animated: false)
-    }
+extension UITextField {
+    func leftSpace(_ width: CGFloat){
+            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: self.frame.size.height))
+            self.leftView = paddingView
+            self.leftViewMode = .always
+        }
 }
