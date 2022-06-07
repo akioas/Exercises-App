@@ -80,7 +80,7 @@ class Chart: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
             dates.append(data.caseDate(ex))
             rep.append(data.getRep(currentEx: ex))
             reps.append(data.getReps(currentEx: ex))
-            weights.append(data.getWeight(currentEx: ex))
+            weights.append(Int16(data.getWeight(currentEx: ex)))
         }
         print(dates)
         print(rep)

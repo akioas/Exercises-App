@@ -14,7 +14,7 @@ extension Entity {
     @NSManaged public var name: String?
     @NSManaged public var rep: Int16
     @NSManaged public var reps: Int16
-    @NSManaged public var weight: Int16
+    @NSManaged public var weight: Double
 
 }
 

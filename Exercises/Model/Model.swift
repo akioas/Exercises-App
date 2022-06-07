@@ -17,7 +17,7 @@ class DataModel{
         newItem.name = NSLocalizedString("Exercise", comment: "")
         newItem.rep = 0
         newItem.reps = 10
-        newItem.weight = 10
+        newItem.weight = 10.0
         saveModel()
         return newItem
     }

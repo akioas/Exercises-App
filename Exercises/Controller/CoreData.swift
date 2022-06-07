@@ -10,13 +10,13 @@ class GetData {
         case 1:
             return currentEx.value(forKey: "name") as? String ?? ""
         case 2:
-            return (NSLocalizedString("Set: ", comment: "") + String(currentEx.value(forKey: "rep") as? Int16 ?? 0))
+            return (NSLocalizedString("Set", comment: ""))
         case 3:
-            return (NSLocalizedString("Reps: ", comment: "") + String(currentEx.value(forKey: "reps") as? Int16 ?? 0))
+            return (NSLocalizedString("Reps", comment: ""))
         case 4:
-            return (NSLocalizedString("Weight: ", comment: "") + String(currentEx.value(forKey: "weight") as? Int16 ?? 0))
+            return (NSLocalizedString("Weight", comment: "") )
         case 5:
-            return String((currentEx.value(forKey: "weight") as? Int16 ?? 0) * (currentEx.value(forKey: "reps") as? Int16 ?? 0))
+            return ""
         
         default:
             return ""
@@ -31,8 +31,8 @@ class GetData {
             return (currentEx.value(forKey: "reps") as? Int16 ?? 0)
     }
 
-    func getWeight(currentEx: NSManagedObject) -> Int16{
-            return (currentEx.value(forKey: "weight") as? Int16 ?? 0)
+    func getWeight(currentEx: NSManagedObject) -> Double{
+        return (currentEx.value(forKey: "weight") as? Double ?? 0.0)
     }
 
     func caseDate(_ currentEx: NSManagedObject) -> String{

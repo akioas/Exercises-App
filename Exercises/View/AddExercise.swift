@@ -9,9 +9,20 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     let cellId = "cellId"
     let data = GetData()
     var callBackStepper:((_ value:Int, _ name: String)->())?
+    var callBackStepperD:((_ value:Double, _ name: String)->())?
+
     let datePicker = UIDatePicker()
+    var blankImg = UIImage()
+    var imgSize = 0.0
 //    let toolBar = UIToolbar()
 
+    override func viewWillAppear(_ animated: Bool) {
+        let configuration = UIImage.SymbolConfiguration(pointSize: 40, weight: .regular, scale: .medium)
+        blankImg = UIImage(systemName: "rectangle.fill", withConfiguration: configuration)?.withTintColor(.clear, renderingMode: .alwaysOriginal) ?? UIImage()
+        blankImg.withTintColor(.clear)
+        imgSize = blankImg.size.width
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self,
@@ -23,12 +34,10 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         setupHeader(view, text: NSLocalizedString("Add an activity", comment: ""), button: nil, imgName: nil)
         self.navigationController?.isNavigationBarHidden = true
         self.hideOnTap()
-
         
     }
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
-       
     }
     
     func loadObject(_ object: NSManagedObject){
@@ -60,6 +69,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     }
     
     func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
+        print(step)
         let stepper = Stepper()
         stepper.minimumValue = 0
         stepper.maximumValue = max
@@ -67,8 +77,27 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         stepper.stepValue = step
         stepper.setNum(num: tag)
         stepper.setName(name: name)
-        stepper.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
-        cell.accessoryView = stepper
+        stepper.setDividerImage(blankImg, forLeftSegmentState: .normal, rightSegmentState: .normal)
+        let label = Label()
+        label.setNum(num: tag)
+        label.setName(name: name)
+        if step != 0.125{
+            label.text = String(Int(stepper.value))
+            stepper.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
+
+        } else {
+            label.text = String(stepper.value)
+            stepper.addTarget(self, action: #selector(self.stepperValueChangedD(_:)), for: .valueChanged)
+
+        }
+        
+        label.textAlignment = .center
+        let view = UIView()
+        view.frame = stepper.frame
+        label.frame = CGRect(x: (view.frame.width - imgSize) / 2, y: 0, width: imgSize, height: view.frame.height)
+        view.addSubview(stepper)
+        view.addSubview(label)
+        cell.accessoryView = view
     }
     
     @objc func cancel(){
@@ -103,6 +132,16 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     }
     func callBack(){
         callBackStepper = { value, name in
+            self.object.setValue(value, forKey: name)
+            self.tableView.reloadData()
+        }
+    }
+    @objc func stepperValueChangedD(_ sender:Stepper!)
+    {
+        callBackStepperD?((sender.value), sender.getName())
+    }
+    func callBackD(){
+        callBackStepperD = { value, name in
             self.object.setValue(value, forKey: name)
             self.tableView.reloadData()
         }
@@ -178,8 +217,10 @@ extension AddExercise {
             setupStepper(cell, tag: indexPath.section, value: Double((data.getReps(currentEx: object))), name: "reps", max: 100.0, step: 1.0)
             callBack()
         } else if (indexPath.row == 4){
-            setupStepper(cell, tag: indexPath.section, value: Double((data.getWeight(currentEx: object))), name: "weight", max: 300.0, step: 5.0)
-            callBack()
+            print("L")
+            print(data.getWeight(currentEx: object))
+            setupStepper(cell, tag: indexPath.section, value: ((data.getWeight(currentEx: object))), name: "weight", max: 300.0, step: (0.125))
+            callBackD()
         } else {
             cell.accessoryView = nil
         }
