@@ -38,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		4A1119D3282A919E0001908C /* AddExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExercise.swift; sourceTree = "<group>"; };
+		4A418ADC284F6A9300CF8366 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		4A67D1D328454D630075E47C /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4A67D1D428454D630075E47C /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4A67D1D728454E910075E47C /* First Launch sec screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "First Launch sec screen.swift"; sourceTree = "<group>"; };
@@ -64,7 +65,6 @@
 		4ADBFEBD284923A90091F108 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		4ADDCC4E284A5CED0018F24D /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		4ADDCC50284A73300018F24D /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
-		4AE08BD12846874400259617 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		4AE08BD22846874400259617 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4AE08BD42846882200259617 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		4AE08BDA2846897300259617 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -264,8 +264,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				4A858547282131E200604655 /* Base */,
-				4AE08BD12846874400259617 /* ru */,
 				4AE08BD42846882200259617 /* en */,
+				4A418ADC284F6A9300CF8366 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

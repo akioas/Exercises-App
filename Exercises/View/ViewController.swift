@@ -28,7 +28,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     override func viewDidAppear(_ animated: Bool) {
         
-        if !UserVariables().isFirstLaunch(){ //! if  1
+        if !UserVariables().isFirstLaunch(){ //!
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "launch") as! FirstLaunch
             vc.modalPresentationStyle = .fullScreen
@@ -83,7 +83,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         topImage(view: view, type: .common)
         let calButton = UIButton()
-        setupHeader(view, text: ("Last trainings"), button: calButton, imgName: "calendar")
+        setupHeader(view, text: NSLocalizedString("Last trainings", comment: ""), button: calButton, imgName: "calendar")
         calButton.addTarget(self, action: #selector(clockItem), for: .touchUpInside)
 
         self.navigationController?.isNavigationBarHidden = true
@@ -91,12 +91,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func setupViews(){
-        /*
-        let newView = UIView()
-        newView.frame = CGRect(x: 5.0, y: tableView.frame.maxY , width: view.frame.width - 10.0, height: 1)
-        newView.backgroundColor = .lightGray
-        view.addSubview(newView)
-*/
+       
         let newBotView = UIView()
         newBotView.frame = CGRect(x: 5.0, y: tableView.frame.height + topPadding , width: view.frame.width - 10.0, height: 3)
         newBotView.backgroundColor = .blue
@@ -123,9 +118,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         datePicker.backgroundColor = .secondarySystemBackground
         setupDatePicker(datePicker: datePicker, toolBar: toolBar)
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDate))
-        let spaceButton = UIBarButtonItem(title: "Clear selection", style: .plain, target: self, action: #selector(clearDate))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDate))
+        let doneButton = UIBarButtonItem(title: NSLocalizedString("Done", comment: ""), style: .plain, target: self, action: #selector(doneDate))
+        let spaceButton = UIBarButtonItem(title: NSLocalizedString("Clear selection", comment: ""), style: .plain, target: self, action: #selector(clearDate))
+        let cancelButton = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: .plain, target: self, action: #selector(cancelDate))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 
         toolBar.setItems([cancelButton, flexibleSpace, spaceButton, flexibleSpace, doneButton], animated: false)
@@ -197,7 +192,6 @@ extension ViewController {
     }
     
     @objc func refresh(){
-        print("refreshed")
         self.tableView.reloadData()
     }
     
@@ -253,8 +247,8 @@ extension ViewController {
             self.users = try context.fetch(fetchRequest)
             if let user = users.last{
                 yourName = UserValues().getName(user)
-                if yourName == "Not set"{
-                    yourName = "User"
+                if yourName == NSLocalizedString("Not set", comment: ""){
+                    yourName = NSLocalizedString("User", comment: "")
                 }
             }
             
@@ -345,21 +339,3 @@ extension ViewController {
         
     }
 }
-
-/*
-extension ViewController {
-
-    @objc func hideOnTap() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:    #selector(ViewController.dismissView))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-
-    @objc func dismissView() {
-        if let _ = datePicker{
-            doneDate()
-        }
-    }
-}
- */
-

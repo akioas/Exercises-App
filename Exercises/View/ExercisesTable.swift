@@ -19,7 +19,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         setupTableView()
         topImage(view: view, type: .common)
         let plusButton = UIButton()
-        setupHeader(view, text: "Exercises", button: plusButton, imgName: "plus.circle")
+        setupHeader(view, text: NSLocalizedString("Exercises", comment: ""), button: plusButton, imgName: "plus.circle")
         plusButton.addTarget(self, action: #selector(displayAlert), for: .touchUpInside)
         self.navigationController?.isNavigationBarHidden = true
 
@@ -54,17 +54,17 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     @objc func displayAlert() {
         
-        let alertController = UIAlertController(title: "Добавить упражнение", message: "", preferredStyle: UIAlertController.Style.alert)
+        let alertController = UIAlertController(title: NSLocalizedString("Add exercise", comment: ""), message: "", preferredStyle: UIAlertController.Style.alert)
         alertController.addTextField { (textField : UITextField!) -> Void in
-            textField.placeholder = "Упражнение"
+            textField.placeholder = NSLocalizedString("Exercise", comment: "")
         }
-        let saveAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: { alert -> Void in
+        let saveAction = UIAlertAction(title: NSLocalizedString("Save", comment: ""), style: UIAlertAction.Style.default, handler: { alert -> Void in
             let firstTextField = alertController.textFields![0] as UITextField
             self.exercises.insert(firstTextField.text ?? "", at: self.exercises.endIndex)
             self.list.save(self.exercises)
             self.refresh()
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.default, handler: {
             (action : UIAlertAction!) -> Void in })
         alertController.addAction(cancelAction)
         alertController.addAction(saveAction)
@@ -74,18 +74,18 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     @objc func editObject(_ sender:Button!) {
         
-        let alertController = UIAlertController(title: "Изменить упражнение", message: "", preferredStyle: UIAlertController.Style.alert)
+        let alertController = UIAlertController(title: NSLocalizedString("Edit exercise", comment: ""), message: "", preferredStyle: UIAlertController.Style.alert)
         alertController.addTextField { (textField : UITextField!) -> Void in
-            textField.placeholder = "Упражнение"
+            textField.placeholder = NSLocalizedString("Exercise", comment: "")
             textField.text = self.exercises[sender.num]
         }
-        let saveAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: { alert -> Void in
+        let saveAction = UIAlertAction(title: NSLocalizedString("Save", comment: ""), style: UIAlertAction.Style.default, handler: { alert -> Void in
             let firstTextField = alertController.textFields![0] as UITextField
             self.exercises[sender.num] = firstTextField.text ?? ""
             self.list.save(self.exercises)
             self.refresh()
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: {
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.default, handler: {
             (action : UIAlertAction!) -> Void in })
         alertController.addAction(cancelAction)
         alertController.addAction(saveAction)
