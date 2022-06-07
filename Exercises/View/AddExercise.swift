@@ -9,7 +9,8 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     let cellId = "cellId"
     let data = GetData()
     var callBackStepper:((_ value:Int, _ name: String)->())?
-
+    let datePicker = UIDatePicker()
+//    let toolBar = UIToolbar()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         topImage(view: view, type: .common)
         setupHeader(view, text: "Add an activity", button: nil, imgName: nil)
         self.navigationController?.isNavigationBarHidden = true
+        self.hideOnTap()
 
         
     }
@@ -109,6 +111,37 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         self.tableView.reloadData()
         
     }
+    @objc func doneDate() {
+        object.setValue(datePicker.date, forKey: "date")
+        self.tableView.reloadData()
+        cancelDate()
+    }
+    
+    @objc func cancelDate() {
+        datePicker.removeFromSuperview()
+//        toolBar.removeFromSuperview()
+    }
+    @objc func createDatePicker(){
+        
+        
+        if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+        }
+        datePicker.backgroundColor = .secondarySystemBackground
+//        setupDatePicker(datePicker: datePicker, toolBar: toolBar)
+        datePicker.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300) / 2, width: UIScreen.main.bounds.size.width, height: 300)
+        datePicker.backgroundColor = .lightGray
+        datePicker.datePickerMode = UIDatePicker.Mode.date
+        datePicker.contentMode = .bottom
+//        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDate))
+//        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDate))
+//        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+
+//        toolBar.setItems([cancelButton, flexibleSpace, doneButton], animated: false)
+//        self.navigationController?.view.addSubview(toolBar)
+
+        view.addSubview(datePicker)
+    }
 }
 
 
@@ -130,7 +163,11 @@ extension AddExercise {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         cell.textLabel?.text = data.setText(item: (indexPath.item ), currentEx: object)
         if indexPath.row == 0{
-            
+            let calButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            calButton.setImage(UIImage(systemName: "calendar"), for: .normal)
+            calButton.tintColor = .label
+            calButton.addTarget(self, action: #selector(createDatePicker), for: .touchUpInside)
+            cell.accessoryView = calButton
         } else if indexPath.row == 1{
             
             let newButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
@@ -170,3 +207,17 @@ extension AddExercise {
     }
 }
 
+extension AddExercise {
+
+    @objc func hideOnTap() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:    #selector(AddExercise.dismissView))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissView() {
+//        if let _ = datePicker{
+            doneDate()
+//        }
+    }
+}

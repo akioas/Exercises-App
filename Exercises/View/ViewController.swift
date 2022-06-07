@@ -151,7 +151,8 @@ extension ViewController {
             let (startDate, endDate) = dates(for: date)
             fetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
         }
-        
+        let sort = NSSortDescriptor(key: "date", ascending: false)
+        fetchRequest.sortDescriptors = [sort]
         do {
             self.exercises = try context.fetch(fetchRequest)
             NotificationCenter.default.post(name: Notification.Name(rawValue: notificationKey), object: self)
