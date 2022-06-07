@@ -60,6 +60,13 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
         topImage(view: view, type: .firstScreen)
         setupHeader(view, text: "Tell us about you", button: nil, imgName: nil, type: .launch)
         stackView.spacing = view.frame.height / 50
+        if view.frame.height < 660 {
+            start.smallButton(button: sexButton)
+            start.smallButton(button: birthdayButton)
+            start.smallText(field: nameField)
+            start.smallText(field: weightField)
+            start.smallText(field: heightField)
+        }
 
     }
     @IBAction func nameEdited(_ sender: Any) {

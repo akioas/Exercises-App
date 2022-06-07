@@ -121,15 +121,17 @@ extension AddExercise {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        cell.textLabel?.text = data.setText(item: (indexPath.item + 1), currentEx: object)
+        cell.textLabel?.text = data.setText(item: (indexPath.item ), currentEx: object)
         if indexPath.row == 0{
+            
+        } else if indexPath.row == 1{
             
             let newButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             newButton.setNum(num: indexPath.section)
@@ -139,13 +141,13 @@ extension AddExercise {
             cell.accessoryView = newButton
             
             
-        } else if indexPath.row == 1{
+        } else if indexPath.row == 2{
             setupStepper(cell, tag: indexPath.section, value: Double((data.getRep(currentEx: object))), name: "rep", max: 10.0, step: 1.0)
             callBack()
-        } else if (indexPath.row == 2){
+        } else if (indexPath.row == 3){
             setupStepper(cell, tag: indexPath.section, value: Double((data.getReps(currentEx: object))), name: "reps", max: 100.0, step: 1.0)
             callBack()
-        } else if (indexPath.row == 3){
+        } else if (indexPath.row == 4){
             setupStepper(cell, tag: indexPath.section, value: Double((data.getWeight(currentEx: object))), name: "weight", max: 300.0, step: 5.0)
             callBack()
         } else {

@@ -133,8 +133,8 @@ class UserValues {
         }
     }
     func getDate(_ user: NSManagedObject) -> String{
-        let currDate = Date()
-        let date = (user.value(forKey: userVar.birthdayKey) as? Date ?? currDate)
+        let currDate = Date(timeIntervalSinceReferenceDate: 11123456789.0)
+        let date = (user.value(forKey: userVar.birthdayKey) as? Date ?? Date(timeIntervalSinceReferenceDate: 11123456789.0))
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
         let text = dateFormatter.string(from: date)

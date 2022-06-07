@@ -31,6 +31,14 @@ class StartText {
         button.layer.borderColor = UIColor.init(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
         button.layer.backgroundColor = UIColor.init(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0).cgColor
     }
+    func smallButton(button: UIButton){
+        let constraint = NSLayoutConstraint(item: button, attribute: .height, relatedBy: .equal, toItem: .none, attribute: .notAnAttribute, multiplier: 1.0, constant: 30)
+        NSLayoutConstraint.activate([constraint])
+    }
+    func smallText(field: UITextField){
+        let constraint = NSLayoutConstraint(item: field, attribute: .height, relatedBy: .equal, toItem: .none, attribute: .notAnAttribute, multiplier: 1.0, constant: 30)
+        NSLayoutConstraint.activate([constraint])
+    }
 }
 
 class AllowedText {
@@ -94,11 +102,15 @@ enum YCoord{
 func topImage(view: UIView, type: YCoord){
     
     let imgView = UIImageView()
+    var newY = 44.0
+    if view.frame.height < 660{
+        newY = 30.0
+    }
     switch type {
     case .firstScreen:
         imgView.frame = CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 150)
     case .common:
-        imgView.frame = CGRect.init(x: 0, y: 44, width: UIScreen.main.bounds.width, height: 150)
+        imgView.frame = CGRect.init(x: 0, y: newY, width: UIScreen.main.bounds.width, height: 150)
 
     }
     imgView.image = UIImage(named: "Decor")
@@ -121,10 +133,14 @@ enum viewType{
 
 func setupHeader(_ view: UIView, text: String, button: UIButton?, imgName named: String?, type: viewType = .other){
     let header = UIView()
+    var newY = 44.0
+    if view.frame.height < 660{
+        newY = 30.0
+    }
     if type == .launch{
         header.frame = CGRect.init(x: 0, y: 0, width: view.frame.width, height: 50)
     } else {
-        header.frame = CGRect.init(x: 0, y: 44, width: view.frame.width, height: 50)
+        header.frame = CGRect.init(x: 0, y: newY, width: view.frame.width, height: 50)
     }
     let textLabel = UILabel()
     if let button = button {

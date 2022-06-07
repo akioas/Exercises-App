@@ -57,6 +57,9 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         self.hideOnTap()
         setupDatePicker()
         setupPicker()
+        stackView.spacing = view.frame.height / 50
+        
+
         
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -72,8 +75,23 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         textFieldAppearance(nameField)
         textFieldAppearance(weightField)
         textFieldAppearance(heightField)
-        start.setButtonText(button: birthdayButton, text: birthday)
-        start.setButtonText(button: sexButton, text: sex)
+        if birthday != "" {
+            start.setButtonText(button: birthdayButton, text: birthday)
+        } else {
+            start.setButtonText(button: birthdayButton, text: " ")
+        }
+        if sex != "" {
+            start.setButtonText(button: sexButton, text: sex)
+        } else {
+            start.setButtonText(button: sexButton, text: " ")
+        }
+        if view.frame.height < 660 {
+            start.smallButton(button: sexButton)
+            start.smallButton(button: birthdayButton)
+            start.smallText(field: nameField)
+            start.smallText(field: weightField)
+            start.smallText(field: heightField)
+        }
         nameField.text = name
         weightField.text = weight
         heightField.text = height
@@ -188,6 +206,15 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 
             vals.save(birthday: birthdayDate, name: name, sex: sex, weight: (weight), height: height)
             setToFalse()
+            if nameField.text == ""{
+                nameField.text = "Not set"
+            }
+            if heightField.text == ""{
+                heightField.text = "Not set"
+            }
+            if weightField.text == ""{
+                weightField.text = "Not set"
+            }
         }
     }
 
@@ -224,8 +251,7 @@ extension UserSettings {
 }
 
 extension UserSettings {
-    func textFieldShouldReturn(_ textField: UITextField!) -> Bool {
-        print(textField)
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == nameField){
             name = nameField.text ?? ""
             if let user = objects.last{
@@ -234,18 +260,23 @@ extension UserSettings {
                 print(name)
 
                 vals.saveOne(value: name, key: .name, user: user)
+                
             }
+           
         } else if (textField == weightField){
             weight = weightField.text ?? ""
             if let user = objects.last{
                 vals.saveOne(value: weight, key: .weight, user: user)
+                
             }
-        } else {
+            
+        } else if (textField == heightField){
             height = heightField.text ?? ""
             if let user = objects.last{
                 print("saved")
                 vals.saveOne(value: height, key: .height, user: user)
             }
+            
         }
         textField.resignFirstResponder()
         return true

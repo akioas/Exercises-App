@@ -24,10 +24,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewWillAppear(animated)
         fetch(isFiltered)
         fetchUser()
+        
     }
     override func viewDidAppear(_ animated: Bool) {
-
+        
+        if !UserVariables().isFirstLaunch(){ //! if  1
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "launch") as! FirstLaunch
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: false)
+        }
         createViews()
+        
         if let tabBar = self.tabBarController?.tabBar{
             tabBar.backgroundColor = .white
             tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -37,7 +45,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
           
         }
         self.tabBarController?.delegate = self
-     
     }
     
     
@@ -66,18 +73,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         view.backgroundColor = .secondarySystemBackground
 
-        if UserVariables().isFirstLaunch(){ //! if  1
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "launch") as! FirstLaunch
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: false)
-        }
+       
     }
     func createViews(){
         topPadding = view.safeAreaInsets.top
         botPadding = view.safeAreaInsets.bottom
 
         setupTableView()
+
         topImage(view: view, type: .common)
         let calButton = UIButton()
         setupHeader(view, text: ("Last trainings"), button: calButton, imgName: "calendar")

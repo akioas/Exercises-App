@@ -93,7 +93,7 @@ class UserVariables{
     }
      */
     func wasLaunched(){
-        UserDefaults.standard.set(false, forKey: "firstLaunch")
+        UserDefaults.standard.set(true, forKey: "firstLaunch")
     }
     func isFirstLaunch() -> Bool{
         UserDefaults.standard.bool(forKey: "firstLaunch")
