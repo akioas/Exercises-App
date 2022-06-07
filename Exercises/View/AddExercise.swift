@@ -20,7 +20,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
                                                object: nil)
         setupTableView()
         topImage(view: view, type: .common)
-        setupHeader(view, text: "Add an activity", button: nil, imgName: nil)
+        setupHeader(view, text: NSLocalizedString("Add an activity", comment: ""), button: nil, imgName: nil)
         self.navigationController?.isNavigationBarHidden = true
         self.hideOnTap()
 
@@ -47,12 +47,12 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         view.addSubview(tableView)
         let customView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 70))
         let buttonCancel = UIButton(frame: CGRect(x: 20, y: 20, width: 100, height: 50))
-        buttonCancel.setTitle("Cancel", for: .normal)
+        buttonCancel.setTitle(NSLocalizedString("Cancel", comment: ""), for: .normal)
         buttonCancel.backgroundColor = UIColor(red: 1.0, green: 0.5, blue: 0.5, alpha: 1.0)
         buttonCancel.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         customView.addSubview(buttonCancel)
         let buttonDone = UIButton(frame: CGRect(x: view.frame.width - 120, y: 20, width: 100, height: 50))
-        buttonDone.setTitle("Done", for: .normal)
+        buttonDone.setTitle(NSLocalizedString("Done", comment: ""), for: .normal)
         buttonDone.backgroundColor = .systemGray2
         buttonDone.addTarget(self, action: #selector(done), for: .touchUpInside)
         customView.addSubview(buttonDone)
@@ -128,17 +128,10 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
             datePicker.preferredDatePickerStyle = .wheels
         }
         datePicker.backgroundColor = .secondarySystemBackground
-//        setupDatePicker(datePicker: datePicker, toolBar: toolBar)
         datePicker.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300) / 2, width: UIScreen.main.bounds.size.width, height: 300)
         datePicker.backgroundColor = .lightGray
         datePicker.datePickerMode = UIDatePicker.Mode.date
         datePicker.contentMode = .bottom
-//        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneDate))
-//        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDate))
-//        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-
-//        toolBar.setItems([cancelButton, flexibleSpace, doneButton], animated: false)
-//        self.navigationController?.view.addSubview(toolBar)
 
         view.addSubview(datePicker)
     }

@@ -14,7 +14,7 @@ class DataModel{
     func addModel() -> NSManagedObject{
         let newItem = Entity(context: context)
         newItem.date = Date()
-        newItem.name = "Упражнение"
+        newItem.name = NSLocalizedString("Exercise", comment: "")
         newItem.rep = 0
         newItem.reps = 10
         newItem.weight = 10
@@ -25,8 +25,8 @@ class DataModel{
     func addUser() -> NSManagedObject{
         let newUser = User(context: context)
         newUser.birthday = Date()
-        newUser.name = "User"
-        newUser.sex = "Not set"
+        newUser.name = NSLocalizedString("User", comment: "")
+        newUser.sex = NSLocalizedString("Not set", comment: "")
         newUser.weight = 0
         saveModel()
         return newUser
@@ -52,9 +52,11 @@ class DataModel{
 
 
 class ExercisesList{
-    var allExersises = [ "Отведение ног", "Квадрицепс ног",
-                  "Бицепс тренажер", "Пресс тренажер",
-                  "Спина гиперэкстензия"]
+    var allExersises = [ NSLocalizedString("Отведение ног", comment: ""),
+                         NSLocalizedString("Квадрицепс ног", comment: ""),
+                         NSLocalizedString("Бицепс тренажер", comment: ""),
+                         NSLocalizedString("Пресс тренажер", comment: ""),
+                         NSLocalizedString("Спина гиперэкстензия", comment: "")]
     
     func load() -> [String]{
         UserDefaults.standard.array(forKey: "ex") as? [String] ?? allExersises

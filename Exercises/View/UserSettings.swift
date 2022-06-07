@@ -69,7 +69,7 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         
 
         topImage(view: view, type: .firstScreen)
-        setupHeader(view, text: "Personal Info", button: editButton, imgName: "square.and.pencil", type: .launch)
+        setupHeader(view, text: NSLocalizedString("Personal Info", comment: ""), button: editButton, imgName: "square.and.pencil", type: .launch)
 
         editButton.addTarget(self, action: #selector(edit), for: .touchUpInside)
         textFieldAppearance(nameField)
@@ -97,7 +97,6 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         heightField.text = height
         sexButton.tintColor = .black
         birthdayButton.tintColor = .black
-//        txtFieldsBtns()
     }
     
     
@@ -191,13 +190,13 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
             nameField.isUserInteractionEnabled = true
             heightField.isUserInteractionEnabled = true
             weightField.isUserInteractionEnabled = true
-            if nameField.text == "Not set"{
+            if nameField.text == NSLocalizedString("Not set", comment: ""){
                 nameField.text = ""
             }
-            if heightField.text == "Not set"{
+            if heightField.text == NSLocalizedString("Not set", comment: ""){
                 heightField.text = ""
             }
-            if weightField.text == "Not set"{
+            if weightField.text == NSLocalizedString("Not set", comment: ""){
                 weightField.text = ""
             }
 
@@ -207,13 +206,13 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
             vals.save(birthday: birthdayDate, name: name, sex: sex, weight: (weight), height: height)
             setToFalse()
             if nameField.text == ""{
-                nameField.text = "Not set"
+                nameField.text = NSLocalizedString("Not set", comment: "")
             }
             if heightField.text == ""{
-                heightField.text = "Not set"
+                heightField.text = NSLocalizedString("Not set", comment: "")
             }
             if weightField.text == ""{
-                weightField.text = "Not set"
+                weightField.text = NSLocalizedString("Not set", comment: "")
             }
         }
     }
@@ -304,7 +303,7 @@ extension UserSettings {
             datePicker.removeFromSuperview()
             isPickingDate = false
         } else if isPickingSex{
-            if sex == "Not set"{
+            if sex == NSLocalizedString("Not set", comment: ""){
                 sex = sexes.first ?? ""
             }
             start.changeText(button: sexButton, with: sex)
@@ -317,7 +316,6 @@ extension UserSettings {
             if let user = objects.last{
                 vals.saveOne(value: name, key: .name, user: user)
                 yourName = name
-//                text.text = yourName
                 vals.saveOne(value: height, key: .height, user: user)
                 vals.saveOne(value: weight, key: .weight, user: user)
             }

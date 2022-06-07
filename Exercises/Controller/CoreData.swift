@@ -10,11 +10,11 @@ class GetData {
         case 1:
             return currentEx.value(forKey: "name") as? String ?? ""
         case 2:
-            return ("Set: " + String(currentEx.value(forKey: "rep") as? Int16 ?? 0))
+            return (NSLocalizedString("Set: ", comment: "") + String(currentEx.value(forKey: "rep") as? Int16 ?? 0))
         case 3:
-            return ("Reps: " + String(currentEx.value(forKey: "reps") as? Int16 ?? 0))
+            return (NSLocalizedString("Reps: ", comment: "") + String(currentEx.value(forKey: "reps") as? Int16 ?? 0))
         case 4:
-            return ("Weight: " + String(currentEx.value(forKey: "weight") as? Int16 ?? 0))
+            return (NSLocalizedString("Weight: ", comment: "") + String(currentEx.value(forKey: "weight") as? Int16 ?? 0))
         case 5:
             return String((currentEx.value(forKey: "weight") as? Int16 ?? 0) * (currentEx.value(forKey: "reps") as? Int16 ?? 0))
         
@@ -103,7 +103,7 @@ class UserValues {
     func getSex(_ user: NSManagedObject) -> String{
         let sex = user.value(forKey: userVar.sexKey) as? String ?? ""
         if sex == ""{
-            return "Not set"
+            return NSLocalizedString("Not set", comment: "")
         } else {
             return sex
         }
@@ -111,7 +111,7 @@ class UserValues {
     func getName(_ user: NSManagedObject) -> String{
         let name = user.value(forKey: userVar.nameKey) as? String ?? ""
         if name == ""{
-            return "Not set"
+            return NSLocalizedString("Not set", comment: "")
         } else {
             return name
         }
@@ -121,7 +121,7 @@ class UserValues {
         if weight != 0 {
             return String(weight)
         } else {
-            return "Not set"
+            return NSLocalizedString("Not set", comment: "")
         }
     }
     func getHeight(_ user: NSManagedObject) -> String{
@@ -129,7 +129,7 @@ class UserValues {
         if height != 0 {
             return String(height)
         } else {
-            return "Not set"
+            return NSLocalizedString("Not set", comment: "")
         }
     }
     func getDate(_ user: NSManagedObject) -> String{
@@ -140,7 +140,7 @@ class UserValues {
         let text = dateFormatter.string(from: date)
         let currDateStr = dateFormatter.string(from: currDate)
         if currDateStr == text{
-            return "Not set"
+            return NSLocalizedString("Not set", comment: "")
         } else {
             
             return text
