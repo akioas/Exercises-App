@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A10986C2851008200065D3B /* Exercise+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A10986A2851008200065D3B /* Exercise+CoreDataClass.swift */; };
+		4A10986D2851008200065D3B /* Exercise+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A10986B2851008200065D3B /* Exercise+CoreDataProperties.swift */; };
 		4A1119D4282A919E0001908C /* AddExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1119D3282A919E0001908C /* AddExercise.swift */; };
 		4A67D1D528454D630075E47C /* Person+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A67D1D328454D630075E47C /* Person+CoreDataClass.swift */; };
 		4A67D1D628454D630075E47C /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A67D1D428454D630075E47C /* Person+CoreDataProperties.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A10986A2851008200065D3B /* Exercise+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4A10986B2851008200065D3B /* Exercise+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exercise+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4A1119D3282A919E0001908C /* AddExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExercise.swift; sourceTree = "<group>"; };
 		4A418ADC284F6A9300CF8366 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		4A67D1D328454D630075E47C /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -86,6 +90,8 @@
 		4A858534282131E200604655 = {
 			isa = PBXGroup;
 			children = (
+				4A10986A2851008200065D3B /* Exercise+CoreDataClass.swift */,
+				4A10986B2851008200065D3B /* Exercise+CoreDataProperties.swift */,
 				4A67D1D328454D630075E47C /* Person+CoreDataClass.swift */,
 				4A67D1D428454D630075E47C /* Person+CoreDataProperties.swift */,
 				4A858559282137B900604655 /* ExerciseSet+CoreDataClass.swift */,
@@ -242,6 +248,7 @@
 				4A85855B282137B900604655 /* ExerciseSet+CoreDataClass.swift in Sources */,
 				4A97F800282953E600CAE0D1 /* Picker.swift in Sources */,
 				4A85855C282137B900604655 /* ExerciseSet+CoreDataProperties.swift in Sources */,
+				4A10986C2851008200065D3B /* Exercise+CoreDataClass.swift in Sources */,
 				4ADBFEBE284923A90091F108 /* UserSettings.swift in Sources */,
 				4AFFBFA328397908009FFC36 /* History.swift in Sources */,
 				4A9DCACE284CE641007A7F95 /* MoreInfo.swift in Sources */,
@@ -252,6 +259,7 @@
 				4ADDCC4F284A5CED0018F24D /* Buttons.swift in Sources */,
 				4AA2FA292825B9B300E4AF61 /* ButtonsModel.swift in Sources */,
 				4AA2FA272825B55900E4AF61 /* CoreData.swift in Sources */,
+				4A10986D2851008200065D3B /* Exercise+CoreDataProperties.swift in Sources */,
 				4A67D1D528454D630075E47C /* Person+CoreDataClass.swift in Sources */,
 				4A67D1D828454E910075E47C /* First Launch sec screen.swift in Sources */,
 			);

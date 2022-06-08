@@ -15,8 +15,8 @@ class DataModel{
         let newItem = ExerciseSet(context: context)
         newItem.date = Date()
         newItem.name = NSLocalizedString("Exercise", comment: "")
-        newItem.rep = 0
-        newItem.reps = 10
+        newItem.set_number = 0
+        newItem.repeats = 10
         newItem.weight = 10.0
         newItem.person = fetchUser()
         saveModel()
@@ -27,7 +27,7 @@ class DataModel{
         let newUser = Person(context: context)
         newUser.birthday = Date()
         newUser.name = NSLocalizedString("User", comment: "")
-        newUser.sex = NSLocalizedString("Not set", comment: "")
+        newUser.gender = NSLocalizedString("Not set", comment: "")
         newUser.weight = 0
         saveModel()
         return newUser
@@ -71,30 +71,12 @@ class ExercisesList{
 class UserVariables{
     
     let nameKey = "name"
-    let sexKey = "sex"
+    let sexKey = "gender"
     let weightKey = "weight"
     let heightKey = "height"
 
     let birthdayKey = "birthday"
-    /*
-    func save(_ name: Any, forKey key: String){
-        UserDefaults.standard.set(name, forKey: key)
-    }
-    func load(forKey key: String) -> String{
-        if key == birthdayKey{
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
-            let date = (UserDefaults.standard.object(forKey: key)) as? Date ?? Date()
-            if date == Date(){
-                return "Not set"
-            } else {
-                return dateFormatter.string(from: date)
-            }
-        } else {
-            return UserDefaults.standard.string(forKey: key) ?? ""
-        }
-    }
-     */
+   
     func wasLaunched(){
         UserDefaults.standard.set(true, forKey: "firstLaunch")
     }

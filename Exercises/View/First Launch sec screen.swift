@@ -18,7 +18,10 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     var weight = ""
     var height = ""
     
-    let sexes = [NSLocalizedString("Female", comment: ""),
+    let gendersSave = ["Female",
+                 "Male",
+                "Other"]
+    let gendersShow = [NSLocalizedString("Female", comment: ""),
                  NSLocalizedString("Male", comment: ""),
                  NSLocalizedString("Other", comment: "")]
     
@@ -120,15 +123,15 @@ extension FirstLaunchText {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        sexes.count
+        gendersSave.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return sexes[row]
+        return gendersShow[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        sex = sexes[row]
+        sex = gendersSave[row]
     }
 }
 
@@ -164,9 +167,9 @@ extension FirstLaunchText {
             isPickingDate = false
         } else if isPickingSex{
             if sex == ""{
-                sex = sexes.first ?? ""
+                sex = gendersSave.first ?? ""
             }
-            start.changeText(button: sexButton, with: sex)
+            start.changeText(button: sexButton, with: NSLocalizedString(sex, comment: ""))
             picker.removeFromSuperview()
             isPickingSex = false
         } else {

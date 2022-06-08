@@ -1,5 +1,5 @@
 
-
+/*
 import UIKit
 import CoreData
 
@@ -220,3 +220,4 @@ class ChartView : UIView {
            
     }
 }
+*/

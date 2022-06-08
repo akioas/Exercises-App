@@ -21,7 +21,10 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 
 //    let txtField = UITextField()
 //    let weightField = UITextField()
-    let sexes = [NSLocalizedString("Female", comment: ""),
+    let gendersSave = ["Female",
+                 "Male",
+                "Other"]
+    let gendersShow = [NSLocalizedString("Female", comment: ""),
                  NSLocalizedString("Male", comment: ""),
                  NSLocalizedString("Other", comment: "")]
     var isPickingDate = false
@@ -83,7 +86,7 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
             start.setButtonText(button: birthdayButton, text: NSLocalizedString("Not set", comment: ""))
         }
         if sex != "" {
-            start.setButtonText(button: sexButton, text: sex)
+            start.setButtonText(button: sexButton, text: NSLocalizedString(sex, comment: ""))
         } else {
             start.setButtonText(button: sexButton, text: NSLocalizedString("Not set", comment: ""))
         }
@@ -229,15 +232,15 @@ extension UserSettings {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        sexes.count
+        gendersShow.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return sexes[row]
+        return gendersShow[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        sex = sexes[row]
+        sex = gendersSave[row]
     }
 }
 
@@ -312,9 +315,9 @@ extension UserSettings {
             isPickingDate = false
         } else if isPickingSex{
             if sex == NSLocalizedString("Not set", comment: ""){
-                sex = sexes.first ?? ""
+                sex = gendersSave.first ?? ""
             }
-            start.changeText(button: sexButton, with: sex)
+            start.changeText(button: sexButton, with: NSLocalizedString(sex, comment: ""))
             if let user = objects.last{
                 vals.saveOne(value: sex, key: .sex, user: user)
                 DataModel().saveModel()

@@ -188,14 +188,16 @@ extension ViewController {
     @objc func clockItem(){
         createDatePicker()
     }
-    @objc func historyItem(){
-        showHistory()
-    }
-    
     @objc func refresh(){
         self.tableView.reloadData()
     }
     
+//    @objc func historyItem(){
+//        showHistory()
+//    }
+    
+    
+    /*
     func showHistory(){
         let vc = History()
         vc.modalPresentationStyle = .fullScreen
@@ -204,7 +206,7 @@ extension ViewController {
         })
         
     }
-       
+       */
     @objc func doneDate() {
   
         setDate(datePicker.date)

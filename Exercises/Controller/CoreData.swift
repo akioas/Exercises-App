@@ -25,11 +25,11 @@ class GetData {
     }
 
     func getRep(currentEx: NSManagedObject) -> Int16{
-            return (currentEx.value(forKey: "rep") as? Int16 ?? 0)
+            return (currentEx.value(forKey: "set_number") as? Int16 ?? 0)
     }
 
     func getReps(currentEx: NSManagedObject) -> Int16{
-            return (currentEx.value(forKey: "reps") as? Int16 ?? 0)
+            return (currentEx.value(forKey: "repeats") as? Int16 ?? 0)
     }
 
     func getWeight(currentEx: NSManagedObject) -> Double{

@@ -13,8 +13,9 @@ extension Person {
     @NSManaged public var birthday: Date?
     @NSManaged public var height: Int16
     @NSManaged public var name: String?
-    @NSManaged public var sex: String?
+    @NSManaged public var gender: String?
     @NSManaged public var weight: Int16
+    @NSManaged public var role: String?
     @NSManaged public var exerciseSet: NSSet?
 
 }
