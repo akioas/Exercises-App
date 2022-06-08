@@ -13,12 +13,22 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     let datePicker = UIDatePicker()
     var blankImg = UIImage()
+    var blankImgBack = UIImage()
+
+    var plusImg = UIImage()
+    var minusImg = UIImage()
     var imgSize = 0.0
 //    let toolBar = UIToolbar()
 
     override func viewWillAppear(_ animated: Bool) {
-        let configuration = UIImage.SymbolConfiguration(pointSize: 40, weight: .regular, scale: .medium)
+        let configuration = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .medium)
+        let configurationLarge = UIImage.SymbolConfiguration(pointSize: 60, weight: .regular, scale: .medium)
+
+        let configurationSmall = UIImage.SymbolConfiguration(pointSize: 25, weight: .regular, scale: .medium)
         blankImg = UIImage(systemName: "rectangle.fill", withConfiguration: configuration)?.withTintColor(.clear, renderingMode: .alwaysOriginal) ?? UIImage()
+        blankImgBack = UIImage(systemName: "rectangle.fill", withConfiguration: configurationLarge)?.withTintColor(.clear, renderingMode: .alwaysOriginal) ?? UIImage()
+        plusImg = UIImage(systemName: "plus.square", withConfiguration: configurationSmall)?.withTintColor(.black, renderingMode: .alwaysOriginal) ?? UIImage()
+        minusImg = UIImage(systemName: "minus.square", withConfiguration: configurationSmall)?.withTintColor(.black, renderingMode: .alwaysOriginal) ?? UIImage()
         blankImg.withTintColor(.clear)
         imgSize = blankImg.size.width
 
@@ -71,6 +81,9 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
         print(step)
         let stepper = Stepper()
+        stepper.setBackgroundImage(blankImgBack, for: .normal)
+        print(stepper.frame)
+
         stepper.minimumValue = 0
         stepper.maximumValue = max
         stepper.value = value
@@ -78,22 +91,30 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         stepper.setNum(num: tag)
         stepper.setName(name: name)
         stepper.setDividerImage(blankImg, forLeftSegmentState: .normal, rightSegmentState: .normal)
+        stepper.setIncrementImage(plusImg, for: .normal)
+        stepper.setDecrementImage(minusImg, for: .normal)
+        stepper.transform.scaledBy(x: 2, y: 1)
+        stepper.frame = CGRect(x: 0, y: 0, width: 120, height: 50)
+
         let label = Label()
         label.setNum(num: tag)
         label.setName(name: name)
+        label.font = label.font.withSize(16)
+        
         if step != 0.125{
-            label.text = String(Int(stepper.value))
+            label.text = String( Int(stepper.value))
             stepper.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
 
         } else {
-            label.text = String(stepper.value)
+            label.text = String(format: "%.2f", (stepper.value))
             stepper.addTarget(self, action: #selector(self.stepperValueChangedD(_:)), for: .valueChanged)
-
         }
-        
+//        cell.accessoryView?.bounds = CGRect(x: 0, y: 0, width: 120, height: 50)
+
         label.textAlignment = .center
         let view = UIView()
         view.frame = stepper.frame
+        print(view.frame)
         label.frame = CGRect(x: (view.frame.width - imgSize) / 2, y: 0, width: imgSize, height: view.frame.height)
         view.addSubview(stepper)
         view.addSubview(label)
@@ -133,7 +154,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     func callBack(){
         callBackStepper = { value, name in
             self.object.setValue(value, forKey: name)
-            self.tableView.reloadData()
+//            self.tableView.reloadData()
         }
     }
     @objc func stepperValueChangedD(_ sender:Stepper!)
@@ -143,7 +164,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     func callBackD(){
         callBackStepperD = { value, name in
             self.object.setValue(value, forKey: name)
-            self.tableView.reloadData()
+//            self.tableView.reloadData()
         }
     }
     @objc func refresh(){

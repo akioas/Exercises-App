@@ -51,19 +51,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="46" translatesAutoresizingMaskIntoConstraints="NO" id="5NU-zB-hsh">
-                                <rect key="frame" x="24.5" y="698.5" width="365" height="153.5"/>
+                                <rect key="frame" x="42" y="698.5" width="330" height="153.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The best place for your improvement" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46O-Wo-mI3">
-                                        <rect key="frame" x="0.0" y="0.0" width="365" height="57.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="330" height="57.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="365" id="c9d-3k-DqS"/>
+                                            <constraint firstAttribute="width" constant="330" id="c9d-3k-DqS"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btm-WQ-CDq">
-                                        <rect key="frame" x="335" y="103.5" width="30" height="50"/>
+                                        <rect key="frame" x="300" y="103.5" width="30" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="kMt-Cb-fyW"/>
                                             <constraint firstAttribute="width" constant="30" id="le6-Y1-unH"/>
