@@ -58,7 +58,9 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         setupDatePicker()
         setupPicker()
         stackView.spacing = view.frame.height / 50
-        
+        nameField.delegate = self
+        heightField.delegate = self
+        weightField.delegate = self
 
         
     }
@@ -249,6 +251,7 @@ extension UserSettings {
 }
 
 extension UserSettings {
+   
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == nameField){
             name = nameField.text ?? ""
