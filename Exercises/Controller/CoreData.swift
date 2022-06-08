@@ -5,22 +5,42 @@ import CoreData
 class GetData {
     let vals = UserValues()
     func setText(item: Int, currentEx: ExerciseSet) -> String{
-        switch item{
-        case 0:
-            return caseDate(currentEx, key: "date")
-        case 1:
-            return exerciseName(object: currentEx)
-        case 2:
-            return (NSLocalizedString("Set", comment: ""))
-        case 3:
-            return (NSLocalizedString("Reps", comment: ""))
-        case 4:
-            return (NSLocalizedString("Weight", comment: "") )
-        case 5:
-            return caseDate(currentEx, key: "created_at")
-        
-        default:
-            return ""
+        if getExercise(currentEx)?.type == "Strength"{
+            switch item{
+            case 0:
+                return caseDate(currentEx, key: "date")
+            case 1:
+                return exerciseName(object: currentEx)
+            case 2:
+                return (NSLocalizedString("Set", comment: ""))
+            case 3:
+                return (NSLocalizedString("Reps", comment: ""))
+            case 4:
+                return (NSLocalizedString("Weight", comment: "") )
+            case 5:
+                return caseDate(currentEx, key: "created_at")
+            
+            default:
+                return ""
+            }
+        } else {
+            switch item{
+            case 0:
+                return caseDate(currentEx, key: "date")
+            case 1:
+                return exerciseName(object: currentEx)
+            case 2:
+                return (NSLocalizedString("Calories", comment: ""))
+            case 3:
+                return (NSLocalizedString("Duration", comment: ""))
+            case 4:
+                return (NSLocalizedString("Distance", comment: "") )
+            case 5:
+                return caseDate(currentEx, key: "created_at")
+            
+            default:
+                return ""
+            }
         }
     }
 
@@ -34,6 +54,17 @@ class GetData {
 
     func getWeight(currentEx: NSManagedObject) -> Double{
         return (currentEx.value(forKey: "weight") as? Double ?? 0.0)
+    }
+    func getCal(currentEx: NSManagedObject) -> Int16{
+            return (currentEx.value(forKey: "calories") as? Int16 ?? 0)
+    }
+
+    func getDur(currentEx: NSManagedObject) -> Int16{
+            return (currentEx.value(forKey: "duration") as? Int16 ?? 0)
+    }
+
+    func getDist(currentEx: NSManagedObject) -> Double{
+        return (currentEx.value(forKey: "distance") as? Double ?? 0.0)
     }
 
     func caseDate(_ currentEx: NSManagedObject, key: String) -> String{
@@ -60,7 +91,7 @@ class GetData {
     }
     func exerciseName(object: ExerciseSet?) -> String{
         if let object = object{
-            return getExercise(object)?.name ?? ""
+            return ((getExercise(object)?.name ?? "") + ", " +  NSLocalizedString(getExercise(object)?.type ?? "", comment: ""))
         } else {
             return ""
         }

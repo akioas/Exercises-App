@@ -8,7 +8,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     var isNewObject = true
     let cellId = "cellId"
     let data = GetData()
-    
+    let list = ExercisesList()
     var callBackStepper:((_ value:Int, _ name: String)->())?
     var callBackStepperD:((_ value:Double, _ name: String)->())?
 
@@ -134,6 +134,15 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     @objc func done(){
         DataModel().saveModel()
+        if object.exercise?.type == "Strength"{
+            list.saveRepNum(Int(object.set_number))
+            list.saveRepsNum(Int(object.repeats))
+            list.saveWeightNum(object.weight)
+        } else {
+            list.saveCalNum(Int(object.calories))
+            list.saveDurNum(Int(object.duration))
+            list.saveDistNum(object.distance)
+        }
         self.dismiss(animated: true, completion: {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "fetch"), object: self)
         })
@@ -234,15 +243,25 @@ extension AddExercise {
             
             
         } else if indexPath.row == 2{
-            setupStepper(cell, tag: indexPath.section, value: Double((data.getRep(currentEx: object))), name: "set_number", max: 10.0, step: 1.0)
+            if object.exercise?.type == "Strength" {
+                setupStepper(cell, tag: indexPath.section, value: Double((data.getRep(currentEx: object))), name: "set_number", max: 10.0, step: 1.0)
+        } else {
+            setupStepper(cell, tag: indexPath.section, value: Double((data.getCal(currentEx: object))), name: "calories", max: 2000.0, step: 10.0)
+        }
             callBack()
         } else if (indexPath.row == 3){
-            setupStepper(cell, tag: indexPath.section, value: Double((data.getReps(currentEx: object))), name: "repeats", max: 100.0, step: 1.0)
+            if object.exercise?.type == "Strength" {
+                setupStepper(cell, tag: indexPath.section, value: Double((data.getReps(currentEx: object))), name: "repeats", max: 100.0, step: 1.0)
+            } else {
+                setupStepper(cell, tag: indexPath.section, value: Double((data.getDur(currentEx: object))), name: "duration", max: 1000.0, step: 1.0)
+            }
             callBack()
         } else if (indexPath.row == 4){
-            print("L")
-            print(data.getWeight(currentEx: object))
-            setupStepper(cell, tag: indexPath.section, value: ((data.getWeight(currentEx: object))), name: "weight", max: 300.0, step: (0.125))
+            if object.exercise?.type == "Strength" {
+                setupStepper(cell, tag: indexPath.section, value: ((data.getWeight(currentEx: object))), name: "weight", max: 300.0, step: (0.125))
+            } else {
+                setupStepper(cell, tag: indexPath.section, value: ((data.getDist(currentEx: object))), name: "distance", max: 100.0, step: (0.125))
+            }
             callBackD()
         } else if (indexPath.row == 5){
             cell.accessoryView = nil

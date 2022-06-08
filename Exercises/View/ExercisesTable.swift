@@ -125,8 +125,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @objc func deleteObject(_ sender:Button!){
-        self.exercises.remove(at: sender.num)
-//        self.list.save(self.exercises)
+        DataModel().delete(exercises[sender.num])
         self.refresh()
     }
 }

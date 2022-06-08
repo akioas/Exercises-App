@@ -112,6 +112,7 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     @IBAction func startAction(_ sender: Any) {
         UserValues().save(birthday: birthday, name: name, sex: sex, weight: weight, height: height)
         ExercisesList().initFirst()
+        
         self.presentingViewController?.presentingViewController?.dismiss(animated: false, completion: nil)
     }
     

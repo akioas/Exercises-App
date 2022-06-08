@@ -10,20 +10,20 @@ let context = AppDelegate().persistentContainer.viewContext
 
 
 class DataModel{
-    
+    let list = ExercisesList()
     func addModel() -> ExerciseSet{
         let newItem = ExerciseSet(context: context)
         newItem.date = Date()
-        newItem.exercise = ExercisesList().add()
-        newItem.set_number = 0
-        newItem.repeats = 10
-        newItem.weight = 10.0
-        newItem.person = fetchUser()
         newItem.created_at = Date()
-        newItem.calories = 100
-        newItem.duration = 30
-        newItem.distance = 1.0
-
+        newItem.exercise = setEx()
+        newItem.person = fetchUser()
+        newItem.set_number = Int16(list.loadRepNum() ?? 0)
+        newItem.repeats = Int16(list.loadRepsNum() ?? 8)
+        newItem.weight = list.loadWeightNum() ?? 5.0
+        newItem.calories = Int16(list.loadCalNum() ?? 100)
+        newItem.duration = Int16(list.loadDurNum() ?? 60)
+        newItem.distance = list.loadDistNum() ?? 1.0
+        
         return newItem
     }
     
@@ -36,9 +36,9 @@ class DataModel{
         saveModel()
         return newUser
     }
-
+    
     func saveModel(){
-     
+        
         do {
             try context.save()
         } catch {
@@ -52,17 +52,38 @@ class DataModel{
         saveModel()
     }
     
+    func setEx() -> Exercise{
+        var exercises: [Exercise] = []
+        var exercisesString: [String] = []
+        let fetchRequest = NSFetchRequest<Exercise>(entityName: "Exercise")
+        
+        do {
+            exercises = try context.fetch(fetchRequest)
+            
+        } catch let err as NSError {
+            print(err)
+        }
+        for ex in exercises{
+            exercisesString.append(ex.name ?? "")
+        }
+        if let indexPosition = exercisesString.firstIndex(of: list.loadRow() ?? ""){
+            return exercises[indexPosition]
+        } else {
+            return list.add()
+            
+        }
+    }
 }
 
 
 
 class ExercisesList{
     var allExersisesCardio = [ NSLocalizedString("Leg abduction", comment: ""),
-                         NSLocalizedString("Leg quadriceps", comment: ""),
-                         NSLocalizedString("Back hyperextension", comment: "")]
+                               NSLocalizedString("Leg quadriceps", comment: ""),
+                               NSLocalizedString("Back hyperextension", comment: "")]
     var allExercisesStrength = [
-            NSLocalizedString("Bicep simulator", comment: ""),
-            NSLocalizedString("Press simulator", comment: "")]
+        NSLocalizedString("Bicep simulator", comment: ""),
+        NSLocalizedString("Press simulator", comment: "")]
     func add() -> Exercise{
         let newEx = Exercise(context: context)
         newEx.name = NSLocalizedString("Exercise", comment: "")
@@ -75,26 +96,63 @@ class ExercisesList{
             newEx.name = exersise
             newEx.type = "Cardio"
             DataModel().saveModel()
-
+            
         }
         for exersise in allExercisesStrength {
             let newEx = Exercise(context: context)
             newEx.name = exersise
             newEx.type = "Strength"
             DataModel().saveModel()
-
+            
         }
+        saveRow(NSLocalizedString("Back hyperextension", comment: ""))
+        
     }
     func save(_ strings: [String]){
         UserDefaults.standard.set(strings, forKey: "ex")
     }
-    func saveRow(_ row: Int){
+    func saveRow(_ row: String){
         UserDefaults.standard.set(row, forKey: "row")
     }
-    func loadRow() -> Int?{
-        UserDefaults.standard.integer(forKey: "row") 
+    func loadRow() -> String?{
+        UserDefaults.standard.string(forKey: "row")
     }
-
+    func saveRepNum(_ rep: Int){
+        UserDefaults.standard.set(rep, forKey: "repnum")
+    }
+    func loadRepNum() -> Int?{
+        (UserDefaults.standard.integer(forKey: "repnum") + 1)
+    }
+    func saveRepsNum(_ reps: Int){
+        UserDefaults.standard.set(reps, forKey: "repsnum")
+    }
+    func loadRepsNum() -> Int?{
+        UserDefaults.standard.integer(forKey: "repsnum")
+    }
+    func saveCalNum(_ cal: Int){
+        UserDefaults.standard.set(cal, forKey: "calnum")
+    }
+    func loadCalNum() -> Int?{
+        UserDefaults.standard.integer(forKey: "calnum")
+    }
+    func saveDurNum(_ dur: Int){
+        UserDefaults.standard.set(dur, forKey: "durnum")
+    }
+    func loadDurNum() -> Int?{
+        UserDefaults.standard.integer(forKey: "durnum")
+    }
+    func saveDistNum(_ dist: Double){
+        UserDefaults.standard.set(dist, forKey: "distnum")
+    }
+    func loadDistNum() -> Double?{
+        UserDefaults.standard.double(forKey: "distnum")
+    }
+    func saveWeightNum(_ weight: Double){
+        UserDefaults.standard.set(weight, forKey: "weightnum")
+    }
+    func loadWeightNum() -> Double?{
+        UserDefaults.standard.double(forKey: "weightnum")
+    }
 }
 
 class UserVariables{
@@ -103,9 +161,9 @@ class UserVariables{
     let sexKey = "gender"
     let weightKey = "weight"
     let heightKey = "height"
-
+    
     let birthdayKey = "birthday"
-   
+    
     func wasLaunched(){
         UserDefaults.standard.set(true, forKey: "firstLaunch")
     }
