@@ -2,17 +2,25 @@
 import UIKit
 import CoreData
 
-class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource{
+    
+    
     let tableView = UITableView()
 
     let cellId = "cellId"
     let list = ExercisesList()
-    var exercises: [String] = []
+    var exercises = [Exercise]()
     let items = Items()
-
+    let vcPicker = UIViewController()
+    let typesSave = ["Cardio",
+                 "Strength"]
+    let typesShow = [NSLocalizedString("Cardio", comment: ""),
+                 NSLocalizedString("Strength", comment: "")]
+    var selectedType = "Cardio"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        exercises = list.load()
+        fetch()
     }
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
@@ -22,9 +30,15 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         setupHeader(view, text: NSLocalizedString("Exercises", comment: ""), button: plusButton, imgName: "plus.circle")
         plusButton.addTarget(self, action: #selector(displayAlert), for: .touchUpInside)
         self.navigationController?.isNavigationBarHidden = true
-
+        setupPicker()
     }
-    
+    func setupPicker(){
+        vcPicker.preferredContentSize = CGSize(width: 250,height: 200)
+        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: 250, height: 200))
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        vcPicker.view.addSubview(pickerView)
+    }
     @objc func cancel(){
         self.dismiss(animated: false)
     }
@@ -48,8 +62,20 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
        
     }
     
+    func fetch(){
+        let fetchRequest = NSFetchRequest<Exercise>(entityName: "Exercise")
     
+        do {
+            self.exercises = try context.fetch(fetchRequest)
+              
+        } catch let err as NSError {
+            print(err)
+        }
+        
+    }
     @objc func refresh(){
+        DataModel().saveModel()
+        fetch()
         self.tableView.reloadData()
     }
     @objc func displayAlert() {
@@ -58,10 +84,13 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = NSLocalizedString("Exercise", comment: "")
         }
+        alertController.setValue(vcPicker, forKey: "contentViewController")
         let saveAction = UIAlertAction(title: NSLocalizedString("Save", comment: ""), style: UIAlertAction.Style.default, handler: { alert -> Void in
             let firstTextField = alertController.textFields![0] as UITextField
-            self.exercises.insert(firstTextField.text ?? "", at: self.exercises.endIndex)
-            self.list.save(self.exercises)
+            let newEx = self.list.add()
+            newEx.name = firstTextField.text ?? ""
+            newEx.type = self.selectedType
+
             self.refresh()
         })
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.default, handler: {
@@ -77,12 +106,13 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         let alertController = UIAlertController(title: NSLocalizedString("Edit exercise", comment: ""), message: "", preferredStyle: UIAlertController.Style.alert)
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = NSLocalizedString("Exercise", comment: "")
-            textField.text = self.exercises[sender.num]
+            textField.text = self.exercises[sender.num].name
         }
+        alertController.setValue(vcPicker, forKey: "contentViewController")
         let saveAction = UIAlertAction(title: NSLocalizedString("Save", comment: ""), style: UIAlertAction.Style.default, handler: { alert -> Void in
             let firstTextField = alertController.textFields![0] as UITextField
-            self.exercises[sender.num] = firstTextField.text ?? ""
-            self.list.save(self.exercises)
+            self.exercises[sender.num].name = firstTextField.text ?? ""
+            self.exercises[sender.num].type = self.selectedType
             self.refresh()
         })
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.default, handler: {
@@ -96,7 +126,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @objc func deleteObject(_ sender:Button!){
         self.exercises.remove(at: sender.num)
-        self.list.save(self.exercises)
+//        self.list.save(self.exercises)
         self.refresh()
     }
 }
@@ -118,7 +148,7 @@ extension ExercisesTable {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        cell.textLabel?.text = exercises[indexPath.row]
+        cell.textLabel?.text = (exercises[indexPath.row].name ?? "") + ", " + (exercises[indexPath.row].type ?? "")
         cell.backgroundColor = .secondarySystemBackground
         let deleteButton = Button(frame: CGRect(x: 50, y: 0, width: 50, height: 50))
         deleteButton.setNum(num: indexPath.row)
@@ -151,3 +181,20 @@ extension ExercisesTable {
     }
 }
 
+extension ExercisesTable {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return typesSave.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return typesShow[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedType = typesSave[row]
+    }
+}

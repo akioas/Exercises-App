@@ -4,29 +4,28 @@ import NotificationCenter
 
 
 class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
-    var callBackPicker:((_ value:String, _ currentEx: NSManagedObject)->())?
+    var callBackPicker:((_ value: Exercise, _ currentEx: ExerciseSet)->())?
     
     var picker  = UIPickerView()
     var toolBar = UIToolbar()
-    var selected = ""
+    var selected: Exercise? = nil
+    var selectedRow = 0
     var pickerNum = 0
-    var object: NSManagedObject? = nil
+    var object: ExerciseSet? = nil
     let list = ExercisesList()
-    var exercises: [String] = []
+    var exercises: [Exercise] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetch()
         self.hideOnTap()
 
-        exercises = list.load()
+//        exercises = list.load()
         
         callBackPicker = { value, currentEx in
             
-            if value == ""{
-                currentEx.setValue(self.exercises.first, forKey: "name")
-            } else {
-                currentEx.setValue(value, forKey: "name")
-            }
+            currentEx.exercise = value
+            
             DataModel().saveModel()
             
         }
@@ -54,11 +53,24 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         view.addSubview(picker)
         
         view.addSubview(toolBar)
-        
+        if let row = list.loadRow(){
+            selectedRow = row
+        }
+        picker.selectRow(selectedRow, inComponent: 0, animated: false)
         
     }
-
-    func setNum(_ num: Int, ex: NSManagedObject){
+    func fetch(){
+        let fetchRequest = NSFetchRequest<Exercise>(entityName: "Exercise")
+    
+        do {
+            self.exercises = try context.fetch(fetchRequest)
+              
+        } catch let err as NSError {
+            print(err)
+        }
+        
+    }
+    func setNum(_ num: Int, ex: ExerciseSet){
         pickerNum = num
         object = ex
     }
@@ -70,7 +82,13 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     }
     
     @objc func donePicker(){
-        callBackPicker?(selected, object!)
+        if let selected = selected {
+            if let object = object{
+                callBackPicker?(selected, object)
+
+            }
+        }
+        
         cancelPicker()
     }
     
@@ -88,10 +106,12 @@ extension Picker{
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return exercises[row]
+        print("d")
+        return (exercises[row].name ?? "") + ", " + (NSLocalizedString(exercises[row].type ?? "", comment: ""))
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedRow = row
         selected = exercises[row]
     }
 }
@@ -105,6 +125,7 @@ extension Picker {
     }
 
     @objc func dismissView() {
+        list.saveRow(selectedRow)
         donePicker()
     }
 }

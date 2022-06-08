@@ -34,10 +34,13 @@
                                     <constraint firstAttribute="height" constant="305" id="nnO-Ce-fgG"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="esB-Re-kfR">
-                                <rect key="frame" x="57" y="298.5" width="300" height="299"/>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" misplaced="YES" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="esB-Re-kfR">
+                                <rect key="frame" x="58" y="298.5" width="300" height="299"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.74509803919999995" green="0.93725490199999995" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" button="YES" image="YES"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="8R3-lM-bmA"/>
                                     <constraint firstAttribute="height" constant="300" id="d2b-KQ-BLp"/>
@@ -95,6 +98,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="logo" destination="esB-Re-kfR" id="DlI-hp-OWK"/>
                         <outlet property="nextButton" destination="btm-WQ-CDq" id="vdX-zF-6Hl"/>
                         <outlet property="texts" destination="5NU-zB-hsh" id="pO1-4w-Liz"/>
                     </connections>

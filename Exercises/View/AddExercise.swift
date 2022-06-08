@@ -32,7 +32,6 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         minusImg = UIImage(systemName: "minus.square", withConfiguration: configurationSmall)?.withTintColor(.black, renderingMode: .alwaysOriginal) ?? UIImage()
         blankImg.withTintColor(.clear)
         imgSize = blankImg.size.width
-        fetchUser()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -246,9 +245,7 @@ extension AddExercise {
             setupStepper(cell, tag: indexPath.section, value: ((data.getWeight(currentEx: object))), name: "weight", max: 300.0, step: (0.125))
             callBackD()
         } else if (indexPath.row == 5){
-            let personIcon = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            personIcon.setImage(UIImage(systemName: "person.fill"), for: .normal)
-            cell.accessoryView = personIcon
+            cell.accessoryView = nil
         } else {
             cell.accessoryView = nil
         }

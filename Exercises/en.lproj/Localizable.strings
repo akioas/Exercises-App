@@ -23,8 +23,12 @@
 "Set" = "Set";
 "Reps" = "Reps";
 "Weight" = "Weight";
-"Отведение ног" = "Отведение ног?";
-"Квадрицепс ног" = "Квадрицепс ног?";
-"Бицепс тренажер" = "Бицепс тренажер?";
-"Пресс тренажер" = "Пресс тренажер?";
-"Спина гиперэкстензия" = "Спина гиперэкстензия>";
+"Leg abduction" = "Leg abduction";
+"Leg quadriceps" = "Leg quadriceps";
+"Bicep simulator" = "Bicep simulator";
+"Press simulator" = "Press simulator";
+"Back hyperextension" = "Back hyperextension";
+"Cardio" = "Cardio";
+"Strength" = "Strength";
+"Trainer" = "Trainer";
+"Athlete" = "Athlete";

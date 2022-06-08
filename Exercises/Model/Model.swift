@@ -14,12 +14,16 @@ class DataModel{
     func addModel() -> ExerciseSet{
         let newItem = ExerciseSet(context: context)
         newItem.date = Date()
-        newItem.name = NSLocalizedString("Exercise", comment: "")
+        newItem.exercise = ExercisesList().add()
         newItem.set_number = 0
         newItem.repeats = 10
         newItem.weight = 10.0
         newItem.person = fetchUser()
-        saveModel()
+        newItem.created_at = Date()
+        newItem.calories = 100
+        newItem.duration = 30
+        newItem.distance = 1.0
+
         return newItem
     }
     
@@ -53,19 +57,44 @@ class DataModel{
 
 
 class ExercisesList{
-    var allExersises = [ NSLocalizedString("Отведение ног", comment: ""),
-                         NSLocalizedString("Квадрицепс ног", comment: ""),
-                         NSLocalizedString("Бицепс тренажер", comment: ""),
-                         NSLocalizedString("Пресс тренажер", comment: ""),
-                         NSLocalizedString("Спина гиперэкстензия", comment: "")]
-    
-    func load() -> [String]{
-        UserDefaults.standard.array(forKey: "ex") as? [String] ?? allExersises
+    var allExersisesCardio = [ NSLocalizedString("Leg abduction", comment: ""),
+                         NSLocalizedString("Leg quadriceps", comment: ""),
+                         NSLocalizedString("Back hyperextension", comment: "")]
+    var allExercisesStrength = [
+            NSLocalizedString("Bicep simulator", comment: ""),
+            NSLocalizedString("Press simulator", comment: "")]
+    func add() -> Exercise{
+        let newEx = Exercise(context: context)
+        newEx.name = NSLocalizedString("Exercise", comment: "")
+        newEx.type = "Cardio"
+        return newEx
+    }
+    func initFirst(){
+        for exersise in allExersisesCardio {
+            let newEx = Exercise(context: context)
+            newEx.name = exersise
+            newEx.type = "Cardio"
+            DataModel().saveModel()
+
+        }
+        for exersise in allExercisesStrength {
+            let newEx = Exercise(context: context)
+            newEx.name = exersise
+            newEx.type = "Strength"
+            DataModel().saveModel()
+
+        }
     }
     func save(_ strings: [String]){
         UserDefaults.standard.set(strings, forKey: "ex")
-
     }
+    func saveRow(_ row: Int){
+        UserDefaults.standard.set(row, forKey: "row")
+    }
+    func loadRow() -> Int?{
+        UserDefaults.standard.integer(forKey: "row") 
+    }
+
 }
 
 class UserVariables{

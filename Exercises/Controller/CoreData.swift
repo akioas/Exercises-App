@@ -4,12 +4,12 @@ import CoreData
 
 class GetData {
     let vals = UserValues()
-    func setText(item: Int, currentEx: NSManagedObject) -> String{
+    func setText(item: Int, currentEx: ExerciseSet) -> String{
         switch item{
         case 0:
-            return caseDate(currentEx)
+            return caseDate(currentEx, key: "date")
         case 1:
-            return currentEx.value(forKey: "name") as? String ?? ""
+            return exerciseName(object: currentEx)
         case 2:
             return (NSLocalizedString("Set", comment: ""))
         case 3:
@@ -17,7 +17,7 @@ class GetData {
         case 4:
             return (NSLocalizedString("Weight", comment: "") )
         case 5:
-            return userName(object: getPerson(currentEx))
+            return caseDate(currentEx, key: "created_at")
         
         default:
             return ""
@@ -36,10 +36,10 @@ class GetData {
         return (currentEx.value(forKey: "weight") as? Double ?? 0.0)
     }
 
-    func caseDate(_ currentEx: NSManagedObject) -> String{
+    func caseDate(_ currentEx: NSManagedObject, key: String) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
-        let text = dateFormatter.string(from: (currentEx.value(forKey: "date") as? Date ?? Date()))
+        let text = dateFormatter.string(from: (currentEx.value(forKey: key) as? Date ?? Date()))
         return text
     }
     
@@ -54,6 +54,16 @@ class GetData {
             return NSLocalizedString("Not set", comment: "")
         }
         
+    }
+    func getExercise(_ currentEx: ExerciseSet) -> Exercise?{
+        return (currentEx.exercise)
+    }
+    func exerciseName(object: ExerciseSet?) -> String{
+        if let object = object{
+            return getExercise(object)?.name ?? ""
+        } else {
+            return ""
+        }
     }
 }
 

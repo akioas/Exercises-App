@@ -134,7 +134,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
 extension ViewController {
     
-    func deleteLast(_ object: NSManagedObject){
+    func deleteLast(_ object: ExerciseSet){
         DataModel().delete(object)
         refresh()
     }
@@ -156,6 +156,7 @@ extension ViewController {
         } catch let err as NSError {
             print(err)
         }
+        print(exercises)
     }
     
     
