@@ -3,6 +3,7 @@ import CoreData
 
 
 class GetData {
+    let vals = UserValues()
     func setText(item: Int, currentEx: NSManagedObject) -> String{
         switch item{
         case 0:
@@ -16,7 +17,7 @@ class GetData {
         case 4:
             return (NSLocalizedString("Weight", comment: "") )
         case 5:
-            return ""
+            return userName(object: getPerson(currentEx))
         
         default:
             return ""
@@ -40,6 +41,19 @@ class GetData {
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
         let text = dateFormatter.string(from: (currentEx.value(forKey: "date") as? Date ?? Date()))
         return text
+    }
+    
+    func getPerson(_ currentEx: NSManagedObject) -> NSManagedObject?{
+        return (currentEx.value(forKey: "person") as? NSManagedObject)
+    }
+    
+    func userName(object: NSManagedObject?) -> String{
+        if let object = object {
+            return vals.get(user: object, key: .name)
+        } else {
+            return NSLocalizedString("Not set", comment: "")
+        }
+        
     }
 }
 
@@ -148,3 +162,18 @@ class UserValues {
     }
 }
 
+
+func fetchUser() -> Person?{
+    let fetchRequest = NSFetchRequest<Person>(entityName: "Person")
+    var person: Person? = nil
+    do {
+        let users = try context.fetch(fetchRequest)
+        if let personNew = users.last{
+            person = personNew
+        }
+        
+    } catch let err as NSError {
+        print(err)
+    }
+    return person
+}

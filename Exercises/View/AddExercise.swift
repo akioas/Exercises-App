@@ -4,10 +4,11 @@ import CoreData
 
 class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     let tableView = UITableView()
-    var object: NSManagedObject = DataModel().addModel()
+    var object: ExerciseSet = DataModel().addModel()
     var isNewObject = true
     let cellId = "cellId"
     let data = GetData()
+    
     var callBackStepper:((_ value:Int, _ name: String)->())?
     var callBackStepperD:((_ value:Double, _ name: String)->())?
 
@@ -31,7 +32,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         minusImg = UIImage(systemName: "minus.square", withConfiguration: configurationSmall)?.withTintColor(.black, renderingMode: .alwaysOriginal) ?? UIImage()
         blankImg.withTintColor(.clear)
         imgSize = blankImg.size.width
-
+        fetchUser()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +51,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         view.backgroundColor = .secondarySystemBackground
     }
     
-    func loadObject(_ object: NSManagedObject){
+    func loadObject(_ object: ExerciseSet){
         context.delete(self.object)
         self.object = object
         self.isNewObject = false
@@ -120,6 +121,8 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         view.addSubview(label)
         cell.accessoryView = view
     }
+    
+    
     
     @objc func cancel(){
         if isNewObject{
@@ -207,7 +210,7 @@ extension AddExercise {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
    
 
@@ -242,6 +245,10 @@ extension AddExercise {
             print(data.getWeight(currentEx: object))
             setupStepper(cell, tag: indexPath.section, value: ((data.getWeight(currentEx: object))), name: "weight", max: 300.0, step: (0.125))
             callBackD()
+        } else if (indexPath.row == 5){
+            let personIcon = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            personIcon.setImage(UIImage(systemName: "person.fill"), for: .normal)
+            cell.accessoryView = personIcon
         } else {
             cell.accessoryView = nil
         }

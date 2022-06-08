@@ -17,13 +17,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var date = Date()
     var selected = ""
     let cellId = "cellId"
-    var exercises: [NSManagedObject] = []
-    var users: [NSManagedObject] = []
+    var exercises = [ExerciseSet]()
+//    var users: [NSManagedObject] = []
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("fetch")
         fetch(isFiltered)
-        fetchUser()
+//        fetchUser()
         
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -141,7 +142,7 @@ extension ViewController {
         fetch(isFiltered)
     }
     func fetch(_ isFiltered: Bool){
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entity")
+        let fetchRequest = NSFetchRequest<ExerciseSet>(entityName: "ExerciseSet")
         if isFiltered{
             let (startDate, endDate) = dates(for: date)
             fetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
@@ -239,9 +240,9 @@ extension ViewController {
         })
         
     }
-    
+    /*
     func fetchUser(){
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Person")
     
         do {
             self.users = try context.fetch(fetchRequest)
@@ -257,7 +258,7 @@ extension ViewController {
         }
         
     }
-    
+    */
 }
 
 

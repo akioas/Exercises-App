@@ -26,7 +26,7 @@ class History: UITableViewController{
     }
     
     func fetch(_ name: String){
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entity")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ExerciseSet")
 
         fetchRequest.predicate = NSPredicate(format: "name == %@", name)
         

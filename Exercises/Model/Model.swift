@@ -11,19 +11,20 @@ let context = AppDelegate().persistentContainer.viewContext
 
 class DataModel{
     
-    func addModel() -> NSManagedObject{
-        let newItem = Entity(context: context)
+    func addModel() -> ExerciseSet{
+        let newItem = ExerciseSet(context: context)
         newItem.date = Date()
         newItem.name = NSLocalizedString("Exercise", comment: "")
         newItem.rep = 0
         newItem.reps = 10
         newItem.weight = 10.0
+        newItem.person = fetchUser()
         saveModel()
         return newItem
     }
     
     func addUser() -> NSManagedObject{
-        let newUser = User(context: context)
+        let newUser = Person(context: context)
         newUser.birthday = Date()
         newUser.name = NSLocalizedString("User", comment: "")
         newUser.sex = NSLocalizedString("Not set", comment: "")

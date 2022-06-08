@@ -4,6 +4,6 @@ import Foundation
 import CoreData
 
 
-public class User: NSManagedObject {
+public class Person: NSManagedObject {
 
 }

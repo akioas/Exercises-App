@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4A1119D4282A919E0001908C /* AddExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1119D3282A919E0001908C /* AddExercise.swift */; };
-		4A67D1D528454D630075E47C /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A67D1D328454D630075E47C /* User+CoreDataClass.swift */; };
-		4A67D1D628454D630075E47C /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A67D1D428454D630075E47C /* User+CoreDataProperties.swift */; };
+		4A67D1D528454D630075E47C /* Person+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A67D1D328454D630075E47C /* Person+CoreDataClass.swift */; };
+		4A67D1D628454D630075E47C /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A67D1D428454D630075E47C /* Person+CoreDataProperties.swift */; };
 		4A67D1D828454E910075E47C /* First Launch sec screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A67D1D728454E910075E47C /* First Launch sec screen.swift */; };
 		4A858541282131E200604655 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A858540282131E200604655 /* AppDelegate.swift */; };
 		4A858543282131E200604655 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A858542282131E200604655 /* SceneDelegate.swift */; };
@@ -19,8 +19,8 @@
 		4A85854D282131E300604655 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A85854C282131E300604655 /* Assets.xcassets */; };
 		4A858550282131E300604655 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A85854E282131E300604655 /* LaunchScreen.storyboard */; };
 		4A8585582821322000604655 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8585572821322000604655 /* Model.swift */; };
-		4A85855B282137B900604655 /* Entity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A858559282137B900604655 /* Entity+CoreDataClass.swift */; };
-		4A85855C282137B900604655 /* Entity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A85855A282137B900604655 /* Entity+CoreDataProperties.swift */; };
+		4A85855B282137B900604655 /* ExerciseSet+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A858559282137B900604655 /* ExerciseSet+CoreDataClass.swift */; };
+		4A85855C282137B900604655 /* ExerciseSet+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A85855A282137B900604655 /* ExerciseSet+CoreDataProperties.swift */; };
 		4A9174CC2847E45B00D44AA3 /* ExercisesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9174CB2847E45B00D44AA3 /* ExercisesTable.swift */; };
 		4A937D472843E00D0078A6E3 /* FirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A937D462843E00D0078A6E3 /* FirstLaunch.swift */; };
 		4A97F800282953E600CAE0D1 /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A97F7FF282953E600CAE0D1 /* Picker.swift */; };
@@ -39,8 +39,8 @@
 /* Begin PBXFileReference section */
 		4A1119D3282A919E0001908C /* AddExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExercise.swift; sourceTree = "<group>"; };
 		4A418ADC284F6A9300CF8366 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
-		4A67D1D328454D630075E47C /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
-		4A67D1D428454D630075E47C /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4A67D1D328454D630075E47C /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4A67D1D428454D630075E47C /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4A67D1D728454E910075E47C /* First Launch sec screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "First Launch sec screen.swift"; sourceTree = "<group>"; };
 		4A85853D282131E200604655 /* Exercises.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exercises.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A858540282131E200604655 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,8 +52,8 @@
 		4A85854F282131E300604655 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4A858551282131E300604655 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A8585572821322000604655 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		4A858559282137B900604655 /* Entity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		4A85855A282137B900604655 /* Entity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4A858559282137B900604655 /* ExerciseSet+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseSet+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4A85855A282137B900604655 /* ExerciseSet+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExerciseSet+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4A9174CB2847E45B00D44AA3 /* ExercisesTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesTable.swift; sourceTree = "<group>"; };
 		4A937D462843E00D0078A6E3 /* FirstLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunch.swift; sourceTree = "<group>"; };
 		4A97F7FF282953E600CAE0D1 /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
@@ -86,10 +86,10 @@
 		4A858534282131E200604655 = {
 			isa = PBXGroup;
 			children = (
-				4A67D1D328454D630075E47C /* User+CoreDataClass.swift */,
-				4A67D1D428454D630075E47C /* User+CoreDataProperties.swift */,
-				4A858559282137B900604655 /* Entity+CoreDataClass.swift */,
-				4A85855A282137B900604655 /* Entity+CoreDataProperties.swift */,
+				4A67D1D328454D630075E47C /* Person+CoreDataClass.swift */,
+				4A67D1D428454D630075E47C /* Person+CoreDataProperties.swift */,
+				4A858559282137B900604655 /* ExerciseSet+CoreDataClass.swift */,
+				4A85855A282137B900604655 /* ExerciseSet+CoreDataProperties.swift */,
 				4A85853F282131E200604655 /* Exercises */,
 				4A85853E282131E200604655 /* Products */,
 			);
@@ -235,13 +235,13 @@
 				4A1119D4282A919E0001908C /* AddExercise.swift in Sources */,
 				4A937D472843E00D0078A6E3 /* FirstLaunch.swift in Sources */,
 				4A9174CC2847E45B00D44AA3 /* ExercisesTable.swift in Sources */,
-				4A67D1D628454D630075E47C /* User+CoreDataProperties.swift in Sources */,
+				4A67D1D628454D630075E47C /* Person+CoreDataProperties.swift in Sources */,
 				4A8585582821322000604655 /* Model.swift in Sources */,
 				4A858545282131E200604655 /* ViewController.swift in Sources */,
 				4ADDCC51284A73300018F24D /* Controller.swift in Sources */,
-				4A85855B282137B900604655 /* Entity+CoreDataClass.swift in Sources */,
+				4A85855B282137B900604655 /* ExerciseSet+CoreDataClass.swift in Sources */,
 				4A97F800282953E600CAE0D1 /* Picker.swift in Sources */,
-				4A85855C282137B900604655 /* Entity+CoreDataProperties.swift in Sources */,
+				4A85855C282137B900604655 /* ExerciseSet+CoreDataProperties.swift in Sources */,
 				4ADBFEBE284923A90091F108 /* UserSettings.swift in Sources */,
 				4AFFBFA328397908009FFC36 /* History.swift in Sources */,
 				4A9DCACE284CE641007A7F95 /* MoreInfo.swift in Sources */,
@@ -252,7 +252,7 @@
 				4ADDCC4F284A5CED0018F24D /* Buttons.swift in Sources */,
 				4AA2FA292825B9B300E4AF61 /* ButtonsModel.swift in Sources */,
 				4AA2FA272825B55900E4AF61 /* CoreData.swift in Sources */,
-				4A67D1D528454D630075E47C /* User+CoreDataClass.swift in Sources */,
+				4A67D1D528454D630075E47C /* Person+CoreDataClass.swift in Sources */,
 				4A67D1D828454E910075E47C /* First Launch sec screen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

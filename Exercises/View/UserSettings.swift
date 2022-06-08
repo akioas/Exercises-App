@@ -78,12 +78,12 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         if birthday != "" {
             start.setButtonText(button: birthdayButton, text: birthday)
         } else {
-            start.setButtonText(button: birthdayButton, text: " ")
+            start.setButtonText(button: birthdayButton, text: NSLocalizedString("Not set", comment: ""))
         }
         if sex != "" {
             start.setButtonText(button: sexButton, text: sex)
         } else {
-            start.setButtonText(button: sexButton, text: " ")
+            start.setButtonText(button: sexButton, text: NSLocalizedString("Not set", comment: ""))
         }
         if view.frame.height < 660 {
             start.smallButton(button: sexButton)
@@ -101,12 +101,11 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
     
     
     func fetch(){
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "User")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Person")
     
         do {
             self.objects = try context.fetch(fetchRequest)
-            
-            
+              
         } catch let err as NSError {
             print(err)
         }
@@ -172,7 +171,6 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
             birthday = vals.get(user: object, key: .birthday)
             weight = vals.get(user: object, key: .weight)
             height = vals.get(user: object, key: .height)
-
             sex = vals.get(user: object, key: .sex)
         }
     }
@@ -204,6 +202,7 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
             editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
 
             vals.save(birthday: birthdayDate, name: name, sex: sex, weight: (weight), height: height)
+            DataModel().saveModel()
             setToFalse()
             if nameField.text == ""{
                 nameField.text = NSLocalizedString("Not set", comment: "")
@@ -259,14 +258,16 @@ extension UserSettings {
                 print(name)
 
                 vals.saveOne(value: name, key: .name, user: user)
-                
+                DataModel().saveModel()
+
             }
            
         } else if (textField == weightField){
             weight = weightField.text ?? ""
             if let user = objects.last{
                 vals.saveOne(value: weight, key: .weight, user: user)
-                
+                DataModel().saveModel()
+
             }
             
         } else if (textField == heightField){
@@ -274,6 +275,8 @@ extension UserSettings {
             if let user = objects.last{
                 print("saved")
                 vals.saveOne(value: height, key: .height, user: user)
+                DataModel().saveModel()
+
             }
             
         }
@@ -299,6 +302,8 @@ extension UserSettings {
             print(birthdayDate)
             if let user = objects.last{
                 vals.saveOne(value: birthdayDate, key: .birthday, user: user)
+                DataModel().saveModel()
+
             }
             datePicker.removeFromSuperview()
             isPickingDate = false
@@ -309,6 +314,8 @@ extension UserSettings {
             start.changeText(button: sexButton, with: sex)
             if let user = objects.last{
                 vals.saveOne(value: sex, key: .sex, user: user)
+                DataModel().saveModel()
+
             }
             picker.removeFromSuperview()
             isPickingSex = false
@@ -318,6 +325,8 @@ extension UserSettings {
                 yourName = name
                 vals.saveOne(value: height, key: .height, user: user)
                 vals.saveOne(value: weight, key: .weight, user: user)
+                DataModel().saveModel()
+
             }
             view.endEditing(true)
         }
