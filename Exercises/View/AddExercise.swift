@@ -2,7 +2,7 @@
 import UIKit
 import CoreData
 
-class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate{
     let tableView = UITableView()
     var object: ExerciseSet = DataModel().addModel()
     var isNewObject = true
@@ -44,6 +44,11 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         setupHeader(view, text: NSLocalizedString("Add an activity", comment: ""), button: nil, imgName: nil)
         self.navigationController?.isNavigationBarHidden = true
         self.hideOnTap()
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+        swipeDown.direction = .down
+        swipeDown.delegate = self
+
+        view.addGestureRecognizer(swipeDown)
         
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -151,10 +156,18 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
    
     @objc func showPicker(){
+        
         let vc = Picker()
-        self.present(vc, animated: false, completion: {
-            vc.setNum(0, ex: self.object)
-        })
+        vc.object = self.object
+        vc.view.frame = self.view.bounds
+        self.view.addSubview(vc.view)
+        self.addChild(vc)
+        vc.didMove(toParent: self)
+         
+        
+//        self.present(vc, animated: false, completion: {
+//            vc.setNum(0, ex: self.object)
+//        })
         
     }
     
@@ -205,6 +218,15 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource{
         datePicker.contentMode = .bottom
 
         view.addSubview(datePicker)
+    }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+            return true
+    }
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        cancel()
+        if let nav = navigationController {
+           nav.popViewController(animated: true)
+        }
     }
 }
 
