@@ -173,10 +173,13 @@ extension ViewController {
     
     @objc func addItem(){
         let vc = storyboard?.instantiateViewController(withIdentifier: "addex") as! AddExercise
+        vc.isModalInPresentation = true
+
         self.present(vc, animated: true)
     }
     @objc func toExTable(){
         let vc = ExercisesTable()
+
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: false)
     }
@@ -335,9 +338,10 @@ extension ViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
-        let vc = AddExercise()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false, completion: {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "addex") as! AddExercise
+        vc.isModalInPresentation = true
+
+        self.present(vc, animated: true, completion: {
             vc.loadObject(self.exercises[indexPath.section])
         })
         

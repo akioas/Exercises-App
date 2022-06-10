@@ -47,8 +47,8 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         toolBar.isUserInteractionEnabled = true
         toolBar.backgroundColor = .secondarySystemBackground
         
-        toolBar.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300) / 2 - 50, width: UIScreen.main.bounds.size.width, height: 50)
-        picker.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300) / 2, width: UIScreen.main.bounds.size.width, height: 200)
+        toolBar.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300)  - 50, width: UIScreen.main.bounds.size.width, height: 50)
+        picker.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300) , width: UIScreen.main.bounds.size.width, height: 200)
         
        
         view.addSubview(picker)
@@ -91,6 +91,7 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
          */
     }
     @objc func dismissPicker() {
+
         self.willMove(toParent: nil)
         self.view.removeFromSuperview()
         self.removeFromParent()

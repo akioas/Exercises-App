@@ -65,6 +65,11 @@ class AllowedText {
         characterSet = CharacterSet(charactersIn: string)
         return allowedCharacters.isSuperset(of: characterSet)
     }
+    func textDigitsDot(string:String) -> Bool{
+        allowedCharacters = CharacterSet(charactersIn:".,0123456789")
+        characterSet = CharacterSet(charactersIn: string)
+        return allowedCharacters.isSuperset(of: characterSet)
+    }
 }
 
 
@@ -148,7 +153,7 @@ enum viewType{
     case other
 }
 
-func setupHeader(_ view: UIView, text: String, button: UIButton?, imgName named: String?, type: viewType = .other){
+func setupHeader(_ view: UIView, text: String, button: UIButton?, imgName named: String?, type: viewType = .other) -> UIView{
     let header = UIView()
     var newY = 44.0
     if view.frame.height < 660{
@@ -181,4 +186,5 @@ func setupHeader(_ view: UIView, text: String, button: UIButton?, imgName named:
     header.addSubview(textLabel)
     
     view.addSubview(header)
+    return header
 }
