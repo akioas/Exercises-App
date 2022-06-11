@@ -21,9 +21,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="FirstLaunch" translatesAutoresizingMaskIntoConstraints="NO" id="SwX-YP-tVv">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="FirstLaunch" translatesAutoresizingMaskIntoConstraints="NO" id="SwX-YP-tVv">
+                                <rect key="frame" x="-7" y="-15" width="428" height="926"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="KNy-VX-v13">
                                 <rect key="frame" x="54.5" y="296" width="305" height="304"/>
@@ -93,6 +92,8 @@
                             <constraint firstItem="esB-Re-kfR" firstAttribute="centerX" secondItem="Mko-9T-3cv" secondAttribute="centerX" id="Z0M-IE-GAb"/>
                             <constraint firstItem="Qah-5W-Ih8" firstAttribute="centerX" secondItem="Mko-9T-3cv" secondAttribute="centerX" id="d6p-pm-Tpc"/>
                             <constraint firstItem="KNy-VX-v13" firstAttribute="centerY" secondItem="Mko-9T-3cv" secondAttribute="centerY" id="e2a-O3-rWB"/>
+                            <constraint firstItem="SwX-YP-tVv" firstAttribute="centerX" secondItem="Mko-9T-3cv" secondAttribute="centerX" id="faa-98-1v8"/>
+                            <constraint firstItem="SwX-YP-tVv" firstAttribute="centerY" secondItem="Mko-9T-3cv" secondAttribute="centerY" id="hBQ-pN-G4G"/>
                             <constraint firstItem="KNy-VX-v13" firstAttribute="centerX" secondItem="Mko-9T-3cv" secondAttribute="centerX" id="lp9-Fc-Vop"/>
                             <constraint firstItem="5NU-zB-hsh" firstAttribute="centerX" secondItem="Mko-9T-3cv" secondAttribute="centerX" id="pMa-pH-y6v"/>
                         </constraints>

@@ -51,6 +51,8 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         getUser()
         print(birthday)
         setToFalse()
+        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+
 
     }
 

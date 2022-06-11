@@ -32,7 +32,10 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var heightField: UITextField!
-    
+    override func viewWillAppear(_ animated: Bool) {
+        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true

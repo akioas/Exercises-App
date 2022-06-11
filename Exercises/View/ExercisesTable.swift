@@ -22,6 +22,10 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         fetch()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+
+    }
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
         setupTableView()

@@ -9,6 +9,10 @@ class FirstLaunch: UIViewController{
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+
+    }
     @IBOutlet weak var texts: UIStackView!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var logo: UIImageView!

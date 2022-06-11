@@ -43,6 +43,8 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         minusImg = UIImage(systemName: "minus.square", withConfiguration: configurationSmall)?.withTintColor(.black, renderingMode: .alwaysOriginal) ?? UIImage()
         blankImg.withTintColor(.clear)
         imgSize = blankImg.size.width
+        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()

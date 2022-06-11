@@ -61,6 +61,10 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
        
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+
+    }
     func fetch(){
         let fetchRequest = NSFetchRequest<Exercise>(entityName: "Exercise")
     
