@@ -62,7 +62,8 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         self.hideOnTap()
         setupDatePicker()
         setupPicker()
-        stackView.spacing = view.frame.height / 50
+        stackView.spacing = view.frame.height / 60
+        
         nameField.delegate = self
         heightField.delegate = self
         weightField.delegate = self
@@ -75,8 +76,8 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         self.navigationController?.isNavigationBarHidden = true
         
 
-        topImage(view: view, type: .firstScreen)
-        setupHeader(view, text: NSLocalizedString("Personal Info", comment: ""), button: editButton, imgName: "square.and.pencil", type: .launch)
+        topImage(view: view, type: .common)
+        setupHeader(view, text: NSLocalizedString("Personal Info", comment: ""), button: editButton, imgName: "square.and.pencil", type: .other)
 
         editButton.addTarget(self, action: #selector(edit), for: .touchUpInside)
         textFieldAppearance(nameField)
@@ -92,7 +93,8 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         } else {
             start.setButtonText(button: sexButton, text: NSLocalizedString("Not set", comment: ""))
         }
-        if view.frame.height < 660 {
+        if view.frame.height < 700 {
+            stackView.distribution = .fillProportionally
             start.smallButton(button: sexButton)
             start.smallButton(button: birthdayButton)
             start.smallText(field: nameField)

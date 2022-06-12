@@ -117,7 +117,6 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
         print(step)
         let stepper = Stepper()
-//        stepper.setBackgroundImage(blankImgBack, for: .normal)
         print(stepper.frame)
 
         stepper.minimumValue = 0
@@ -127,38 +126,25 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         stepper.setNum(num: tag)
         stepper.setName(name: name)
         stepper.setDividerImage(blankImg, forLeftSegmentState: .normal, rightSegmentState: .normal)
-//        stepper.setIncrementImage(plusImg, for: .normal)
-//        stepper.setDecrementImage(minusImg, for: .normal)
-//        stepper.frame = CGRect(x: 0, y: 0, width: 120, height: 50)
+
         var transform = CATransform3DIdentity
         transform = CATransform3DScale(transform, 2.0, 1.5, 1.0)
         transform = CATransform3DTranslate(transform, 25, 5, 0)
         stepper.layer.transform = transform
-//        stepper.transform = CGAffineTransform(scaleX: 1.55, y: 1.5)
         print(view.frame.width)
 
-        let label = Label()
-        label.setNum(num: tag)
-        label.setName(name: name)
-        label.font = label.font.withSize(16)
+        
         
         if step != 0.25{
-            label.text = String( Int(stepper.value))
             stepper.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
 
         } else {
-            label.text = String(format: "%.2f", (stepper.value))
             stepper.addTarget(self, action: #selector(self.stepperValueChangedD(_:)), for: .valueChanged)
         }
-//        cell.accessoryView?.bounds = CGRect(x: 0, y: 0, width: 120, height: 50)
 
-        label.textAlignment = .center
         let view = UIView()
         view.frame = stepper.frame
-        print(view.frame)
-        label.frame = CGRect(x: (view.frame.width - imgSize) / 2, y: 0, width: imgSize, height: view.frame.height)
         view.addSubview(stepper)
-//        view.addSubview(label)
         cell.accessoryView = view
     }
     
@@ -470,23 +456,9 @@ extension AddExercise {
     }
 
     @objc func dismissView() {
-        /*
+        
         if !isKeyBoard{
             doneDate()
-        } else {
-            object.set_number = Int16(setTextField.text ?? "") ?? 0
-            object.repeats = Int16(repsTextField.text ?? "") ?? 0
-            object.weight = Double(weightTextField.text ?? "") ?? 0.0
-            object.duration = Int16(durTextField.text ?? "") ?? 0
-            object.calories = Int16(calTextField.text ?? "") ?? 0
-            object.distance = Double(distanceTextField.text ?? "") ?? 0.0
-            refresh()
-        }
-         
-*/
-        if !isKeyBoard{
-            doneDate()
-//
         }
         refresh()
 
@@ -532,39 +504,11 @@ extension AddExercise {
 
     @objc func keyboardWillDisappear() {
         print("L")
-        /*
-        setTextField.textColor = .clear
-        repsTextField.textColor = .clear
-        weightTextField.textColor = .clear
-        
-        calTextField.textColor = .clear
-        durTextField.textColor = .clear
-        distanceTextField.textColor = .clear
-         */
+       
         isKeyBoard = false
         refresh()
 
 
-        /*
-        object.set_number = Int16(setTextField.text ?? "") ?? 0
-        object.repeats = Int16(repsTextField.text ?? "") ?? 0
-        object.weight = Double(weightTextField.text ?? "") ?? 0.0
-        object.duration = Int16(durTextField.text ?? "") ?? 0
-        object.calories = Int16(calTextField.text ?? "") ?? 0
-        object.distance = Double(distanceTextField.text ?? "") ?? 0.0
-        print(object.repeats)
-        print(setTextField.text)
-        setTextField.text = ""
-        repsTextField.text = ""
-        weightTextField.text = ""
-        
-        calTextField.text = ""
-        durTextField.text = ""
-        distanceTextField.text = ""
-        isKeyBoard = false
-        print(object.repeats)
-        refresh()
-*/
     }
     
     func setValue(_ textField: UITextField){
