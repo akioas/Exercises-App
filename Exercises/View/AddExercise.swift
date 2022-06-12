@@ -21,6 +21,8 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var imgSize = 0.0
     var isPicking = false
     var header = UIView()
+    let configuration = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .medium)
+
     
     var setTextField = UITextField()
     var calTextField = UITextField()
@@ -28,6 +30,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var durTextField = UITextField()
     var weightTextField = UITextField()
     var distanceTextField = UITextField()
+    
     
     var isKeyBoard = false
 //    let toolBar = UIToolbar()
@@ -114,7 +117,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
         print(step)
         let stepper = Stepper()
-        stepper.setBackgroundImage(blankImgBack, for: .normal)
+//        stepper.setBackgroundImage(blankImgBack, for: .normal)
         print(stepper.frame)
 
         stepper.minimumValue = 0
@@ -124,10 +127,15 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         stepper.setNum(num: tag)
         stepper.setName(name: name)
         stepper.setDividerImage(blankImg, forLeftSegmentState: .normal, rightSegmentState: .normal)
-        stepper.setIncrementImage(plusImg, for: .normal)
-        stepper.setDecrementImage(minusImg, for: .normal)
-        stepper.transform.scaledBy(x: 2, y: 1)
-        stepper.frame = CGRect(x: 0, y: 0, width: 120, height: 50)
+//        stepper.setIncrementImage(plusImg, for: .normal)
+//        stepper.setDecrementImage(minusImg, for: .normal)
+//        stepper.frame = CGRect(x: 0, y: 0, width: 120, height: 50)
+        var transform = CATransform3DIdentity
+        transform = CATransform3DScale(transform, 2.0, 1.5, 1.0)
+        transform = CATransform3DTranslate(transform, 25, 5, 0)
+        stepper.layer.transform = transform
+//        stepper.transform = CGAffineTransform(scaleX: 1.55, y: 1.5)
+        print(view.frame.width)
 
         let label = Label()
         label.setNum(num: tag)
@@ -150,7 +158,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         print(view.frame)
         label.frame = CGRect(x: (view.frame.width - imgSize) / 2, y: 0, width: imgSize, height: view.frame.height)
         view.addSubview(stepper)
-        view.addSubview(label)
+//        view.addSubview(label)
         cell.accessoryView = view
     }
     
@@ -161,11 +169,19 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         setupTextField(calTextField)
         setupTextField(distanceTextField)
         setupTextField(durTextField)
+        fieldsFrame()
         
+        setTextField.textColor = .label
+        repsTextField.textColor = .label
+        weightTextField.textColor = .label
+        
+        calTextField.textColor = .label
+        durTextField.textColor = .label
+        distanceTextField.textColor = .label
 
     }
-    func fieldsFrame(_ cell: UITableViewCell){
-        let frame = CGRect(x: 120, y: 0, width: cell.bounds.width - (cell.accessoryView?.bounds.width ?? 0) - 200, height: 42)
+    func fieldsFrame(){
+        let frame = CGRect(x: 52, y: 0, width: 90, height: 48)
         setTextField.frame = frame
         repsTextField.frame = frame
         weightTextField.frame = frame
@@ -176,12 +192,15 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     func setupTextField(_ textField: UITextField){
         textField.delegate = self
-        textField.borderStyle = .roundedRect
+        textField.borderStyle = .none
+        textField.textAlignment = .center
         textField.isUserInteractionEnabled = true
-        textField.keyboardType = .numberPad
+        textField.keyboardType = .decimalPad
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        view.bringSubviewToFront(textField)
 
     }
+    
     @objc func textFieldDidChange(_ textField: UITextField) {
         print("1111")
         print(object.set_number)
@@ -323,7 +342,7 @@ extension AddExercise {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return 5
     }
    
 
@@ -331,18 +350,18 @@ extension AddExercise {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         cell.textLabel?.text = data.setText(item: (indexPath.item ), currentEx: object)
-        fieldsFrame(cell)
+//        fieldsFrame(cell)
         switch indexPath.row {
         case 0:
             let calButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            calButton.setImage(UIImage(systemName: "calendar"), for: .normal)
+            calButton.setImage(UIImage(systemName: "calendar", withConfiguration: configuration), for: .normal)
             calButton.tintColor = .label
             calButton.addTarget(self, action: #selector(createDatePicker), for: .touchUpInside)
             cell.accessoryView = calButton
         case 1:
             let newButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             newButton.setNum(num: indexPath.section)
-            newButton.setImage(UIImage(systemName: "list.bullet"), for: .normal)
+            newButton.setImage(UIImage(systemName: "list.bullet", withConfiguration: configuration), for: .normal)
             newButton.tintColor = .label
             newButton.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
             cell.accessoryView = newButton
@@ -351,50 +370,68 @@ extension AddExercise {
         case 2:
             if object.exercise?.type == "Strength" {
                 
-                cell.contentView.addSubview(setTextField)
                 calTextField.isHidden = true
                 setTextField.isHidden = false
 //                cell.textLabel?.text = ""
 //                setTextField.becomeFirstResponder()
                 setupStepper(cell, tag: indexPath.section, value: Double((data.getRep(currentEx: object))), name: "set_number", max: 10.0, step: 1.0)
+                setTextField.text = String(object.set_number)
+                
+                cell.accessoryView!.addSubview(setTextField)
+
         } else {
-            cell.contentView.addSubview(calTextField)
+//            cell.contentView.addSubview(calTextField)
             setTextField.isHidden = true
             calTextField.isHidden = false
 
             setupStepper(cell, tag: indexPath.section, value: Double((data.getCal(currentEx: object))), name: "calories", max: 2000.0, step: 10.0)
+            cell.accessoryView?.addSubview(calTextField)
+            
+            
+            calTextField.text = String(object.calories)
+            
         }
             callBack()
         case 3:
 
             if object.exercise?.type == "Strength" {
-                cell.contentView.addSubview(repsTextField)
+//                cell.contentView.addSubview(repsTextField)
                 durTextField.isHidden = true
                 repsTextField.isHidden = false
 
                 setupStepper(cell, tag: indexPath.section, value: Double((data.getReps(currentEx: object))), name: "repeats", max: 100.0, step: 1.0)
+                cell.accessoryView?.addSubview(repsTextField)
+                repsTextField.text = String(object.repeats)
+                
             } else {
-                cell.contentView.addSubview(durTextField)
+//                cell.contentView.addSubview(durTextField)
                 repsTextField.isHidden = true
                 durTextField.isHidden = false
 
                 setupStepper(cell, tag: indexPath.section, value: Double((data.getDur(currentEx: object))), name: "duration", max: 1000.0, step: 1.0)
+                cell.accessoryView?.addSubview(durTextField)
+                durTextField.text = String(object.duration)
             }
             callBack()
         case 4:
 
             if object.exercise?.type == "Strength" {
-                cell.contentView.addSubview(weightTextField)
+//                cell.contentView.addSubview(weightTextField)
                 distanceTextField.isHidden = true
                 weightTextField.isHidden = false
 
                 setupStepper(cell, tag: indexPath.section, value: ((data.getWeight(currentEx: object))), name: "weight", max: 300.0, step: (0.25))
+                cell.accessoryView?.addSubview(weightTextField)
+                weightTextField.text = String(object.weight)
             } else {
-                cell.contentView.addSubview(distanceTextField)
+//                cell.contentView.addSubview(distanceTextField)
                 weightTextField.isHidden = true
                 distanceTextField.isHidden = false
 
                 setupStepper(cell, tag: indexPath.section, value: ((data.getDist(currentEx: object))), name: "distance", max: 100.0, step: (0.25))
+                cell.accessoryView?.addSubview(distanceTextField)
+                distanceTextField.text = String(object.distance)
+
             }
             callBackD()
         case 5:
@@ -418,6 +455,9 @@ extension AddExercise {
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 }
 
@@ -463,8 +503,18 @@ extension AddExercise {
         return true
         
     }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == weightTextField || textField == distanceTextField{
+            if (textField.text)?.filter({ $0 == "." }).count ?? 0 > 0{
+//                return AllowedText().textDigits(string: string)
+                return AllowedText().textDigits(string: string)
+            }
+            if string == "," {
+                             textField.text = textField.text! + "."
+                             return false
+                         }
+            
                return AllowedText().textDigitsDot(string: string)
         } else {
             return AllowedText().textDigits(string: string)
@@ -476,25 +526,13 @@ extension AddExercise {
     @objc func keyboardWillAppear() {
         isKeyBoard = true
         print(isKeyBoard)
-        setTextField.text = String(object.set_number)
-        repsTextField.text = String(object.repeats)
-        weightTextField.text = String(object.weight)
         
-        calTextField.text = String(object.calories)
-        durTextField.text = String(object.duration)
-        distanceTextField.text = String(object.distance)
-        setTextField.textColor = .label
-        repsTextField.textColor = .label
-        weightTextField.textColor = .label
-        
-        calTextField.textColor = .label
-        durTextField.textColor = .label
-        distanceTextField.textColor = .label
         
     }
 
     @objc func keyboardWillDisappear() {
         print("L")
+        /*
         setTextField.textColor = .clear
         repsTextField.textColor = .clear
         weightTextField.textColor = .clear
@@ -502,6 +540,7 @@ extension AddExercise {
         calTextField.textColor = .clear
         durTextField.textColor = .clear
         distanceTextField.textColor = .clear
+         */
         isKeyBoard = false
         refresh()
 

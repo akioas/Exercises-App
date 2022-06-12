@@ -14,7 +14,7 @@ class GetData {
             case 2:
                 return (NSLocalizedString("Set", comment: ""))
             case 3:
-                return (NSLocalizedString("Reps", comment: ""))
+                return (NSLocalizedString("Repeats", comment: ""))
             case 4:
                 return (NSLocalizedString("Weight", comment: "") )
             case 5:
