@@ -267,27 +267,27 @@ extension UserSettings {
 //                text.text = yourName
                 print(name)
 
-                vals.saveOne(value: name, key: .name, user: user)
-                DataModel().saveModel()
+//                vals.saveOne(value: name, key: .name, user: user)
+//                DataModel().saveModel()
 
             }
            
         } else if (textField == weightField){
             weight = weightField.text ?? ""
-            if let user = objects.last{
-                vals.saveOne(value: weight, key: .weight, user: user)
-                DataModel().saveModel()
+//            if let user = objects.last{
+//                vals.saveOne(value: weight, key: .weight, user: user)
+//                DataModel().saveModel()
 
-            }
+//            }
             
         } else if (textField == heightField){
             height = heightField.text ?? ""
-            if let user = objects.last{
-                print("saved")
-                vals.saveOne(value: height, key: .height, user: user)
-                DataModel().saveModel()
+//            if let user = objects.last{
+//                print("saved")
+//                vals.saveOne(value: height, key: .height, user: user)
+//                DataModel().saveModel()
 
-            }
+//            }
             
         }
         textField.resignFirstResponder()
@@ -310,11 +310,11 @@ extension UserSettings {
             birthday = dateFormatter.string(from: birthdayDate)
             start.changeText(button: birthdayButton, with: birthday)
             print(birthdayDate)
-            if let user = objects.last{
-                vals.saveOne(value: birthdayDate, key: .birthday, user: user)
-                DataModel().saveModel()
+//            if let user = objects.last{
+//                vals.saveOne(value: birthdayDate, key: .birthday, user: user)
+//                DataModel().saveModel()
 
-            }
+//            }
             datePicker.removeFromSuperview()
             isPickingDate = false
         } else if isPickingSex{
@@ -322,20 +322,20 @@ extension UserSettings {
                 sex = gendersSave.first ?? ""
             }
             start.changeText(button: sexButton, with: NSLocalizedString(sex, comment: ""))
-            if let user = objects.last{
-                vals.saveOne(value: sex, key: .sex, user: user)
-                DataModel().saveModel()
+//            if let user = objects.last{
+//                vals.saveOne(value: sex, key: .sex, user: user)
+//                DataModel().saveModel()
 
-            }
+//            }
             picker.removeFromSuperview()
             isPickingSex = false
         } else {
             if let user = objects.last{
-                vals.saveOne(value: name, key: .name, user: user)
+//                vals.saveOne(value: name, key: .name, user: user)
                 yourName = name
-                vals.saveOne(value: height, key: .height, user: user)
-                vals.saveOne(value: weight, key: .weight, user: user)
-                DataModel().saveModel()
+//                vals.saveOne(value: height, key: .height, user: user)
+//                vals.saveOne(value: weight, key: .weight, user: user)
+//                DataModel().saveModel()
 
             }
             view.endEditing(true)

@@ -65,7 +65,6 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         setupTableView()
         self.navigationController?.isNavigationBarHidden = true
-        self.hideOnTap()
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
         swipeDown.direction = .down
         swipeDown.delegate = self
@@ -236,6 +235,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     
    
     @objc func showPicker(){
+        self.hideOnTap()
         isPicking = true
         let vc = Picker()
         vc.object = self.object
@@ -287,7 +287,8 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     @objc func createDatePicker(){
         
-        
+        self.hideOnTap()
+
         if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .wheels
         }
@@ -337,14 +338,19 @@ extension AddExercise {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         cell.textLabel?.text = data.setText(item: (indexPath.item ), currentEx: object)
 //        fieldsFrame(cell)
+        cell.selectionStyle = .none
+
         switch indexPath.row {
         case 0:
+            cell.selectionStyle = .default
             let calButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             calButton.setImage(UIImage(systemName: "calendar", withConfiguration: configuration), for: .normal)
             calButton.tintColor = .label
             calButton.addTarget(self, action: #selector(createDatePicker), for: .touchUpInside)
             cell.accessoryView = calButton
         case 1:
+            cell.selectionStyle = .default
+
             let newButton = Button(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             newButton.setNum(num: indexPath.section)
             newButton.setImage(UIImage(systemName: "list.bullet", withConfiguration: configuration), for: .normal)
@@ -425,15 +431,17 @@ extension AddExercise {
         default:
             cell.accessoryView = nil
         }
-        cell.selectionStyle = .none
         cell.backgroundColor = .secondarySystemBackground
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
-        if indexPath.row == 2{
+        if indexPath.row == 0{
+            createDatePicker()
+        } else if indexPath.row == 1{
+            showPicker()
         }
+
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -457,13 +465,17 @@ extension AddExercise {
 
     @objc func dismissView() {
         
+
         if !isKeyBoard{
             doneDate()
         }
         refresh()
 
         view.endEditing(true)
-
+        for gesture in view.gestureRecognizers!{
+            gesture.isEnabled = false
+        }
+        
     }
 }
  

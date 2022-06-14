@@ -15,7 +15,7 @@
 		4A67D1D828454E910075E47C /* First Launch sec screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A67D1D728454E910075E47C /* First Launch sec screen.swift */; };
 		4A858541282131E200604655 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A858540282131E200604655 /* AppDelegate.swift */; };
 		4A858543282131E200604655 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A858542282131E200604655 /* SceneDelegate.swift */; };
-		4A858545282131E200604655 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A858544282131E200604655 /* ViewController.swift */; };
+		4A858545282131E200604655 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A858544282131E200604655 /* MainScreen.swift */; };
 		4A858548282131E200604655 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A858546282131E200604655 /* Main.storyboard */; };
 		4A85854B282131E200604655 /* Exercises.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4A858549282131E200604655 /* Exercises.xcdatamodeld */; };
 		4A85854D282131E300604655 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A85854C282131E300604655 /* Assets.xcassets */; };
@@ -49,7 +49,7 @@
 		4A85853D282131E200604655 /* Exercises.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exercises.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A858540282131E200604655 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4A858542282131E200604655 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4A858544282131E200604655 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4A858544282131E200604655 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		4A858547282131E200604655 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4A85854A282131E200604655 /* Exercises.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Exercises.xcdatamodel; sourceTree = "<group>"; };
 		4A85854C282131E300604655 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 			children = (
 				4A937D462843E00D0078A6E3 /* FirstLaunch.swift */,
 				4A67D1D728454E910075E47C /* First Launch sec screen.swift */,
-				4A858544282131E200604655 /* ViewController.swift */,
+				4A858544282131E200604655 /* MainScreen.swift */,
 				4A9174CB2847E45B00D44AA3 /* ExercisesTable.swift */,
 				4A1119D3282A919E0001908C /* AddExercise.swift */,
 				4ADBFEBD284923A90091F108 /* UserSettings.swift */,
@@ -243,7 +243,7 @@
 				4A9174CC2847E45B00D44AA3 /* ExercisesTable.swift in Sources */,
 				4A67D1D628454D630075E47C /* Person+CoreDataProperties.swift in Sources */,
 				4A8585582821322000604655 /* Model.swift in Sources */,
-				4A858545282131E200604655 /* ViewController.swift in Sources */,
+				4A858545282131E200604655 /* MainScreen.swift in Sources */,
 				4ADDCC51284A73300018F24D /* Controller.swift in Sources */,
 				4A85855B282137B900604655 /* ExerciseSet+CoreDataClass.swift in Sources */,
 				4A97F800282953E600CAE0D1 /* Picker.swift in Sources */,
