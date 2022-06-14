@@ -70,7 +70,8 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         swipeDown.delegate = self
 
         view.addGestureRecognizer(swipeDown)
-        
+        self.hideOnTap()
+
         tableView.backgroundColor = .secondarySystemBackground
         tableView.frame = CGRect(x: 0, y: 50 , width: view.frame.width, height: view.frame.height - 50)
         view.addSubview(tableView)
@@ -114,9 +115,9 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     
     func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
-        print(step)
+//        print(step)
         let stepper = Stepper()
-        print(stepper.frame)
+//        print(stepper.frame)
 
         stepper.minimumValue = 0
         stepper.maximumValue = max
@@ -235,7 +236,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     
    
     @objc func showPicker(){
-        self.hideOnTap()
+//        self.hideOnTap()
         isPicking = true
         let vc = Picker()
         vc.object = self.object
@@ -258,7 +259,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     func callBack(){
         callBackStepper = { value, name in
             self.object.setValue(value, forKey: name)
-//            self.tableView.reloadData()
+            self.refresh()
         }
     }
     @objc func stepperValueChangedD(_ sender:Stepper!)
@@ -268,7 +269,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     func callBackD(){
         callBackStepperD = { value, name in
             self.object.setValue(value, forKey: name)
-//            self.tableView.reloadData()
+            self.refresh()
         }
     }
     @objc func refresh(){
@@ -287,7 +288,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     @objc func createDatePicker(){
         
-        self.hideOnTap()
+//        self.hideOnTap()
 
         if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .wheels
@@ -347,6 +348,11 @@ extension AddExercise {
             calButton.setImage(UIImage(systemName: "calendar", withConfiguration: configuration), for: .normal)
             calButton.tintColor = .label
             calButton.addTarget(self, action: #selector(createDatePicker), for: .touchUpInside)
+            let contButton = UIButton(frame: cell.contentView.frame)
+            contButton.addTarget(self, action: #selector(createDatePicker), for: .touchUpInside)
+            calButton.addTarget(self, action: #selector(createDatePicker), for: .touchUpInside)
+            cell.contentView.addSubview(contButton)
+            view.bringSubviewToFront(contButton)
             cell.accessoryView = calButton
         case 1:
             cell.selectionStyle = .default
@@ -356,8 +362,12 @@ extension AddExercise {
             newButton.setImage(UIImage(systemName: "list.bullet", withConfiguration: configuration), for: .normal)
             newButton.tintColor = .label
             newButton.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
+            let contButton = UIButton(frame: cell.contentView.frame)
+            contButton.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
+            cell.contentView.addSubview(contButton)
+
             cell.accessoryView = newButton
-            
+
             
         case 2:
             if object.exercise?.type == "Strength" {
@@ -472,9 +482,7 @@ extension AddExercise {
         refresh()
 
         view.endEditing(true)
-        for gesture in view.gestureRecognizers!{
-            gesture.isEnabled = false
-        }
+        
         
     }
 }
