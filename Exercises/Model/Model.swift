@@ -69,6 +69,7 @@ class DataModel{
         if let indexPosition = exercisesString.firstIndex(of: list.loadRow() ?? ""){
             return exercises[indexPosition]
         } else {
+            list.saveRow(NSLocalizedString("Exercise", comment: ""))
             return list.add()
             
         }

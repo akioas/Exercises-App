@@ -91,7 +91,12 @@ class GetData {
     }
     func exerciseName(object: ExerciseSet?) -> String{
         if let object = object{
-            return ((getExercise(object)?.name ?? "") + ", " +  NSLocalizedString(getExercise(object)?.type ?? "", comment: ""))
+            let type = NSLocalizedString(getExercise(object)?.type ?? "", comment: "")
+            if type != ""{
+                return ((getExercise(object)?.name ?? "") + ", " +  type)
+            } else {
+                return (NSLocalizedString("Exercise", comment: ""))
+            }
         } else {
             return ""
         }

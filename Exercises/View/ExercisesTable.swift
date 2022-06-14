@@ -20,12 +20,16 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetch()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refresh),
+                                               name: NSNotification.Name(rawValue: "fetch"),
+                                               object: nil)
     }
     override func viewWillAppear(_ animated: Bool) {
         AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
-
+        refresh()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
