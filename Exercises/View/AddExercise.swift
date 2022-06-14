@@ -297,7 +297,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         datePicker.backgroundColor = .lightGray
         datePicker.datePickerMode = UIDatePicker.Mode.date
         datePicker.contentMode = .bottom
-
+        datePicker.maximumDate = Date()
         view.addSubview(datePicker)
     }
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
