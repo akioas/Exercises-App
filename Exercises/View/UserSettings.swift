@@ -45,6 +45,10 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
     @IBOutlet weak var birthdayButton: UIButton!
     @IBOutlet weak var heightField: UITextField!
     @IBOutlet weak var weightField: UITextField!
+    @IBAction func editButtonPressed(_ sender: Any) {
+        edit()
+    }
+    @IBOutlet weak var editSaveButton: UIButton!
     
     override func viewWillAppear(_ animated: Bool) {
         fetch()
@@ -62,7 +66,7 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         self.hideOnTap()
         setupDatePicker()
         setupPicker()
-        stackView.spacing = view.frame.height / 60
+        stackView.spacing = view.frame.height / 70
         
         nameField.delegate = self
         heightField.delegate = self
@@ -83,6 +87,7 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         textFieldAppearance(nameField)
         textFieldAppearance(weightField)
         textFieldAppearance(heightField)
+        start.setEditText(button: editSaveButton, text: NSLocalizedString("Edit", comment: ""))
         if birthday != "" {
             start.setButtonText(button: birthdayButton, text: birthday)
         } else {
@@ -192,6 +197,8 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         isEdit = !isEdit
         if isEdit {
             editButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
+            start.setEditText(button: editSaveButton, text: NSLocalizedString("Save", comment: ""))
+
             sexButton.isUserInteractionEnabled = true
             birthdayButton.isUserInteractionEnabled = true
             nameField.isUserInteractionEnabled = true
@@ -209,6 +216,7 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 
         } else {
             editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
+            start.setEditText(button: editSaveButton, text: NSLocalizedString("Edit", comment: ""))
 
             vals.save(birthday: birthdayDate, name: name, sex: sex, weight: (weight), height: height)
             DataModel().saveModel()
