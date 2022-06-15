@@ -87,7 +87,9 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         textFieldAppearance(nameField)
         textFieldAppearance(weightField)
         textFieldAppearance(heightField)
-        start.setEditText(button: editSaveButton, text: NSLocalizedString("Edit", comment: ""))
+        StartText().setBotButtonText(button: editSaveButton, text: NSLocalizedString("Edit", comment: ""))
+        editSaveButton.layer.cornerRadius = 20
+        editSaveButton.layer.backgroundColor = UIColor.init(red: 0.09, green: 0.49, blue: 0.9, alpha: 1.0).cgColor
         if birthday != "" {
             start.setButtonText(button: birthdayButton, text: birthday)
         } else {
@@ -197,7 +199,7 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         isEdit = !isEdit
         if isEdit {
             editButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
-            start.setEditText(button: editSaveButton, text: NSLocalizedString("Save", comment: ""))
+            StartText().setBotButtonText(button: editSaveButton, text: NSLocalizedString("Save", comment: ""))
 
             sexButton.isUserInteractionEnabled = true
             birthdayButton.isUserInteractionEnabled = true
@@ -216,7 +218,7 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 
         } else {
             editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
-            start.setEditText(button: editSaveButton, text: NSLocalizedString("Edit", comment: ""))
+            StartText().setBotButtonText(button: editSaveButton, text: NSLocalizedString("Edit", comment: ""))
 
             vals.save(birthday: birthdayDate, name: name, sex: sex, weight: (weight), height: height)
             DataModel().saveModel()
