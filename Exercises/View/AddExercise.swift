@@ -530,6 +530,22 @@ extension AddExercise{
         } else {
             selected = row
         }
+        switch pickerView{
+        case setWheel:
+            object.set_number = Int16((setNumData[selected]))
+        case calWheel:
+            object.calories = Int16(setNumData.map { $0 * 100 }[selected])
+        case repsWheel:
+            object.repeats = Int16(setNumData.map { $0 * 10 }[selected])
+        case durWheel:
+            object.duration = Int16(setNumData.map { $0 * 100 }[selected])
+        case weightWheel:
+            object.weight = ((setNumData.map { Double($0 * 30) }[selected]) + (Double(selectedRight) / 100.0))
+        case distanceWheel:
+            object.distance = ((setNumData.map { Double($0 * 10) }[selected]) + (Double(selectedRight) / 100.0))
+        default:
+            print("0")
+        }
         refresh()
     }
 }
