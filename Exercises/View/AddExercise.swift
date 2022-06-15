@@ -2,7 +2,7 @@
 import UIKit
 import CoreData
 
-class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UITextFieldDelegate{
+class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
     let tableView = UITableView()
     var object: ExerciseSet = DataModel().addModel()
     var isNewObject = true
@@ -20,21 +20,24 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var minusImg = UIImage()
     var imgSize = 0.0
     var isPicking = false
+    var isWheel = false
     var header = UIView()
     let configuration = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .medium)
 
     
-    var setTextField = UITextField()
-    var calTextField = UITextField()
-    var repsTextField = UITextField()
-    var durTextField = UITextField()
-    var weightTextField = UITextField()
-    var distanceTextField = UITextField()
+    var setWheel = UIPickerView()
+    var calWheel = UIPickerView()
+    var repsWheel = UIPickerView()
+    var durWheel = UIPickerView()
+    var weightWheel = UIPickerView()
+    var distanceWheel = UIPickerView()
     
+    let setNumData = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    let rightData = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
     
-    var isKeyBoard = false
-//    let toolBar = UIToolbar()
-
+    var selected = 0
+    var selectedRight = 0
+    
     override func viewWillAppear(_ animated: Bool) {
         let configuration = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .medium)
         let configurationLarge = UIImage.SymbolConfiguration(pointSize: 60, weight: .regular, scale: .medium)
@@ -59,9 +62,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
                                                selector: #selector(notPicking),
                                                name: NSNotification.Name(rawValue: "NotPicking"),
                                                object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
+      
         
         setupTableView()
         self.navigationController?.isNavigationBarHidden = true
@@ -76,14 +77,13 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         tableView.frame = CGRect(x: 0, y: 50 , width: view.frame.width, height: view.frame.height - 50)
         view.addSubview(tableView)
         topImage(view: view, type: .common)
-
+        setupWheels()
     }
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
 
         header = setupHeader(view, text: NSLocalizedString("Add an activity", comment: ""), button: nil, imgName: nil)
-        textFields()
     }
     
     func loadObject(_ object: ExerciseSet){
@@ -116,8 +116,9 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     
     func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
 //        print(step)
-        let stepper = Stepper()
 //        print(stepper.frame)
+        
+        let stepper = Stepper()
 
         stepper.minimumValue = 0
         stepper.maximumValue = max
@@ -126,7 +127,6 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         stepper.setNum(num: tag)
         stepper.setName(name: name)
         stepper.setDividerImage(blankImg, forLeftSegmentState: .normal, rightSegmentState: .normal)
-
         var transform = CATransform3DIdentity
         transform = CATransform3DScale(transform, 2.0, 1.5, 1.0)
         transform = CATransform3DTranslate(transform, 25, 5, 0)
@@ -148,66 +148,27 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         cell.accessoryView = view
     }
     
-    func textFields(){
-        setupTextField(setTextField)
-        setupTextField(repsTextField)
-        setupTextField(weightTextField)
-        setupTextField(calTextField)
-        setupTextField(distanceTextField)
-        setupTextField(durTextField)
-        fieldsFrame()
-        
-        setTextField.textColor = .label
-        repsTextField.textColor = .label
-        weightTextField.textColor = .label
-        
-        calTextField.textColor = .label
-        durTextField.textColor = .label
-        distanceTextField.textColor = .label
-
+    
+    func wheelsFrame() -> CGRect{
+        return CGRect(x: 52, y: 0, width: 90, height: 48)
     }
-    func fieldsFrame(){
-        let frame = CGRect(x: 52, y: 0, width: 90, height: 48)
-        setTextField.frame = frame
-        repsTextField.frame = frame
-        weightTextField.frame = frame
-        calTextField.frame = frame
-        distanceTextField.frame = frame
-        durTextField.frame = frame
-
-    }
-    func setupTextField(_ textField: UITextField){
-        textField.delegate = self
-        textField.borderStyle = .none
-        textField.textAlignment = .center
-        textField.isUserInteractionEnabled = true
-        textField.keyboardType = .decimalPad
-        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        view.bringSubviewToFront(textField)
-
+    func setupWheels(){
+        setupWheelsDetailed(setWheel)
+        setupWheelsDetailed(calWheel)
+        setupWheelsDetailed(repsWheel)
+        setupWheelsDetailed(durWheel)
+        setupWheelsDetailed(weightWheel)
+        setupWheelsDetailed(distanceWheel)
     }
     
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        print("1111")
-        print(object.set_number)
-        switch textField{
-        case setTextField:
-            object.set_number = Int16(textField.text ?? "") ?? 0
-        case repsTextField:
-            object.repeats = Int16(textField.text ?? "") ?? 0
-        case weightTextField:
-            object.weight = Double(textField.text ?? "") ?? 0.0
-        case durTextField:
-            object.duration = Int16(textField.text ?? "") ?? 0
-        case calTextField:
-            object.calories = Int16(textField.text ?? "") ?? 0
-        case distanceTextField:
-            object.distance = Double(textField.text ?? "") ?? 0.0
-        default:
-            print("error")
-        }
-        print(object.set_number)
+    func setupWheelsDetailed(_ wheel: UIPickerView){
+        wheel.delegate = self
+        wheel.dataSource = self
+        wheel.frame = CGRect(x: 0, y: view.frame.height - 300, width: view.frame.width, height: 300)
+        wheel.backgroundColor = .systemBackground
     }
+    
+   
     @objc func cancel(){
         if isNewObject{
             context.delete(object)
@@ -305,7 +266,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
             return true
     }
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-        if !isPicking{
+        if !isPicking && !isWheel{
             print("f")
             cancel()
             if let nav = navigationController {
@@ -371,69 +332,68 @@ extension AddExercise {
             
         case 2:
             if object.exercise?.type == "Strength" {
-                
-                calTextField.isHidden = true
-                setTextField.isHidden = false
-//                cell.textLabel?.text = ""
-//                setTextField.becomeFirstResponder()
-                setupStepper(cell, tag: indexPath.section, value: Double((data.getRep(currentEx: object))), name: "set_number", max: 10.0, step: 1.0)
-                setTextField.text = String(object.set_number)
-                
-                cell.accessoryView!.addSubview(setTextField)
+             
+                setupStepper(cell, tag: indexPath.row, value: Double((data.getRep(currentEx: object))), name: "set_number", max: 10.0, step: 1.0)
+                let wheelButton = UIButton(frame: wheelsFrame())
+                wheelButton.addTarget(self, action:  #selector(showSetWheel), for: .touchUpInside)
+                wheelButton.setTitle(String(object.set_number), for: .normal)
+                wheelButton.setTitleColor(.black, for: .normal)
+                cell.accessoryView!.addSubview(wheelButton)
 
         } else {
-//            cell.contentView.addSubview(calTextField)
-            setTextField.isHidden = true
-            calTextField.isHidden = false
 
-            setupStepper(cell, tag: indexPath.section, value: Double((data.getCal(currentEx: object))), name: "calories", max: 2000.0, step: 10.0)
-            cell.accessoryView?.addSubview(calTextField)
-            
-            
-            calTextField.text = String(object.calories)
-            
+            setupStepper(cell, tag: indexPath.row, value: Double((data.getCal(currentEx: object))), name: "calories", max: 1000.0, step: 10.0)
+            let wheelButton = UIButton(frame: wheelsFrame())
+            wheelButton.addTarget(self, action: #selector(showCalWheel), for: .touchUpInside)
+            wheelButton.setTitle(String(object.calories), for: .normal)
+            wheelButton.setTitleColor(.black, for: .normal)
+
+            cell.accessoryView!.addSubview(wheelButton)
         }
             callBack()
         case 3:
 
             if object.exercise?.type == "Strength" {
-//                cell.contentView.addSubview(repsTextField)
-                durTextField.isHidden = true
-                repsTextField.isHidden = false
+             
+                setupStepper(cell, tag: indexPath.row, value: Double((data.getReps(currentEx: object))), name: "repeats", max: 100.0, step: 1.0)
+                let wheelButton = UIButton(frame: wheelsFrame())
+                wheelButton.addTarget(self, action: #selector(showRepsWheel), for: .touchUpInside)
+                wheelButton.setTitle(String(object.repeats), for: .normal)
+                wheelButton.setTitleColor(.black, for: .normal)
 
-                setupStepper(cell, tag: indexPath.section, value: Double((data.getReps(currentEx: object))), name: "repeats", max: 100.0, step: 1.0)
-                cell.accessoryView?.addSubview(repsTextField)
-                repsTextField.text = String(object.repeats)
-                
+                cell.accessoryView!.addSubview(wheelButton)
             } else {
-//                cell.contentView.addSubview(durTextField)
-                repsTextField.isHidden = true
-                durTextField.isHidden = false
 
-                setupStepper(cell, tag: indexPath.section, value: Double((data.getDur(currentEx: object))), name: "duration", max: 1000.0, step: 1.0)
-                cell.accessoryView?.addSubview(durTextField)
-                durTextField.text = String(object.duration)
+                setupStepper(cell, tag: indexPath.row, value: Double((data.getDur(currentEx: object))), name: "duration", max: 1000.0, step: 1.0)
+                let wheelButton = UIButton(frame: wheelsFrame())
+                wheelButton.addTarget(self, action: #selector(showDurWheel), for: .touchUpInside)
+                wheelButton.setTitle(String(object.duration), for: .normal)
+                wheelButton.setTitleColor(.black, for: .normal)
+
+                cell.accessoryView!.addSubview(wheelButton)
             }
             callBack()
         case 4:
 
             if object.exercise?.type == "Strength" {
-//                cell.contentView.addSubview(weightTextField)
-                distanceTextField.isHidden = true
-                weightTextField.isHidden = false
+         
+                setupStepper(cell, tag: indexPath.row, value: ((data.getWeight(currentEx: object))), name: "weight", max: 300.0, step: (0.25))
+                let wheelButton = UIButton(frame: wheelsFrame())
+                wheelButton.addTarget(self, action: #selector(showWeightWheel), for: .touchUpInside)
+                wheelButton.setTitle(String(object.weight), for: .normal)
+                wheelButton.setTitleColor(.black, for: .normal)
 
-                setupStepper(cell, tag: indexPath.section, value: ((data.getWeight(currentEx: object))), name: "weight", max: 300.0, step: (0.25))
-                cell.accessoryView?.addSubview(weightTextField)
-                weightTextField.text = String(object.weight)
+                cell.accessoryView!.addSubview(wheelButton)
+
             } else {
-//                cell.contentView.addSubview(distanceTextField)
-                weightTextField.isHidden = true
-                distanceTextField.isHidden = false
 
-                setupStepper(cell, tag: indexPath.section, value: ((data.getDist(currentEx: object))), name: "distance", max: 100.0, step: (0.25))
-                cell.accessoryView?.addSubview(distanceTextField)
-                distanceTextField.text = String(object.distance)
+                setupStepper(cell, tag: indexPath.row, value: ((data.getDist(currentEx: object))), name: "distance", max: 100.0, step: (0.25))
+                let wheelButton = UIButton(frame: wheelsFrame())
+                wheelButton.addTarget(self, action: #selector(showDistWheel), for: .touchUpInside)
+                wheelButton.setTitle(String(object.distance), for: .normal)
+                wheelButton.setTitleColor(.black, for: .normal)
 
+                cell.accessoryView!.addSubview(wheelButton)
             }
             callBackD()
         case 5:
@@ -476,8 +436,15 @@ extension AddExercise {
     @objc func dismissView() {
         
 
-        if !isKeyBoard{
             doneDate()
+        if isWheel{
+            isWheel = !isWheel
+            setWheel.removeFromSuperview()
+            durWheel.removeFromSuperview()
+            distanceWheel.removeFromSuperview()
+            repsWheel.removeFromSuperview()
+            weightWheel.removeFromSuperview()
+            calWheel.removeFromSuperview()
         }
         refresh()
 
@@ -486,7 +453,7 @@ extension AddExercise {
         
     }
 }
- 
+ /*
 extension AddExercise {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         setValue(textField)
@@ -495,45 +462,10 @@ extension AddExercise {
         return true
         
     }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == weightTextField || textField == distanceTextField{
-            if (textField.text)?.filter({ $0 == "." }).count ?? 0 > 0{
-//                return AllowedText().textDigits(string: string)
-                return AllowedText().textDigits(string: string)
-            }
-            if string == "," {
-                             textField.text = textField.text! + "."
-                             return false
-                         }
-            
-               return AllowedText().textDigitsDot(string: string)
-        } else {
-            return AllowedText().textDigits(string: string)
-
-        }
-        
-        }
-    
-    @objc func keyboardWillAppear() {
-        isKeyBoard = true
-        print(isKeyBoard)
-        
-        
-    }
-
-    @objc func keyboardWillDisappear() {
-        print("L")
-       
-        isKeyBoard = false
-        refresh()
-
-
-    }
-    
-    func setValue(_ textField: UITextField){
+  
+    func setValue(_ wheel: UIPickerView){
         switch textField{
-        case setTextField:
+        case setWheel:
             object.set_number = Int16(textField.text ?? "") ?? 0
         case repsTextField:
             object.repeats = Int16(textField.text ?? "") ?? 0
@@ -550,6 +482,86 @@ extension AddExercise {
         }
      
     }
-     
+   
     
+}
+*/
+extension AddExercise{
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        if pickerView == weightWheel || pickerView == distanceWheel{
+            return 2
+        } else {
+            return 1
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        setNumData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if component == 0{
+            switch pickerView{
+            case setWheel:
+                return String(setNumData[row])
+            case calWheel:
+                return String(setNumData.map { $0 * 100 }[row])
+            case repsWheel:
+                return String(setNumData.map { $0 * 10 }[row])
+            case durWheel:
+                return String(setNumData.map { $0 * 100 }[row])
+            case weightWheel:
+                return String(setNumData.map { $0 * 30 }[row])
+            case distanceWheel:
+                return String(setNumData.map { $0 * 10 }[row])
+            default:
+                return String(setNumData[row])
+            }
+        } else {
+            return String(rightData[row])
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        if component == 1{
+            selectedRight = rightData[row]
+        } else {
+            selected = row
+        }
+        refresh()
+    }
+}
+
+extension AddExercise {
+    @objc func showSetWheel(){
+        isWheel = true
+        view.addSubview(setWheel)
+    }
+    @objc func showCalWheel(){
+        isWheel = true
+
+        view.addSubview(calWheel)
+    }
+    @objc func showRepsWheel(){
+        isWheel = true
+
+        view.addSubview(repsWheel)
+    }
+    @objc func showDurWheel(){
+        isWheel = true
+
+        view.addSubview(durWheel)
+    }
+    @objc func showWeightWheel(){
+        isWheel = true
+
+        view.addSubview(weightWheel)
+    }
+    @objc func showDistWheel(){
+        isWheel = true
+
+        view.addSubview(distanceWheel)
+    }
 }
