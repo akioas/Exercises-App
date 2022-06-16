@@ -4,6 +4,7 @@ import NotificationCenter
 
 
 class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
+    
     var callBackPicker:((_ value: Exercise, _ currentEx: ExerciseSet)->())?
     
     var picker  = UIPickerView()
@@ -19,22 +20,18 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         super.viewDidLoad()
         fetch()
         self.hideOnTap()
-
-        
+   
         callBackPicker = { value, currentEx in
-            
             currentEx.exercise = value
-            
-            DataModel().saveModel()
-            
+            saveObjects()
         }
+        
         self.view.backgroundColor = .clear
         picker.delegate = self
         picker.dataSource = self
         picker.backgroundColor = .secondarySystemBackground
         picker.contentMode = .center
-        
-        
+           
         let doneButton = UIBarButtonItem(title: NSLocalizedString("Done", comment: ""), style: UIBarButtonItem.Style.plain, target: self, action: #selector(donePicker))
         
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -48,21 +45,18 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         toolBar.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300)  - 50, width: UIScreen.main.bounds.size.width, height: 50)
         picker.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300) , width: UIScreen.main.bounds.size.width, height: 200)
         
-       
         view.addSubview(picker)
-        
         view.addSubview(toolBar)
        
         if let indexPosition = exercisesString.firstIndex(of: list.loadRow() ?? ""){
            picker.selectRow(indexPosition, inComponent: 0, animated: true)
          }
-       
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
-
     }
+    
     func fetch(){
         let fetchRequest = NSFetchRequest<Exercise>(entityName: "Exercise")
     
@@ -86,7 +80,6 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         self.willMove(toParent: nil)
         self.view.removeFromSuperview()
         self.removeFromParent()
-       
     }
     @objc func dismissPicker() {
 
@@ -101,10 +94,8 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         if let selected = selected {
             if let object = object{
                 callBackPicker?(selected, object)
-
             }
         }
-        
         cancelPicker()
     }
     
@@ -122,7 +113,6 @@ extension Picker{
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        print("d")
         return (exercises[row].name ?? "") + ", " + (NSLocalizedString(exercises[row].type ?? "", comment: ""))
     }
     
