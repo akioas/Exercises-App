@@ -24,9 +24,7 @@ class FirstLaunch: UIViewController{
     
     func setup(){
         view.frame = CGRect.init(x: 0, y: -view.safeAreaInsets.top, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        
-        //        StartText().setBotButtonText(button: nextButton, text: ">")
-        
+                
         let height = self.view.safeAreaLayoutGuide.layoutFrame.height
         let nextBConstraint = NSLayoutConstraint(item: texts!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: height )
         NSLayoutConstraint.activate([ nextBConstraint])

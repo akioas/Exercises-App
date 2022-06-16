@@ -76,12 +76,11 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
     }
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
-//        setupTableView()
         self.navigationController?.isNavigationBarHidden = true
         
 
         topImage(view: view, type: .common)
-        setupHeader(view, text: NSLocalizedString("Personal Info", comment: ""), button: editButton, imgName: "square.and.pencil", type: .other)
+        _ = setupHeader(view, text: NSLocalizedString("Personal Info", comment: ""), button: editButton, imgName: "square.and.pencil", type: .other)
 
         editButton.addTarget(self, action: #selector(edit), for: .touchUpInside)
         textFieldAppearance(nameField)
@@ -107,6 +106,7 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
             start.smallText(field: nameField)
             start.smallText(field: weightField)
             start.smallText(field: heightField)
+            start.smallButton(button: editSaveButton)
         }
         nameField.text = name
         weightField.text = weight
@@ -200,7 +200,9 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         if isEdit {
             editButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
             StartText().setBotButtonText(button: editSaveButton, text: NSLocalizedString("Save", comment: ""))
-
+            if view.frame.height < 700{
+                start.smallButton(button: editSaveButton)
+            }
             sexButton.isUserInteractionEnabled = true
             birthdayButton.isUserInteractionEnabled = true
             nameField.isUserInteractionEnabled = true
@@ -219,7 +221,9 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         } else {
             editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
             StartText().setBotButtonText(button: editSaveButton, text: NSLocalizedString("Edit", comment: ""))
-
+            if view.frame.height < 700{
+                start.smallButton(button: editSaveButton)
+            }
             vals.save(birthday: birthdayDate, name: name, sex: sex, weight: (weight), height: height)
             DataModel().saveModel()
             setToFalse()
@@ -272,32 +276,14 @@ extension UserSettings {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == nameField){
             name = nameField.text ?? ""
-            if let user = objects.last{
-                yourName = name
-//                text.text = yourName
-                print(name)
 
-//                vals.saveOne(value: name, key: .name, user: user)
-//                DataModel().saveModel()
-
-            }
            
         } else if (textField == weightField){
             weight = weightField.text ?? ""
-//            if let user = objects.last{
-//                vals.saveOne(value: weight, key: .weight, user: user)
-//                DataModel().saveModel()
 
-//            }
-            
         } else if (textField == heightField){
             height = heightField.text ?? ""
-//            if let user = objects.last{
-//                print("saved")
-//                vals.saveOne(value: height, key: .height, user: user)
-//                DataModel().saveModel()
 
-//            }
             
         }
         textField.resignFirstResponder()
@@ -320,11 +306,7 @@ extension UserSettings {
             birthday = dateFormatter.string(from: birthdayDate)
             start.changeText(button: birthdayButton, with: birthday)
             print(birthdayDate)
-//            if let user = objects.last{
-//                vals.saveOne(value: birthdayDate, key: .birthday, user: user)
-//                DataModel().saveModel()
 
-//            }
             datePicker.removeFromSuperview()
             isPickingDate = false
         } else if isPickingSex{
@@ -332,22 +314,11 @@ extension UserSettings {
                 sex = gendersSave.first ?? ""
             }
             start.changeText(button: sexButton, with: NSLocalizedString(sex, comment: ""))
-//            if let user = objects.last{
-//                vals.saveOne(value: sex, key: .sex, user: user)
-//                DataModel().saveModel()
 
-//            }
             picker.removeFromSuperview()
             isPickingSex = false
         } else {
-            if let user = objects.last{
-//                vals.saveOne(value: name, key: .name, user: user)
-                yourName = name
-//                vals.saveOne(value: height, key: .height, user: user)
-//                vals.saveOne(value: weight, key: .weight, user: user)
-//                DataModel().saveModel()
-
-            }
+        
             view.endEditing(true)
         }
     }

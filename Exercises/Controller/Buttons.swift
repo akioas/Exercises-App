@@ -107,7 +107,7 @@ class Items {
 }
 func setupDatePicker(datePicker: UIDatePicker, toolBar: UIToolbar){
     datePicker.frame = CGRect.init(x: 0.0, y: 100, width: UIScreen.main.bounds.size.width, height: 100)
-    datePicker.backgroundColor = .lightGray
+    datePicker.backgroundColor = .white
     datePicker.datePickerMode = UIDatePicker.Mode.date
     datePicker.contentMode = .bottom
     

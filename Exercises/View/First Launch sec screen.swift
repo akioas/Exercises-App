@@ -64,7 +64,7 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     }
     override func viewDidAppear(_ animated: Bool) {
         topImage(view: view, type: .firstScreen)
-        setupHeader(view, text: NSLocalizedString("Tell us about you", comment: ""), button: nil, imgName: nil, type: .launch)
+        _ = setupHeader(view, text: NSLocalizedString("Tell us about you", comment: ""), button: nil, imgName: nil, type: .launch)
         stackView.spacing = view.frame.height / 50
         if view.frame.height < 660 {
             start.smallButton(button: sexButton)

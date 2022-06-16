@@ -86,7 +86,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         topImage(view: view, type: .common)
         let calButton = UIButton()
-        setupHeader(view, text: NSLocalizedString("Last trainings", comment: ""), button: calButton, imgName: "calendar")
+        _ = setupHeader(view, text: NSLocalizedString("Last trainings", comment: ""), button: calButton, imgName: "calendar")
         calButton.addTarget(self, action: #selector(clockItem), for: .touchUpInside)
 
         self.navigationController?.isNavigationBarHidden = true
@@ -119,9 +119,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .wheels
         }
-        datePicker.backgroundColor = .secondarySystemBackground
         setupDatePicker(datePicker: datePicker, toolBar: toolBar)
-        let doneButton = UIBarButtonItem(title: NSLocalizedString("Done", comment: ""), style: .plain, target: self, action: #selector(doneDate))
+        let doneButton = UIBarButtonItem(title: NSLocalizedString("Select", comment: ""), style: .plain, target: self, action: #selector(doneDate))
         let spaceButton = UIBarButtonItem(title: NSLocalizedString("Clear selection", comment: ""), style: .plain, target: self, action: #selector(clearDate))
         let cancelButton = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: .plain, target: self, action: #selector(cancelDate))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -198,21 +197,7 @@ extension ViewController {
         self.tableView.reloadData()
     }
     
-//    @objc func historyItem(){
-//        showHistory()
-//    }
-    
-    
-    /*
-    func showHistory(){
-        let vc = History()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false, completion: {
-            vc.setExersises(self.exercises)
-        })
-        
-    }
-       */
+
     @objc func doneDate() {
   
         setDate(datePicker.date)
@@ -248,25 +233,7 @@ extension ViewController {
         })
         
     }
-    /*
-    func fetchUser(){
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Person")
     
-        do {
-            self.users = try context.fetch(fetchRequest)
-            if let user = users.last{
-                yourName = UserValues().getName(user)
-                if yourName == NSLocalizedString("Not set", comment: ""){
-                    yourName = NSLocalizedString("User", comment: "")
-                }
-            }
-            
-        } catch let err as NSError {
-            print(err)
-        }
-        
-    }
-    */
 }
 
 

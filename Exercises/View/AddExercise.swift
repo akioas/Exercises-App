@@ -453,39 +453,7 @@ extension AddExercise {
         
     }
 }
- /*
-extension AddExercise {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        setValue(textField)
-        refresh()
-        textField.resignFirstResponder()
-        return true
-        
-    }
-  
-    func setValue(_ wheel: UIPickerView){
-        switch textField{
-        case setWheel:
-            object.set_number = Int16(textField.text ?? "") ?? 0
-        case repsTextField:
-            object.repeats = Int16(textField.text ?? "") ?? 0
-        case weightTextField:
-            object.weight = Double(textField.text ?? "") ?? 0.0
-        case durTextField:
-            object.duration = Int16(textField.text ?? "") ?? 0
-        case calTextField:
-            object.calories = Int16(textField.text ?? "") ?? 0
-        case distanceTextField:
-            object.distance = Double(textField.text ?? "") ?? 0.0
-        default:
-            print("error")
-        }
-     
-    }
-   
-    
-}
-*/
+
 extension AddExercise{
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

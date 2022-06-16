@@ -9,7 +9,6 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     var picker  = UIPickerView()
     var toolBar = UIToolbar()
     var selected: Exercise? = nil
-//    var selectedRow = 0
     var pickerNum = 0
     var object: ExerciseSet? = nil
     let list = ExercisesList()
@@ -21,7 +20,6 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         fetch()
         self.hideOnTap()
 
-//        exercises = list.load()
         
         callBackPicker = { value, currentEx in
             
@@ -88,11 +86,7 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         self.willMove(toParent: nil)
         self.view.removeFromSuperview()
         self.removeFromParent()
-        /*
-        self.dismiss(animated: false, completion: {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "refreshAdd"), object: self)
-        })
-         */
+       
     }
     @objc func dismissPicker() {
 
@@ -133,7 +127,6 @@ extension Picker{
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        selectedRow = row
         selected = exercises[row]
     }
 }
