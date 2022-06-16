@@ -15,3 +15,14 @@ func fetchRequest(isFiltered: Bool, date: Date) -> NSFetchRequest<ExerciseSet>{
 func deleteData(_ object: NSManagedObject){
     DataModel().delete(object)
 }
+
+class ExerciseTypes {
+    let consts = SettingsData()
+    func typesSave() -> [String]{
+        return consts.typesSave
+    }
+    
+    func typesShow() -> [String]{
+        return consts.typesShow
+    }
+}

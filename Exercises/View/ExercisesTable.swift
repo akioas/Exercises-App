@@ -12,9 +12,10 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     var exercises = [Exercise]()
     let items = Items()
     let vcPicker = UIViewController()
-    let typesSave = ["Cardio",
+    let type = ExerciseTypes()
+    var typesSave = ["Cardio",
                  "Strength"]
-    let typesShow = [NSLocalizedString("Cardio", comment: ""),
+    var typesShow = [NSLocalizedString("Cardio", comment: ""),
                  NSLocalizedString("Strength", comment: "")]
     var selectedType = "Cardio"
     
@@ -24,6 +25,10 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                selector: #selector(refresh),
                                                name: NSNotification.Name(rawValue: "fetch"),
                                                object: nil)
+        typesSave = type.typesSave()
+        typesShow = type.typesShow()
+        selectedType = typesSave.first ?? ""
+    
     }
     override func viewWillAppear(_ animated: Bool) {
         AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
@@ -35,7 +40,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         setupTableView()
         topImage(view: view, type: .common)
         let plusButton = UIButton()
-        setupHeader(view, text: NSLocalizedString("Exercises", comment: ""), button: plusButton, imgName: "plus.circle")
+        _ = setupHeader(view, text: NSLocalizedString("Exercises", comment: ""), button: plusButton, imgName: "plus.circle")
         plusButton.addTarget(self, action: #selector(displayAlert), for: .touchUpInside)
         self.navigationController?.isNavigationBarHidden = true
         setupPicker()
@@ -133,7 +138,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @objc func deleteObject(_ sender:Button!){
-        DataModel().delete(exercises[sender.num])
+        deleteData(exercises[sender.num])
         self.refresh()
     }
 }

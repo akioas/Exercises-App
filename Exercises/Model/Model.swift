@@ -179,6 +179,11 @@ class SettingsData {
     let gendersShow = [NSLocalizedString("Female", comment: ""),
                        NSLocalizedString("Male", comment: ""),
                        NSLocalizedString("Other", comment: "")]
+    let typesSave = ["Cardio",
+                 "Strength"]
+    
+    let typesShow = [NSLocalizedString("Cardio", comment: ""),
+                 NSLocalizedString("Strength", comment: "")]
 }
 
 func dates(for date: Date) -> (start: Date, end: Date){
