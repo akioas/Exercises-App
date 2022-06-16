@@ -1,11 +1,17 @@
 import Foundation
+import CoreData
 
-func dates(for date: Date) -> (start: Date, end: Date){
-    let startDate = Calendar.current.startOfDay(for: date)
-    var components = DateComponents()
-    components.day = 1
-    components.second = -1
-    let endDate = Calendar.current.date(byAdding: components, to: startDate)!
-    return (startDate, endDate)
+func fetchRequest(isFiltered: Bool, date: Date) -> NSFetchRequest<ExerciseSet>{
+    let fetchRequest = NSFetchRequest<ExerciseSet>(entityName: "ExerciseSet")
+    if isFiltered{
+        let (startDate, endDate) = dates(for: date)
+        fetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
+    }
+    let sort = NSSortDescriptor(key: "date", ascending: false)
+    fetchRequest.sortDescriptors = [sort]
+    return fetchRequest
 }
 
+func deleteData(_ object: NSManagedObject){
+    DataModel().delete(object)
+}

@@ -18,15 +18,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var selected = ""
     let cellId = "cellId"
     var exercises = [ExerciseSet]()
-//    var users: [NSManagedObject] = []
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("fetch")
         fetch(isFiltered)
         AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
-
-//        fetchUser()
         
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -40,11 +36,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         createViews()
         
         if let tabBar = self.tabBarController?.tabBar{
-            tabBar.backgroundColor = .white
-            tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
-            tabBar.layer.shadowRadius = 2
-            tabBar.layer.shadowColor = UIColor.black.cgColor
-            tabBar.layer.shadowOpacity = 0.3
+            setupTabBar(tabBar)
           
         }
         self.tabBarController?.delegate = self
@@ -52,7 +44,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-
 
         if viewController == (self.tabBarController?.viewControllers?[2])! {
 
@@ -93,20 +84,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     }
     
-    func setupViews(){
-       
-        let newBotView = UIView()
-        newBotView.frame = CGRect(x: 5.0, y: tableView.frame.height + topPadding , width: view.frame.width - 10.0, height: 3)
-        newBotView.backgroundColor = .blue
-    }
     func setupTableView(){
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.dataSource = self
         tableView.delegate = self
-        let frame = self.view.bounds
+        let frame = view.bounds
         tableView.frame = CGRect(x: 0, y: 70 + 44, width: frame.width, height: frame.height - 50   )
         tableView.backgroundColor = .secondarySystemBackground
-
         view.addSubview(tableView)
     }
     
@@ -143,13 +127,7 @@ extension ViewController {
         fetch(isFiltered)
     }
     func fetch(_ isFiltered: Bool){
-        let fetchRequest = NSFetchRequest<ExerciseSet>(entityName: "ExerciseSet")
-        if isFiltered{
-            let (startDate, endDate) = dates(for: date)
-            fetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
-        }
-        let sort = NSSortDescriptor(key: "date", ascending: false)
-        fetchRequest.sortDescriptors = [sort]
+        let fetchRequest = fetchRequest(isFiltered: isFiltered, date: date)
         do {
             self.exercises = try context.fetch(fetchRequest)
             NotificationCenter.default.post(name: Notification.Name(rawValue: notificationKey), object: self)
@@ -157,20 +135,14 @@ extension ViewController {
         } catch let err as NSError {
             print(err)
         }
-        print(exercises)
     }
-    
-    
+
     
     func setDate(_ getDate: Date){
         date = getDate
         isFiltered = true
-        
         fetch(isFiltered)
-        
     }
-    
-    
     
     @objc func addItem(){
         let vc = storyboard?.instantiateViewController(withIdentifier: "addex") as! AddExercise
@@ -199,7 +171,6 @@ extension ViewController {
     
 
     @objc func doneDate() {
-  
         setDate(datePicker.date)
         cancelDate()
     }
@@ -217,7 +188,7 @@ extension ViewController {
         refresh()
         tableView.beginUpdates()
         tableView.deleteSections(IndexSet([sender.num]), with: .fade)
-        DataModel().delete(exercises[sender.num])
+        deleteData(exercises[sender.num])
         fetch(isFiltered)
         tableView.endUpdates()
         
@@ -282,10 +253,7 @@ extension ViewController {
         } else {
             return nil
         }
-        
-        
-        
-        
+    
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0{
