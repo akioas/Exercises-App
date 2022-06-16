@@ -15,8 +15,6 @@ class StartText {
                            NSAttributedString.Key.font: UIFont(name: "System Font Regular", size: 16)]
         let attrString = NSAttributedString(string: text, attributes: attributes as [NSAttributedString.Key : Any] )
         button.setAttributedTitle(attrString, for: .normal)
-//        button.layer.cornerRadius = 15
-//        button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.white.cgColor
         button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
@@ -54,6 +52,25 @@ class StartText {
     func smallText(field: UITextField){
         let constraint = NSLayoutConstraint(item: field, attribute: .height, relatedBy: .equal, toItem: .none, attribute: .notAnAttribute, multiplier: 1.0, constant: 30)
         NSLayoutConstraint.activate([constraint])
+    }
+    let consts = SettingsData()
+    func gendersSave() -> [String]{
+        return consts.gendersSave
+    }
+    
+    func gendersShow() -> [String]{
+        return consts.gendersShow
+    }
+    func setupDatePicker(datePicker: UIDatePicker, view: UIView, format: DateFormatter){
+        datePicker.datePickerMode = .date
+       
+        if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+        }
+
+        datePicker.center = view.center
+        datePicker.backgroundColor = .systemBackground
+        format.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
     }
 }
 
@@ -189,3 +206,5 @@ func setupHeader(_ view: UIView, text: String, button: UIButton?, imgName named:
     view.addSubview(header)
     return header
 }
+
+

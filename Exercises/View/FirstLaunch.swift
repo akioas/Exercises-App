@@ -27,7 +27,7 @@ class FirstLaunch: UIViewController{
                 
         let height = self.view.safeAreaLayoutGuide.layoutFrame.height
         let nextBConstraint = NSLayoutConstraint(item: texts!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: height )
-        NSLayoutConstraint.activate([ nextBConstraint])
+        NSLayoutConstraint.activate([nextBConstraint])
         print(nextButton.frame)
         if view.frame.height < 660{
             texts.spacing = 0

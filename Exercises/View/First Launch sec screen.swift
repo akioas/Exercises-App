@@ -17,13 +17,9 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
     var sex = ""
     var weight = ""
     var height = ""
-    
-    let gendersSave = ["Female",
-                 "Male",
-                "Other"]
-    let gendersShow = [NSLocalizedString("Female", comment: ""),
-                 NSLocalizedString("Male", comment: ""),
-                 NSLocalizedString("Other", comment: "")]
+   
+    var gendersSave = [String]()
+    var gendersShow = [String]()
     
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var birthdayButton: UIButton!
@@ -44,7 +40,7 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
         nameField.delegate = self
         weightField.delegate = self
         heightField.delegate = self
-        setupDatePicker()
+        start.setupDatePicker(datePicker: datePicker, view: view, format: dateFormatter)
         setupPicker()
         start.setBotButtonText(button: startButton, text: NSLocalizedString("Start", comment: "start button"))
         start.setButtonText(button: birthdayButton, text: NSLocalizedString(" ", comment: ""))
@@ -57,9 +53,13 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
        
         startButton.layer.cornerRadius = 20
         startButton.layer.backgroundColor = UIColor.init(red: 0.09, green: 0.49, blue: 0.9, alpha: 1.0).cgColor
+        
         textFieldAppearance(nameField)
         textFieldAppearance(weightField)
         textFieldAppearance(heightField)
+        
+        gendersSave = start.gendersSave()
+        gendersShow = start.gendersShow()
         
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -93,18 +93,7 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
         height = heightField.text ?? ""
     }
     
-    func setupDatePicker(){
-        datePicker.datePickerMode = .date
-       
-        if #available(iOS 13.4, *) {
-            datePicker.preferredDatePickerStyle = .wheels
-        }
-
-        datePicker.center = view.center
-        datePicker.backgroundColor = .systemBackground
-        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
-
-    }
+    
     func setupPicker(){
         picker.delegate = self
         picker.dataSource = self

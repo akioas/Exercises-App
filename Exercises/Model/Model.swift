@@ -172,3 +172,11 @@ class UserVariables{
         UserDefaults.standard.bool(forKey: "firstLaunch")
     }
 }
+class SettingsData {
+    let gendersSave = ["Female",
+                       "Male",
+                      "Other"]
+    let gendersShow = [NSLocalizedString("Female", comment: ""),
+                       NSLocalizedString("Male", comment: ""),
+                       NSLocalizedString("Other", comment: "")]
+}
