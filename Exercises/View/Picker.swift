@@ -23,7 +23,7 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
    
         callBackPicker = { value, currentEx in
             currentEx.exercise = value
-            saveObjects()
+            AppData().saveObjects()
         }
         
         self.view.backgroundColor = .clear

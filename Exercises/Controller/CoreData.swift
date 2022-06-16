@@ -44,38 +44,11 @@ class GetData {
         }
     }
 
-    func getRep(currentEx: NSManagedObject) -> Int16{
-            return (currentEx.value(forKey: "set_number") as? Int16 ?? 0)
-    }
-
-    func getReps(currentEx: NSManagedObject) -> Int16{
-            return (currentEx.value(forKey: "repeats") as? Int16 ?? 0)
-    }
-
-    func getWeight(currentEx: NSManagedObject) -> Double{
-        return (currentEx.value(forKey: "weight") as? Double ?? 0.0)
-    }
-    func getCal(currentEx: NSManagedObject) -> Int16{
-            return (currentEx.value(forKey: "calories") as? Int16 ?? 0)
-    }
-
-    func getDur(currentEx: NSManagedObject) -> Int16{
-            return (currentEx.value(forKey: "duration") as? Int16 ?? 0)
-    }
-
-    func getDist(currentEx: NSManagedObject) -> Double{
-        return (currentEx.value(forKey: "distance") as? Double ?? 0.0)
-    }
-
     func caseDate(_ currentEx: NSManagedObject, key: String) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
         let text = dateFormatter.string(from: (currentEx.value(forKey: key) as? Date ?? Date()))
         return text
-    }
-    
-    func getPerson(_ currentEx: NSManagedObject) -> NSManagedObject?{
-        return (currentEx.value(forKey: "person") as? NSManagedObject)
     }
     
     func userName(object: NSManagedObject?) -> String{
@@ -123,28 +96,7 @@ class UserValues {
         user.setValue(Int(height), forKey: userVar.heightKey)
         dataModel.saveModel()
     }
-    func saveOne(value: Any, key: Keys, user: NSManagedObject){
-        var newKey = ""
-        switch key{
-        case .weight:
-            newKey = userVar.weightKey
-        case .height:
-            newKey = userVar.heightKey
-        case .name:
-            newKey = userVar.nameKey
-        case .sex:
-            newKey = userVar.sexKey
-        case .birthday:
-            newKey = userVar.birthdayKey
-        }
-        if key == .weight{
-            user.setValue(Int(value as? String ?? ""), forKey: newKey)
-        } else if key == .height{
-            user.setValue(Int(value as? String ?? ""), forKey: newKey)
-        } else {
-            user.setValue(value, forKey: newKey)
-        }
-    }
+    
     func get(user: NSManagedObject, key: Keys) -> String{
         switch key{
         case .sex:
@@ -206,20 +158,4 @@ class UserValues {
             return text
         }
     }
-}
-
-
-func fetchUser() -> Person?{
-    let fetchRequest = NSFetchRequest<Person>(entityName: "Person")
-    var person: Person? = nil
-    do {
-        let users = try context.fetch(fetchRequest)
-        if let personNew = users.last{
-            person = personNew
-        }
-        
-    } catch let err as NSError {
-        print(err)
-    }
-    return person
 }

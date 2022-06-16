@@ -70,13 +70,13 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         self.navigationController?.isNavigationBarHidden = true
         
 
-        topImage(view: view, type: .common)
-        _ = setupHeader(view, text: NSLocalizedString("Personal Info", comment: ""), button: editButton, imgName: "square.and.pencil", type: .other)
+        items.topImage(view: view, type: .common)
+        _ = items.setupHeader(view, text: NSLocalizedString("Personal Info", comment: ""), button: editButton, imgName: "square.and.pencil", type: .other)
 
         editButton.addTarget(self, action: #selector(edit), for: .touchUpInside)
-        textFieldAppearance(nameField)
-        textFieldAppearance(weightField)
-        textFieldAppearance(heightField)
+        items.textFieldAppearance(nameField)
+        items.textFieldAppearance(weightField)
+        items.textFieldAppearance(heightField)
         start.setBotButtonText(button: editSaveButton, text: NSLocalizedString("Edit", comment: ""))
         editSaveButton.layer.cornerRadius = 20
         editSaveButton.layer.backgroundColor = UIColor.init(red: 0.09, green: 0.49, blue: 0.9, alpha: 1.0).cgColor
@@ -199,7 +199,7 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
                 start.smallButton(button: editSaveButton)
             }
             vals.save(birthday: birthdayDate, name: name, sex: sex, weight: (weight), height: height)
-            saveObjects()
+            AppData().saveObjects()
             setToFalse()
             if nameField.text == ""{
                 nameField.text = NSLocalizedString("Not set", comment: "")

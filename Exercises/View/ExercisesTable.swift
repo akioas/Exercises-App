@@ -38,9 +38,9 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
-        topImage(view: view, type: .common)
+        items.topImage(view: view, type: .common)
         let plusButton = UIButton()
-        _ = setupHeader(view, text: NSLocalizedString("Exercises", comment: ""), button: plusButton, imgName: "plus.circle")
+        _ = items.setupHeader(view, text: NSLocalizedString("Exercises", comment: ""), button: plusButton, imgName: "plus.circle")
         plusButton.addTarget(self, action: #selector(displayAlert), for: .touchUpInside)
         self.navigationController?.isNavigationBarHidden = true
         setupPicker()
@@ -87,7 +87,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     @objc func refresh(){
-        saveObjects()
+        AppData().saveObjects()
         fetch()
         self.tableView.reloadData()
     }
@@ -138,7 +138,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @objc func deleteObject(_ sender:Button!){
-        deleteData(exercises[sender.num])
+        AppData().deleteData(exercises[sender.num])
         self.refresh()
     }
 }

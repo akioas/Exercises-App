@@ -119,108 +119,108 @@ class Items {
             
         view.addSubview(button)
     }
+    func setupDatePicker(datePicker: UIDatePicker, toolBar: UIToolbar){
+        datePicker.frame = CGRect.init(x: 0.0, y: 100, width: UIScreen.main.bounds.size.width, height: 100)
+        datePicker.backgroundColor = .white
+        datePicker.datePickerMode = UIDatePicker.Mode.date
+        datePicker.contentMode = .bottom
+        
+        toolBar.barStyle = .default
+        toolBar.frame = CGRect.init(x: 0.0, y: 50, width: UIScreen.main.bounds.size.width, height: 50)
+        toolBar.isUserInteractionEnabled = true
+    }
+
+    enum YCoord{
+        case firstScreen
+        case common
+    }
+    func topImage(view: UIView, type: YCoord){
+        
+        let imgView = UIImageView()
+        var newY = 44.0
+        if view.frame.height < 660{
+            newY = 30.0
+        }
+        switch type {
+        case .firstScreen:
+            imgView.frame = CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 150)
+        case .common:
+            imgView.frame = CGRect.init(x: 0, y: newY, width: UIScreen.main.bounds.width, height: 150)
+
+        }
+        imgView.image = UIImage(named: "Decor")
+        imgView.contentMode = .scaleAspectFill
+        view.addSubview(imgView)
+    }
+
+
+    func textFieldAppearance(_ field: UITextField){
+        field.layer.cornerRadius = 15
+        field.layer.borderWidth = 1
+        field.layer.borderColor = UIColor.init(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
+        field.layer.backgroundColor = UIColor.init(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0).cgColor
+        field.textAlignment = .natural
+        field.leftSpace(5)
+    }
+
+    enum viewType{
+        case launch
+        case other
+    }
+
+    func setupHeader(_ view: UIView, text: String, button: UIButton?, imgName named: String?, type: viewType = .other) -> UIView{
+        let header = UIView()
+        var newY = 44.0
+        if view.frame.height < 660{
+            newY = 30.0
+        }
+        if type == .launch{
+            header.frame = CGRect.init(x: 0, y: 0, width: view.frame.width, height: 50)
+        } else {
+            header.frame = CGRect.init(x: 0, y: newY, width: view.frame.width, height: 50)
+        }
+        let textLabel = UILabel()
+        if let button = button {
+            textLabel.frame = CGRect.init(x: 10, y: 0, width: view.frame.width - 70, height: 50)
+            button.frame = CGRect(x: view.frame.width - 60, y: 0, width: 50, height: 50)
+            let configuratoin = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large)
+            button.setImage(UIImage(systemName: named ?? "", withConfiguration: configuratoin), for: .normal)
+            button.tintColor = .white
+            button.isUserInteractionEnabled = true
+            header.addSubview(button)
+        } else {
+            textLabel.frame = CGRect.init(x: 10, y: 0, width: view.frame.width - 20, height: 50)
+        }
+        textLabel.numberOfLines = 2
+        textLabel.text = text
+        textLabel.font = .systemFont(ofSize: 28)
+        textLabel.textColor = .white
+        textLabel.textAlignment = .center
+        header.backgroundColor = .clear
+        
+        header.addSubview(textLabel)
+        
+        view.addSubview(header)
+        return header
+    }
+
+
+    func setupTabBar(_ tabBar: UITabBar){
+        tabBar.backgroundColor = .white
+        tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
+        tabBar.layer.shadowRadius = 2
+        tabBar.layer.shadowColor = UIColor.black.cgColor
+        tabBar.layer.shadowOpacity = 0.3
+    }
+
+    func stepperSettings(stepper: Stepper, maxValue max: Double, step: Double, img: UIImage, initValue value: Double, name: String){
+        stepper.minimumValue = 0
+        stepper.maximumValue = max
+        stepper.value = value
+        stepper.stepValue = step
+        stepper.setName(name: name)
+        stepper.setDividerImage(img, forLeftSegmentState: .normal, rightSegmentState: .normal)
+    }
 
     
-}
-func setupDatePicker(datePicker: UIDatePicker, toolBar: UIToolbar){
-    datePicker.frame = CGRect.init(x: 0.0, y: 100, width: UIScreen.main.bounds.size.width, height: 100)
-    datePicker.backgroundColor = .white
-    datePicker.datePickerMode = UIDatePicker.Mode.date
-    datePicker.contentMode = .bottom
-    
-    toolBar.barStyle = .default
-    toolBar.frame = CGRect.init(x: 0.0, y: 50, width: UIScreen.main.bounds.size.width, height: 50)
-    toolBar.isUserInteractionEnabled = true
-}
-
-enum YCoord{
-    case firstScreen
-    case common
-}
-func topImage(view: UIView, type: YCoord){
-    
-    let imgView = UIImageView()
-    var newY = 44.0
-    if view.frame.height < 660{
-        newY = 30.0
-    }
-    switch type {
-    case .firstScreen:
-        imgView.frame = CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 150)
-    case .common:
-        imgView.frame = CGRect.init(x: 0, y: newY, width: UIScreen.main.bounds.width, height: 150)
-
-    }
-    imgView.image = UIImage(named: "Decor")
-    imgView.contentMode = .scaleAspectFill
-    view.addSubview(imgView)
-}
-
-
-func textFieldAppearance(_ field: UITextField){
-    field.layer.cornerRadius = 15
-    field.layer.borderWidth = 1
-    field.layer.borderColor = UIColor.init(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
-    field.layer.backgroundColor = UIColor.init(red: 0.97, green: 0.97, blue: 0.97, alpha: 1.0).cgColor
-    field.textAlignment = .natural
-    field.leftSpace(5)
-}
-
-enum viewType{
-    case launch
-    case other
-}
-
-func setupHeader(_ view: UIView, text: String, button: UIButton?, imgName named: String?, type: viewType = .other) -> UIView{
-    let header = UIView()
-    var newY = 44.0
-    if view.frame.height < 660{
-        newY = 30.0
-    }
-    if type == .launch{
-        header.frame = CGRect.init(x: 0, y: 0, width: view.frame.width, height: 50)
-    } else {
-        header.frame = CGRect.init(x: 0, y: newY, width: view.frame.width, height: 50)
-    }
-    let textLabel = UILabel()
-    if let button = button {
-        textLabel.frame = CGRect.init(x: 10, y: 0, width: view.frame.width - 70, height: 50)
-        button.frame = CGRect(x: view.frame.width - 60, y: 0, width: 50, height: 50)
-        let configuratoin = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold, scale: .large)
-        button.setImage(UIImage(systemName: named ?? "", withConfiguration: configuratoin), for: .normal)
-        button.tintColor = .white
-        button.isUserInteractionEnabled = true
-        header.addSubview(button)
-    } else {
-        textLabel.frame = CGRect.init(x: 10, y: 0, width: view.frame.width - 20, height: 50)
-    }
-    textLabel.numberOfLines = 2
-    textLabel.text = text
-    textLabel.font = .systemFont(ofSize: 28)
-    textLabel.textColor = .white
-    textLabel.textAlignment = .center
-    header.backgroundColor = .clear
-    
-    header.addSubview(textLabel)
-    
-    view.addSubview(header)
-    return header
-}
-
-
-func setupTabBar(_ tabBar: UITabBar){
-    tabBar.backgroundColor = .white
-    tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
-    tabBar.layer.shadowRadius = 2
-    tabBar.layer.shadowColor = UIColor.black.cgColor
-    tabBar.layer.shadowOpacity = 0.3
-}
-
-func stepperSettings(stepper: Stepper, maxValue max: Double, step: Double, img: UIImage, initValue value: Double, name: String){
-    stepper.minimumValue = 0
-    stepper.maximumValue = max
-    stepper.value = value
-    stepper.stepValue = step
-    stepper.setName(name: name)
-    stepper.setDividerImage(img, forLeftSegmentState: .normal, rightSegmentState: .normal)
 }

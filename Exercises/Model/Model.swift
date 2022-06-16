@@ -16,7 +16,7 @@ class DataModel{
         newItem.date = Date()
         newItem.created_at = Date()
         newItem.exercise = setEx()
-        newItem.person = fetchUser()
+        newItem.person = Fetching().fetchUser()
         newItem.set_number = Int16(list.loadRepNum() ?? 0)
         newItem.repeats = Int16(list.loadRepsNum() ?? 8)
         newItem.weight = list.loadWeightNum() ?? 5.0

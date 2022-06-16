@@ -36,7 +36,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         createViews()
         
         if let tabBar = self.tabBarController?.tabBar{
-            setupTabBar(tabBar)
+            items.setupTabBar(tabBar)
           
         }
         self.tabBarController?.delegate = self
@@ -75,9 +75,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         setupTableView()
 
-        topImage(view: view, type: .common)
+        items.topImage(view: view, type: .common)
         let calButton = UIButton()
-        _ = setupHeader(view, text: NSLocalizedString("Last trainings", comment: ""), button: calButton, imgName: "calendar")
+        _ = items.setupHeader(view, text: NSLocalizedString("Last trainings", comment: ""), button: calButton, imgName: "calendar")
         calButton.addTarget(self, action: #selector(clockItem), for: .touchUpInside)
 
         self.navigationController?.isNavigationBarHidden = true
@@ -103,7 +103,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .wheels
         }
-        setupDatePicker(datePicker: datePicker, toolBar: toolBar)
+        items.setupDatePicker(datePicker: datePicker, toolBar: toolBar)
         let doneButton = UIBarButtonItem(title: NSLocalizedString("Select", comment: ""), style: .plain, target: self, action: #selector(doneDate))
         let spaceButton = UIBarButtonItem(title: NSLocalizedString("Clear selection", comment: ""), style: .plain, target: self, action: #selector(clearDate))
         let cancelButton = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: .plain, target: self, action: #selector(cancelDate))
@@ -127,7 +127,7 @@ extension ViewController {
         fetch(isFiltered)
     }
     func fetch(_ isFiltered: Bool){
-        let fetchRequest = fetchRequest(isFiltered: isFiltered, date: date)
+        let fetchRequest = Fetching().fetchRequest(isFiltered: isFiltered, date: date)
         do {
             self.exercises = try context.fetch(fetchRequest)
             NotificationCenter.default.post(name: Notification.Name(rawValue: notificationKey), object: self)
@@ -188,7 +188,7 @@ extension ViewController {
         refresh()
         tableView.beginUpdates()
         tableView.deleteSections(IndexSet([sender.num]), with: .fade)
-        deleteData(exercises[sender.num])
+        AppData().deleteData(exercises[sender.num])
         fetch(isFiltered)
         tableView.endUpdates()
         

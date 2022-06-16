@@ -4,7 +4,7 @@ import CoreData
 class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
     let dataModel = DataModel()
     let start = StartText()
-    
+    let items = Items()
     let datePicker = UIDatePicker()
     let picker = UIPickerView()
     let dateFormatter = DateFormatter()
@@ -54,17 +54,17 @@ class FirstLaunchText: UIViewController, UITextFieldDelegate, UIPickerViewDelega
         startButton.layer.cornerRadius = 20
         startButton.layer.backgroundColor = UIColor.init(red: 0.09, green: 0.49, blue: 0.9, alpha: 1.0).cgColor
         
-        textFieldAppearance(nameField)
-        textFieldAppearance(weightField)
-        textFieldAppearance(heightField)
+        items.textFieldAppearance(nameField)
+        items.textFieldAppearance(weightField)
+        items.textFieldAppearance(heightField)
         
         gendersSave = start.gendersSave()
         gendersShow = start.gendersShow()
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        topImage(view: view, type: .firstScreen)
-        _ = setupHeader(view, text: NSLocalizedString("Tell us about you", comment: ""), button: nil, imgName: nil, type: .launch)
+        items.topImage(view: view, type: .firstScreen)
+        _ = items.setupHeader(view, text: NSLocalizedString("Tell us about you", comment: ""), button: nil, imgName: nil, type: .launch)
         stackView.spacing = view.frame.height / 50
         if view.frame.height < 660 {
             start.smallButton(button: sexButton)

@@ -5,7 +5,7 @@ import CoreData
 class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
     
     let tableView = UITableView()
-    var object: ExerciseSet = newExercise()
+    var object: ExerciseSet = AppData().newExercise()
     var isNewObject = true
     let cellId = "cellId"
     let data = GetData()
@@ -35,7 +35,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var selectedRight = 0
     
     var transform = CATransform3DIdentity
-    
+    let items = Items()
     override func viewWillAppear(_ animated: Bool) {
         blankImg = UIImage(systemName: "rectangle.fill", withConfiguration: configuration)?.withTintColor(.clear, renderingMode: .alwaysOriginal) ?? UIImage()
         blankImg.withTintColor(.clear)
@@ -67,7 +67,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         tableView.backgroundColor = .secondarySystemBackground
         tableView.frame = CGRect(x: 0, y: 50 , width: view.frame.width, height: view.frame.height - 50)
         view.addSubview(tableView)
-        topImage(view: view, type: .common)
+        items.topImage(view: view, type: .common)
         setupWheels()
         
         transform = CATransform3DScale(transform, 2.0, 1.5, 1.0)
@@ -76,7 +76,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
-        header = setupHeader(view, text: NSLocalizedString("Add an activity", comment: ""), button: nil, imgName: nil)
+        header = items.setupHeader(view, text: NSLocalizedString("Add an activity", comment: ""), button: nil, imgName: nil)
     }
     
     func loadObject(_ object: ExerciseSet){
@@ -84,7 +84,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         self.object = object
         self.isNewObject = false
         header.removeFromSuperview()
-        _ = setupHeader(view, text: NSLocalizedString("Edit an activity", comment: ""), button: nil, imgName: nil)
+        _ = items.setupHeader(view, text: NSLocalizedString("Edit an activity", comment: ""), button: nil, imgName: nil)
         tableView.reloadData()
     }
     
@@ -109,7 +109,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     
     func setupStepper(_ cell: UITableViewCell, value: Double, name: String, max: Double, step: Double){
         let stepper = Stepper()
-        stepperSettings(stepper: stepper, maxValue: max, step: step, img: blankImg, initValue: value, name: name)
+        items.stepperSettings(stepper: stepper, maxValue: max, step: step, img: blankImg, initValue: value, name: name)
         stepper.layer.transform = transform
 
         if step != 0.25{
@@ -148,14 +148,14 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     @objc func cancel(){
         if isNewObject{
             context.delete(object)
-            saveObjects()
+            AppData().saveObjects()
         }
         self.dismiss(animated: true)
     }
     
     
     @objc func done(){
-        saveObjects()
+        AppData().saveObjects()
         if object.exercise?.type == "Strength"{
             list.saveStrength(object: object)
         } else {
@@ -227,7 +227,6 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         if !isPicking && !isWheel{
-            print("f")
             cancel()
             if let nav = navigationController {
                nav.popViewController(animated: true)
@@ -249,12 +248,10 @@ extension AddExercise {
         return 1
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
    
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
@@ -292,7 +289,7 @@ extension AddExercise {
         case 2:
             if object.exercise?.type == "Strength" {
              
-                setupStepper(cell, value: Double((data.getRep(currentEx: object))), name: "set_number", max: 10.0, step: 1.0)
+                setupStepper(cell, value: Double(object.set_number), name: "set_number", max: 10.0, step: 1.0)
                 let wheelButton = UIButton(frame: wheelsFrame())
                 wheelButton.addTarget(self, action:  #selector(showSetWheel), for: .touchUpInside)
                 wheelButton.setTitle(String(object.set_number), for: .normal)
@@ -301,7 +298,7 @@ extension AddExercise {
 
         } else {
 
-            setupStepper(cell, value: Double((data.getCal(currentEx: object))), name: "calories", max: 1000.0, step: 10.0)
+            setupStepper(cell, value: Double(object.calories), name: "calories", max: 1000.0, step: 10.0)
             let wheelButton = UIButton(frame: wheelsFrame())
             wheelButton.addTarget(self, action: #selector(showCalWheel), for: .touchUpInside)
             wheelButton.setTitle(String(object.calories), for: .normal)
@@ -314,7 +311,7 @@ extension AddExercise {
 
             if object.exercise?.type == "Strength" {
              
-                setupStepper(cell, value: Double((data.getReps(currentEx: object))), name: "repeats", max: 100.0, step: 1.0)
+                setupStepper(cell, value: Double(object.repeats), name: "repeats", max: 100.0, step: 1.0)
                 let wheelButton = UIButton(frame: wheelsFrame())
                 wheelButton.addTarget(self, action: #selector(showRepsWheel), for: .touchUpInside)
                 wheelButton.setTitle(String(object.repeats), for: .normal)
@@ -323,7 +320,7 @@ extension AddExercise {
                 cell.accessoryView!.addSubview(wheelButton)
             } else {
 
-                setupStepper(cell, value: Double((data.getDur(currentEx: object))), name: "duration", max: 1000.0, step: 1.0)
+                setupStepper(cell, value: Double(object.duration), name: "duration", max: 1000.0, step: 1.0)
                 let wheelButton = UIButton(frame: wheelsFrame())
                 wheelButton.addTarget(self, action: #selector(showDurWheel), for: .touchUpInside)
                 wheelButton.setTitle(String(object.duration), for: .normal)
@@ -336,7 +333,7 @@ extension AddExercise {
 
             if object.exercise?.type == "Strength" {
          
-                setupStepper(cell, value: ((data.getWeight(currentEx: object))), name: "weight", max: 300.0, step: (0.25))
+                setupStepper(cell, value: Double(object.weight), name: "weight", max: 300.0, step: (0.25))
                 let wheelButton = UIButton(frame: wheelsFrame())
                 wheelButton.addTarget(self, action: #selector(showWeightWheel), for: .touchUpInside)
                 wheelButton.setTitle(String(object.weight), for: .normal)
@@ -346,7 +343,7 @@ extension AddExercise {
 
             } else {
 
-                setupStepper(cell, value: ((data.getDist(currentEx: object))), name: "distance", max: 100.0, step: (0.25))
+                setupStepper(cell, value: Double(object.distance), name: "distance", max: 100.0, step: (0.25))
                 let wheelButton = UIButton(frame: wheelsFrame())
                 wheelButton.addTarget(self, action: #selector(showDistWheel), for: .touchUpInside)
                 wheelButton.setTitle(String(object.distance), for: .normal)
@@ -393,8 +390,6 @@ extension AddExercise {
     }
 
     @objc func dismissView() {
-        
-
             doneDate()
         if isWheel{
             isWheel = !isWheel
@@ -406,9 +401,7 @@ extension AddExercise {
             calWheel.removeFromSuperview()
         }
         refresh()
-
         view.endEditing(true)
-        
         
     }
 }
@@ -484,27 +477,22 @@ extension AddExercise {
     }
     @objc func showCalWheel(){
         isWheel = true
-
         view.addSubview(calWheel)
     }
     @objc func showRepsWheel(){
         isWheel = true
-
         view.addSubview(repsWheel)
     }
     @objc func showDurWheel(){
         isWheel = true
-
         view.addSubview(durWheel)
     }
     @objc func showWeightWheel(){
         isWheel = true
-
         view.addSubview(weightWheel)
     }
     @objc func showDistWheel(){
         isWheel = true
-
         view.addSubview(distanceWheel)
     }
 }

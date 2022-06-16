@@ -1,27 +1,44 @@
 import Foundation
 import CoreData
 
-func fetchRequest(isFiltered: Bool, date: Date) -> NSFetchRequest<ExerciseSet>{
-    let fetchRequest = NSFetchRequest<ExerciseSet>(entityName: "ExerciseSet")
-    if isFiltered{
-        let (startDate, endDate) = dates(for: date)
-        fetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
+
+class Fetching {
+    func fetchRequest(isFiltered: Bool, date: Date) -> NSFetchRequest<ExerciseSet>{
+        let fetchRequest = NSFetchRequest<ExerciseSet>(entityName: "ExerciseSet")
+        if isFiltered{
+            let (startDate, endDate) = dates(for: date)
+            fetchRequest.predicate = NSPredicate(format: "date >= %@ AND date <= %@", startDate as CVarArg, endDate as CVarArg)
+        }
+        let sort = NSSortDescriptor(key: "date", ascending: false)
+        fetchRequest.sortDescriptors = [sort]
+        return fetchRequest
     }
-    let sort = NSSortDescriptor(key: "date", ascending: false)
-    fetchRequest.sortDescriptors = [sort]
-    return fetchRequest
+    func fetchUser() -> Person?{
+        let fetchRequest = NSFetchRequest<Person>(entityName: "Person")
+        var person: Person? = nil
+        do {
+            let users = try context.fetch(fetchRequest)
+            if let personNew = users.last{
+                person = personNew
+            }
+            
+        } catch let err as NSError {
+            print(err)
+        }
+        return person
+    }
 }
-
-func deleteData(_ object: NSManagedObject){
-    DataModel().delete(object)
+class AppData {
+    func deleteData(_ object: NSManagedObject){
+        DataModel().delete(object)
+    }
+    func newExercise() -> ExerciseSet{
+        DataModel().addModel()
+    }
+    func saveObjects(){
+        DataModel().saveModel()
+    }
 }
-func newExercise() -> ExerciseSet{
-    DataModel().addModel()
-}
-func saveObjects(){
-    DataModel().saveModel()
-}
-
 class ExerciseTypes {
     let consts = SettingsData()
     func typesSave() -> [String]{
