@@ -215,3 +215,12 @@ func setupTabBar(_ tabBar: UITabBar){
     tabBar.layer.shadowColor = UIColor.black.cgColor
     tabBar.layer.shadowOpacity = 0.3
 }
+
+func stepperSettings(stepper: Stepper, maxValue max: Double, step: Double, img: UIImage, initValue value: Double, name: String){
+    stepper.minimumValue = 0
+    stepper.maximumValue = max
+    stepper.value = value
+    stepper.stepValue = step
+    stepper.setName(name: name)
+    stepper.setDividerImage(img, forLeftSegmentState: .normal, rightSegmentState: .normal)
+}

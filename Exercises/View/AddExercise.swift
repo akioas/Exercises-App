@@ -3,26 +3,23 @@ import UIKit
 import CoreData
 
 class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
+    
     let tableView = UITableView()
     var object: ExerciseSet = newExercise()
     var isNewObject = true
     let cellId = "cellId"
     let data = GetData()
-    let list = ExercisesList()
+    let list = GetExercises()
     var callBackStepper:((_ value:Int, _ name: String)->())?
     var callBackStepperD:((_ value:Double, _ name: String)->())?
 
     let datePicker = UIDatePicker()
     var blankImg = UIImage()
-    var blankImgBack = UIImage()
-
-    var plusImg = UIImage()
-    var minusImg = UIImage()
+    let configuration = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .medium)
     var imgSize = 0.0
     var isPicking = false
     var isWheel = false
     var header = UIView()
-    let configuration = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .medium)
 
     var setWheel = UIPickerView()
     var calWheel = UIPickerView()
@@ -37,15 +34,10 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var selected = 0
     var selectedRight = 0
     
+    var transform = CATransform3DIdentity
+    
     override func viewWillAppear(_ animated: Bool) {
-        let configuration = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .medium)
-        let configurationLarge = UIImage.SymbolConfiguration(pointSize: 60, weight: .regular, scale: .medium)
-
-        let configurationSmall = UIImage.SymbolConfiguration(pointSize: 25, weight: .regular, scale: .medium)
         blankImg = UIImage(systemName: "rectangle.fill", withConfiguration: configuration)?.withTintColor(.clear, renderingMode: .alwaysOriginal) ?? UIImage()
-        blankImgBack = UIImage(systemName: "rectangle.fill", withConfiguration: configurationLarge)?.withTintColor(.clear, renderingMode: .alwaysOriginal) ?? UIImage()
-        plusImg = UIImage(systemName: "plus.square", withConfiguration: configurationSmall)?.withTintColor(.black, renderingMode: .alwaysOriginal) ?? UIImage()
-        minusImg = UIImage(systemName: "minus.square", withConfiguration: configurationSmall)?.withTintColor(.black, renderingMode: .alwaysOriginal) ?? UIImage()
         blankImg.withTintColor(.clear)
         imgSize = blankImg.size.width
         AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
@@ -77,11 +69,13 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         view.addSubview(tableView)
         topImage(view: view, type: .common)
         setupWheels()
+        
+        transform = CATransform3DScale(transform, 2.0, 1.5, 1.0)
+        transform = CATransform3DTranslate(transform, 25, 5, 0)
     }
     override func viewDidAppear(_ animated: Bool) {
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
-
         header = setupHeader(view, text: NSLocalizedString("Add an activity", comment: ""), button: nil, imgName: nil)
     }
     
@@ -113,30 +107,13 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         tableView.tableFooterView = customView
     }
     
-    func setupStepper(_ cell: UITableViewCell, tag: Int, value: Double, name: String, max: Double, step: Double){
-//        print(step)
-//        print(stepper.frame)
-        
+    func setupStepper(_ cell: UITableViewCell, value: Double, name: String, max: Double, step: Double){
         let stepper = Stepper()
-
-        stepper.minimumValue = 0
-        stepper.maximumValue = max
-        stepper.value = value
-        stepper.stepValue = step
-        stepper.setNum(num: tag)
-        stepper.setName(name: name)
-        stepper.setDividerImage(blankImg, forLeftSegmentState: .normal, rightSegmentState: .normal)
-        var transform = CATransform3DIdentity
-        transform = CATransform3DScale(transform, 2.0, 1.5, 1.0)
-        transform = CATransform3DTranslate(transform, 25, 5, 0)
+        stepperSettings(stepper: stepper, maxValue: max, step: step, img: blankImg, initValue: value, name: name)
         stepper.layer.transform = transform
-        print(view.frame.width)
 
-        
-        
         if step != 0.25{
             stepper.addTarget(self, action: #selector(self.stepperValueChanged(_:)), for: .valueChanged)
-
         } else {
             stepper.addTarget(self, action: #selector(self.stepperValueChangedD(_:)), for: .valueChanged)
         }
@@ -180,23 +157,17 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     @objc func done(){
         saveObjects()
         if object.exercise?.type == "Strength"{
-            list.saveRepNum(Int(object.set_number))
-            list.saveRepsNum(Int(object.repeats))
-            list.saveWeightNum(object.weight)
+            list.saveStrength(object: object)
         } else {
-            list.saveCalNum(Int(object.calories))
-            list.saveDurNum(Int(object.duration))
-            list.saveDistNum(object.distance)
+            list.saveCardio(object: object)
         }
         self.dismiss(animated: true, completion: {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "fetch"), object: self)
         })
-        
     }
     
    
     @objc func showPicker(){
-//        self.hideOnTap()
         isPicking = true
         let vc = Picker()
         vc.object = self.object
@@ -204,12 +175,6 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         self.view.addSubview(vc.view)
         self.addChild(vc)
         vc.didMove(toParent: self)
-         
-        
-//        self.present(vc, animated: false, completion: {
-//            vc.setNum(0, ex: self.object)
-//        })
-        
     }
     
     @objc func stepperValueChanged(_ sender:Stepper!)
@@ -234,7 +199,6 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     @objc func refresh(){
         self.tableView.reloadData()
-        
     }
     @objc func doneDate() {
         object.setValue(datePicker.date, forKey: "date")
@@ -244,12 +208,9 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     
     @objc func cancelDate() {
         datePicker.removeFromSuperview()
-//        toolBar.removeFromSuperview()
     }
     @objc func createDatePicker(){
         
-//        self.hideOnTap()
-
         if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .wheels
         }
@@ -298,7 +259,6 @@ extension AddExercise {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         cell.textLabel?.text = data.setText(item: (indexPath.item ), currentEx: object)
-//        fieldsFrame(cell)
         cell.selectionStyle = .none
 
         switch indexPath.row {
@@ -332,7 +292,7 @@ extension AddExercise {
         case 2:
             if object.exercise?.type == "Strength" {
              
-                setupStepper(cell, tag: indexPath.row, value: Double((data.getRep(currentEx: object))), name: "set_number", max: 10.0, step: 1.0)
+                setupStepper(cell, value: Double((data.getRep(currentEx: object))), name: "set_number", max: 10.0, step: 1.0)
                 let wheelButton = UIButton(frame: wheelsFrame())
                 wheelButton.addTarget(self, action:  #selector(showSetWheel), for: .touchUpInside)
                 wheelButton.setTitle(String(object.set_number), for: .normal)
@@ -341,7 +301,7 @@ extension AddExercise {
 
         } else {
 
-            setupStepper(cell, tag: indexPath.row, value: Double((data.getCal(currentEx: object))), name: "calories", max: 1000.0, step: 10.0)
+            setupStepper(cell, value: Double((data.getCal(currentEx: object))), name: "calories", max: 1000.0, step: 10.0)
             let wheelButton = UIButton(frame: wheelsFrame())
             wheelButton.addTarget(self, action: #selector(showCalWheel), for: .touchUpInside)
             wheelButton.setTitle(String(object.calories), for: .normal)
@@ -354,7 +314,7 @@ extension AddExercise {
 
             if object.exercise?.type == "Strength" {
              
-                setupStepper(cell, tag: indexPath.row, value: Double((data.getReps(currentEx: object))), name: "repeats", max: 100.0, step: 1.0)
+                setupStepper(cell, value: Double((data.getReps(currentEx: object))), name: "repeats", max: 100.0, step: 1.0)
                 let wheelButton = UIButton(frame: wheelsFrame())
                 wheelButton.addTarget(self, action: #selector(showRepsWheel), for: .touchUpInside)
                 wheelButton.setTitle(String(object.repeats), for: .normal)
@@ -363,7 +323,7 @@ extension AddExercise {
                 cell.accessoryView!.addSubview(wheelButton)
             } else {
 
-                setupStepper(cell, tag: indexPath.row, value: Double((data.getDur(currentEx: object))), name: "duration", max: 1000.0, step: 1.0)
+                setupStepper(cell, value: Double((data.getDur(currentEx: object))), name: "duration", max: 1000.0, step: 1.0)
                 let wheelButton = UIButton(frame: wheelsFrame())
                 wheelButton.addTarget(self, action: #selector(showDurWheel), for: .touchUpInside)
                 wheelButton.setTitle(String(object.duration), for: .normal)
@@ -376,7 +336,7 @@ extension AddExercise {
 
             if object.exercise?.type == "Strength" {
          
-                setupStepper(cell, tag: indexPath.row, value: ((data.getWeight(currentEx: object))), name: "weight", max: 300.0, step: (0.25))
+                setupStepper(cell, value: ((data.getWeight(currentEx: object))), name: "weight", max: 300.0, step: (0.25))
                 let wheelButton = UIButton(frame: wheelsFrame())
                 wheelButton.addTarget(self, action: #selector(showWeightWheel), for: .touchUpInside)
                 wheelButton.setTitle(String(object.weight), for: .normal)
@@ -386,7 +346,7 @@ extension AddExercise {
 
             } else {
 
-                setupStepper(cell, tag: indexPath.row, value: ((data.getDist(currentEx: object))), name: "distance", max: 100.0, step: (0.25))
+                setupStepper(cell, value: ((data.getDist(currentEx: object))), name: "distance", max: 100.0, step: (0.25))
                 let wheelButton = UIButton(frame: wheelsFrame())
                 wheelButton.addTarget(self, action: #selector(showDistWheel), for: .touchUpInside)
                 wheelButton.setTitle(String(object.distance), for: .normal)

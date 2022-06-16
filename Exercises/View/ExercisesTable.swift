@@ -8,7 +8,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     let tableView = UITableView()
 
     let cellId = "cellId"
-    let list = ExercisesList()
+    let list = GetExercises()
     var exercises = [Exercise]()
     let items = Items()
     let vcPicker = UIViewController()
