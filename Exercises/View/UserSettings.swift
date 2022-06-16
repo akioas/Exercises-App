@@ -19,24 +19,16 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
     var weight = ""
     var height = ""
 
-//    let txtField = UITextField()
-//    let weightField = UITextField()
-    let gendersSave = ["Female",
-                 "Male",
-                "Other"]
-    let gendersShow = [NSLocalizedString("Female", comment: ""),
-                 NSLocalizedString("Male", comment: ""),
-                 NSLocalizedString("Other", comment: "")]
+    var gendersSave = [String]()
+    var gendersShow = [String]()
+    
     var isPickingDate = false
     var isPickingSex = false
     let start = StartText()
     let datePicker = UIDatePicker()
     let picker = UIPickerView()
     let dateFormatter = DateFormatter()
-//    let sexButton = UIButton()
-//    let birthdayButton = UIButton()
-//    let text = UILabel()
-    
+
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var nameField: UITextField!
     
@@ -53,25 +45,24 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
     override func viewWillAppear(_ animated: Bool) {
         fetch()
         getUser()
-        print(birthday)
         setToFalse()
         AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
-
-
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.hideOnTap()
-        setupDatePicker()
+        start.setupDatePicker(datePicker: datePicker, view: view, format: dateFormatter)
         setupPicker()
         stackView.spacing = view.frame.height / 70
         
         nameField.delegate = self
         heightField.delegate = self
         weightField.delegate = self
-
+        gendersSave = start.gendersSave()
+        gendersShow = start.gendersShow()
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
         
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -86,7 +77,7 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         textFieldAppearance(nameField)
         textFieldAppearance(weightField)
         textFieldAppearance(heightField)
-        StartText().setBotButtonText(button: editSaveButton, text: NSLocalizedString("Edit", comment: ""))
+        start.setBotButtonText(button: editSaveButton, text: NSLocalizedString("Edit", comment: ""))
         editSaveButton.layer.cornerRadius = 20
         editSaveButton.layer.backgroundColor = UIColor.init(red: 0.09, green: 0.49, blue: 0.9, alpha: 1.0).cgColor
         if birthday != "" {
@@ -134,18 +125,7 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         heightField.isUserInteractionEnabled = false
         weightField.isUserInteractionEnabled = false
     }
-    func setupDatePicker(){
-        datePicker.datePickerMode = .date
-       
-        if #available(iOS 13.4, *) {
-            datePicker.preferredDatePickerStyle = .wheels
-        }
-
-        datePicker.center = view.center
-        datePicker.backgroundColor = .systemBackground
-        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
-
-    }
+    
     func setupPicker(){
         picker.delegate = self
         picker.dataSource = self
@@ -178,8 +158,6 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return true
     }
-    
-      
    
     func getUser(){
         if let object = objects.last{
@@ -191,15 +169,11 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
         }
     }
    
-
-   
-    
-    
     @objc func edit(){
         isEdit = !isEdit
         if isEdit {
             editButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
-            StartText().setBotButtonText(button: editSaveButton, text: NSLocalizedString("Save", comment: ""))
+            start.setBotButtonText(button: editSaveButton, text: NSLocalizedString("Save", comment: ""))
             if view.frame.height < 700{
                 start.smallButton(button: editSaveButton)
             }
@@ -220,12 +194,12 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 
         } else {
             editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
-            StartText().setBotButtonText(button: editSaveButton, text: NSLocalizedString("Edit", comment: ""))
+            start.setBotButtonText(button: editSaveButton, text: NSLocalizedString("Edit", comment: ""))
             if view.frame.height < 700{
                 start.smallButton(button: editSaveButton)
             }
             vals.save(birthday: birthdayDate, name: name, sex: sex, weight: (weight), height: height)
-            DataModel().saveModel()
+            saveObjects()
             setToFalse()
             if nameField.text == ""{
                 nameField.text = NSLocalizedString("Not set", comment: "")
@@ -238,8 +212,6 @@ class UserSettings: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
             }
         }
     }
-
-   
 }
 
  
@@ -276,15 +248,10 @@ extension UserSettings {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if (textField == nameField){
             name = nameField.text ?? ""
-
-           
         } else if (textField == weightField){
             weight = weightField.text ?? ""
-
         } else if (textField == heightField){
             height = heightField.text ?? ""
-
-            
         }
         textField.resignFirstResponder()
         return true
@@ -302,11 +269,8 @@ extension UserSettings {
     @objc func dismissView() {
         if isPickingDate{
             birthdayDate = datePicker.date
-            dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyyMMdd", options: 0, locale: Locale.current)
             birthday = dateFormatter.string(from: birthdayDate)
             start.changeText(button: birthdayButton, with: birthday)
-            print(birthdayDate)
-
             datePicker.removeFromSuperview()
             isPickingDate = false
         } else if isPickingSex{
@@ -314,11 +278,9 @@ extension UserSettings {
                 sex = gendersSave.first ?? ""
             }
             start.changeText(button: sexButton, with: NSLocalizedString(sex, comment: ""))
-
             picker.removeFromSuperview()
             isPickingSex = false
         } else {
-        
             view.endEditing(true)
         }
     }

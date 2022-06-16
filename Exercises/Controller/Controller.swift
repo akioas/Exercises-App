@@ -15,6 +15,12 @@ func fetchRequest(isFiltered: Bool, date: Date) -> NSFetchRequest<ExerciseSet>{
 func deleteData(_ object: NSManagedObject){
     DataModel().delete(object)
 }
+func newExercise() -> ExerciseSet{
+    DataModel().addModel()
+}
+func saveObjects(){
+    DataModel().saveModel()
+}
 
 class ExerciseTypes {
     let consts = SettingsData()

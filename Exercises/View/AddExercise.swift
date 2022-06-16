@@ -4,7 +4,7 @@ import CoreData
 
 class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
     let tableView = UITableView()
-    var object: ExerciseSet = DataModel().addModel()
+    var object: ExerciseSet = newExercise()
     var isNewObject = true
     let cellId = "cellId"
     let data = GetData()
@@ -24,7 +24,6 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var header = UIView()
     let configuration = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular, scale: .medium)
 
-    
     var setWheel = UIPickerView()
     var calWheel = UIPickerView()
     var repsWheel = UIPickerView()
@@ -91,7 +90,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         self.object = object
         self.isNewObject = false
         header.removeFromSuperview()
-        setupHeader(view, text: NSLocalizedString("Edit an activity", comment: ""), button: nil, imgName: nil)
+        _ = setupHeader(view, text: NSLocalizedString("Edit an activity", comment: ""), button: nil, imgName: nil)
         tableView.reloadData()
     }
     
@@ -172,14 +171,14 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     @objc func cancel(){
         if isNewObject{
             context.delete(object)
-            DataModel().saveModel()
+            saveObjects()
         }
         self.dismiss(animated: true)
     }
     
     
     @objc func done(){
-        DataModel().saveModel()
+        saveObjects()
         if object.exercise?.type == "Strength"{
             list.saveRepNum(Int(object.set_number))
             list.saveRepsNum(Int(object.repeats))

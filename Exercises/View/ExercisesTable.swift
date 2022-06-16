@@ -87,7 +87,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     @objc func refresh(){
-        DataModel().saveModel()
+        saveObjects()
         fetch()
         self.tableView.reloadData()
     }
