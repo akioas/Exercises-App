@@ -77,12 +77,14 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     
     @objc func cancelPicker() {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "refreshAdd"), object: self)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "NotPicking"), object: self)
+
         self.willMove(toParent: nil)
         self.view.removeFromSuperview()
         self.removeFromParent()
     }
     @objc func dismissPicker() {
-
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "NotPicking"), object: self)
         self.willMove(toParent: nil)
         self.view.removeFromSuperview()
         self.removeFromParent()

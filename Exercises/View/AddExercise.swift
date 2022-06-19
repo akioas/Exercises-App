@@ -19,6 +19,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var imgSize = 0.0
     var isPicking = false
     var isWheel = false
+    var isDate = false
     var header = UIView()
 
     var setWheel = UIPickerView()
@@ -71,6 +72,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
       
         
         setupTableView()
+        setupDatePicker()
         self.navigationController?.isNavigationBarHidden = true
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
         swipeDown.direction = .down
@@ -151,7 +153,16 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         setupWheelsDetailed(weightWheel)
         setupWheelsDetailed(distanceWheel)
     }
-    
+    func setupDatePicker(){
+        if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+        }
+        datePicker.backgroundColor = .white
+        datePicker.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300) / 2, width: UIScreen.main.bounds.size.width, height: 300)
+        datePicker.datePickerMode = UIDatePicker.Mode.date
+        datePicker.contentMode = .bottom
+        datePicker.maximumDate = Date()
+    }
     func setupWheelsDetailed(_ wheel: UIPickerView){
         wheel.delegate = self
         wheel.dataSource = self
@@ -222,26 +233,18 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     
     @objc func cancelDate() {
+        isDate = false
         datePicker.removeFromSuperview()
     }
     @objc func createDatePicker(){
-        
-        if #available(iOS 13.4, *) {
-            datePicker.preferredDatePickerStyle = .wheels
-        }
-        datePicker.backgroundColor = .secondarySystemBackground
-        datePicker.frame = CGRect.init(x: 0.0, y: (UIScreen.main.bounds.size.height - 300) / 2, width: UIScreen.main.bounds.size.width, height: 300)
-        datePicker.backgroundColor = .lightGray
-        datePicker.datePickerMode = UIDatePicker.Mode.date
-        datePicker.contentMode = .bottom
-        datePicker.maximumDate = Date()
+        isDate = true
         view.addSubview(datePicker)
     }
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
             return true
     }
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-        if !isPicking && !isWheel{
+        if (!isPicking && !isWheel && !isDate){
             cancel()
             if let nav = navigationController {
                nav.popViewController(animated: true)
@@ -407,7 +410,7 @@ extension AddExercise {
     @objc func dismissView() {
             doneDate()
         if isWheel{
-            isWheel = !isWheel
+            isWheel = false
             setWheel.removeFromSuperview()
             durWheel.removeFromSuperview()
             distanceWheel.removeFromSuperview()
