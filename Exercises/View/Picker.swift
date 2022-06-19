@@ -29,7 +29,7 @@ class Picker: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource{
         self.view.backgroundColor = .clear
         picker.delegate = self
         picker.dataSource = self
-        picker.backgroundColor = .secondarySystemBackground
+        picker.backgroundColor = .white
         picker.contentMode = .center
            
         let doneButton = UIBarButtonItem(title: NSLocalizedString("Done", comment: ""), style: UIBarButtonItem.Style.plain, target: self, action: #selector(donePicker))

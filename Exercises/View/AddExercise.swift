@@ -28,7 +28,22 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var weightWheel = UIPickerView()
     var distanceWheel = UIPickerView()
     
-    let setNumData = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    let setNumData = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+    11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+    21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+    //rep, reps, distance
+    let weightData = [0, 1, 2, 3, 4, 6, 8, 10,
+                      12, 14, 16, 18, 20, 22,
+                      25, 28, 30, 35, 40, 45, 50,
+                      55, 60, 65, 70, 80, 90, 100,
+                      120, 140, 160, 180, 200,
+                      220, 250, 300 ]
+    let calData = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270,
+                   300, 350, 400, 450, 500, 550, 600, 650,
+                   700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500]
+    let durData = [0, 10, 20, 30, 40, 50, 60, 70, 80,
+                   90, 100, 110, 120, 130, 140, 150, 160, 170,
+                   180, 200, 220, 240, 260, 280, 300, 350, 400, 450]
     let rightData = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
     
     var selected = 0
@@ -100,7 +115,7 @@ class AddExercise: UIViewController, UITableViewDelegate, UITableViewDataSource,
         buttonCancel.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         customView.addSubview(buttonCancel)
         let buttonDone = UIButton(frame: CGRect(x: view.frame.width - 120, y: 20, width: 100, height: 50))
-        buttonDone.setTitle(NSLocalizedString("Done", comment: ""), for: .normal)
+        buttonDone.setTitle(NSLocalizedString("Save", comment: ""), for: .normal)
         buttonDone.backgroundColor = .systemGray2
         buttonDone.addTarget(self, action: #selector(done), for: .touchUpInside)
         customView.addSubview(buttonDone)
@@ -289,7 +304,7 @@ extension AddExercise {
         case 2:
             if object.exercise?.type == "Strength" {
              
-                setupStepper(cell, value: Double(object.set_number), name: "set_number", max: 10.0, step: 1.0)
+                setupStepper(cell, value: Double(object.set_number), name: "set_number", max: 30.0, step: 1.0)
                 let wheelButton = UIButton(frame: wheelsFrame())
                 wheelButton.addTarget(self, action:  #selector(showSetWheel), for: .touchUpInside)
                 wheelButton.setTitle(String(object.set_number), for: .normal)
@@ -298,7 +313,7 @@ extension AddExercise {
 
         } else {
 
-            setupStepper(cell, value: Double(object.calories), name: "calories", max: 1000.0, step: 10.0)
+            setupStepper(cell, value: Double(object.calories), name: "calories", max: 1500.0, step: 30.0)
             let wheelButton = UIButton(frame: wheelsFrame())
             wheelButton.addTarget(self, action: #selector(showCalWheel), for: .touchUpInside)
             wheelButton.setTitle(String(object.calories), for: .normal)
@@ -320,7 +335,7 @@ extension AddExercise {
                 cell.accessoryView!.addSubview(wheelButton)
             } else {
 
-                setupStepper(cell, value: Double(object.duration), name: "duration", max: 1000.0, step: 1.0)
+                setupStepper(cell, value: Double(object.duration), name: "duration", max: 500, step: 5.0)
                 let wheelButton = UIButton(frame: wheelsFrame())
                 wheelButton.addTarget(self, action: #selector(showDurWheel), for: .touchUpInside)
                 wheelButton.setTitle(String(object.duration), for: .normal)
@@ -343,7 +358,7 @@ extension AddExercise {
 
             } else {
 
-                setupStepper(cell, value: Double(object.distance), name: "distance", max: 100.0, step: (0.25))
+                setupStepper(cell, value: Double(object.distance), name: "distance", max: 50.0, step: (0.25))
                 let wheelButton = UIButton(frame: wheelsFrame())
                 wheelButton.addTarget(self, action: #selector(showDistWheel), for: .touchUpInside)
                 wheelButton.setTitle(String(object.distance), for: .normal)
@@ -417,7 +432,15 @@ extension AddExercise{
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        setNumData.count
+        if pickerView == calWheel{
+            return calData.count
+        } else if pickerView == durWheel {
+            return durData.count
+        } else if pickerView == weightWheel{
+            return weightData.count
+        } else {
+            return setNumData.count
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -426,15 +449,15 @@ extension AddExercise{
             case setWheel:
                 return String(setNumData[row])
             case calWheel:
-                return String(setNumData.map { $0 * 100 }[row])
+                return String(calData[row])
             case repsWheel:
-                return String(setNumData.map { $0 * 10 }[row])
+                return String(setNumData[row])
             case durWheel:
-                return String(setNumData.map { $0 * 100 }[row])
+                return String(durData[row])
             case weightWheel:
-                return String(setNumData.map { $0 * 30 }[row])
+                return String(weightData[row])
             case distanceWheel:
-                return String(setNumData.map { $0 * 10 }[row])
+                return String(setNumData[row])
             default:
                 return String(setNumData[row])
             }
@@ -454,15 +477,15 @@ extension AddExercise{
         case setWheel:
             object.set_number = Int16((setNumData[selected]))
         case calWheel:
-            object.calories = Int16(setNumData.map { $0 * 100 }[selected])
+            object.calories = Int16((calData[selected]))
         case repsWheel:
-            object.repeats = Int16(setNumData.map { $0 * 10 }[selected])
+            object.repeats = Int16((setNumData[selected]))
         case durWheel:
-            object.duration = Int16(setNumData.map { $0 * 100 }[selected])
+            object.duration = Int16((durData[selected]))
         case weightWheel:
-            object.weight = ((setNumData.map { Double($0 * 30) }[selected]) + (Double(selectedRight) / 100.0))
+            object.weight = (Double((weightData[selected])) + (Double(selectedRight) / 100.0))
         case distanceWheel:
-            object.distance = ((setNumData.map { Double($0 * 10) }[selected]) + (Double(selectedRight) / 100.0))
+            object.distance = (Double((setNumData[selected])) + (Double(selectedRight) / 100.0))
         default:
             print("0")
         }

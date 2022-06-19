@@ -13,10 +13,9 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     let items = Items()
     let vcPicker = UIViewController()
     let type = ExerciseTypes()
-    var typesSave = ["Cardio",
-                 "Strength"]
-    var typesShow = [NSLocalizedString("Cardio", comment: ""),
-                 NSLocalizedString("Strength", comment: "")]
+    var typesSave = [String]()
+                
+    var typesShow = [String]()
     var selectedType = "Cardio"
     
     override func viewDidLoad() {
@@ -160,7 +159,7 @@ extension ExercisesTable {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        cell.textLabel?.text = (exercises[indexPath.row].name ?? "") + ", " + (exercises[indexPath.row].type ?? "")
+        cell.textLabel?.text = (exercises[indexPath.row].name ?? "") + ", " + (NSLocalizedString(exercises[indexPath.row].type ?? "", comment: ""))
         cell.backgroundColor = .secondarySystemBackground
         let deleteButton = Button(frame: CGRect(x: 50, y: 0, width: 50, height: 50))
         deleteButton.setNum(num: indexPath.row)
@@ -203,7 +202,7 @@ extension ExercisesTable {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return typesShow[row]
+        return NSLocalizedString(typesSave[row], comment: "")
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
