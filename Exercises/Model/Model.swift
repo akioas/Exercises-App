@@ -63,12 +63,20 @@ class DataModel{
         for ex in exercises{
             exercisesString.append(ex.name ?? "")
         }
-        if let indexPosition = exercisesString.firstIndex(of: list.loadRow() ?? ""){
-            return exercises[indexPosition]
+        if exercises.count > 0{
+            if let indexPosition = exercisesString.firstIndex(of: list.loadRow() ?? ""){
+                return exercises[indexPosition]
+            } else {
+                if let firstEx = exercises.first{
+                    return firstEx
+                } else {
+                    list.saveRow(NSLocalizedString("Exercise", comment: ""))
+                    return list.add()
+                }
+            }
         } else {
             list.saveRow(NSLocalizedString("Exercise", comment: ""))
             return list.add()
-            
         }
     }
 }
