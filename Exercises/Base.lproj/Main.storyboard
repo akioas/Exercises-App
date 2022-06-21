@@ -111,7 +111,7 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-1233.3333333333335" y="1684.8214285714284"/>
+            <point key="canvasLocation" x="-475" y="2815"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="mWb-bh-UJQ">
@@ -133,7 +133,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jJv-zC-jwT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1003" y="-680"/>
+            <point key="canvasLocation" x="1535" y="-676"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wJ2-qr-Tm6">
@@ -328,7 +328,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xnt-lc-0Ke" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-430" y="1685"/>
+            <point key="canvasLocation" x="328" y="2815"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1k0-Zy-ugv">
@@ -463,7 +463,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jqu-wr-GBf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3290" y="897"/>
+            <point key="canvasLocation" x="3290" y="950"/>
         </scene>
         <!--Add Exercise-->
         <scene sceneID="AtY-Tp-UPO">
@@ -661,6 +661,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wl7-nC-Wb0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2335" y="950"/>
+        </scene>
+        <!--New Exercise-->
+        <scene sceneID="Otg-Jl-lEF">
+            <objects>
+                <viewController storyboardIdentifier="newex" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="O0W-OJ-SOa" customClass="NewExercise" customModule="Exercises" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9RT-WE-gq4"/>
+                        <viewControllerLayoutGuide type="bottom" id="qdd-vJ-yY8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="X6M-SU-c2W">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZBw-99-JbW"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="irW-aN-Qua" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="500" y="1665"/>
         </scene>
     </scenes>
     <resources>

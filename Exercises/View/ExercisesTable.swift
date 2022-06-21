@@ -2,7 +2,7 @@
 import UIKit
 import CoreData
 
-class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource{
+class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     
     let tableView = UITableView()
@@ -10,13 +10,7 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
     let cellId = "cellId"
     let list = GetExercises()
     var exercises = [Exercise]()
-    let items = Items()
-    let vcPicker = UIViewController()
-    let type = ExerciseTypes()
-    var typesSave = [String]()
-                
-    var typesShow = [String]()
-    var selectedType = "Cardio"
+    let items = Items()    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +18,6 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                selector: #selector(refresh),
                                                name: NSNotification.Name(rawValue: "fetch"),
                                                object: nil)
-        typesSave = type.typesSave()
-        typesShow = type.typesShow()
-        selectedType = typesSave.first ?? ""
     
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -40,20 +31,10 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         items.topImage(view: view, type: .common)
         let plusButton = UIButton()
         _ = items.setupHeader(view, text: NSLocalizedString("Exercises", comment: ""), button: plusButton, imgName: "plus.circle")
-        plusButton.addTarget(self, action: #selector(displayAlert), for: .touchUpInside)
+        plusButton.addTarget(self, action: #selector(addItem), for: .touchUpInside)
         self.navigationController?.isNavigationBarHidden = true
-        setupPicker()
     }
-    func setupPicker(){
-        vcPicker.preferredContentSize = CGSize(width: 250,height: 200)
-        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: 250, height: 200))
-        pickerView.delegate = self
-        pickerView.dataSource = self
-        vcPicker.view.addSubview(pickerView)
-    }
-    @objc func cancel(){
-        self.dismiss(animated: false)
-    }
+    
     
     @objc func addNewEx(){
         let vc = AddExercise()
@@ -90,55 +71,27 @@ class ExercisesTable: UIViewController, UITableViewDelegate, UITableViewDataSour
         fetch()
         self.tableView.reloadData()
     }
-    @objc func displayAlert() {
-        
-        let alertController = UIAlertController(title: NSLocalizedString("Add exercise", comment: ""), message: "", preferredStyle: UIAlertController.Style.alert)
-        alertController.addTextField { (textField : UITextField!) -> Void in
-            textField.placeholder = NSLocalizedString("Exercise", comment: "")
-        }
-        alertController.setValue(vcPicker, forKey: "contentViewController")
-        let saveAction = UIAlertAction(title: NSLocalizedString("Save", comment: ""), style: UIAlertAction.Style.default, handler: { alert -> Void in
-            let firstTextField = alertController.textFields![0] as UITextField
-            let newEx = self.list.add()
-            newEx.name = firstTextField.text ?? ""
-            newEx.type = self.selectedType
-
-            self.refresh()
-        })
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.default, handler: {
-            (action : UIAlertAction!) -> Void in })
-        alertController.addAction(cancelAction)
-        alertController.addAction(saveAction)
-        
-        self.present(alertController, animated: true, completion: nil)
-        
-    }
-    @objc func editObject(_ sender:Button!) {
-        
-        let alertController = UIAlertController(title: NSLocalizedString("Edit exercise", comment: ""), message: "", preferredStyle: UIAlertController.Style.alert)
-        alertController.addTextField { (textField : UITextField!) -> Void in
-            textField.placeholder = NSLocalizedString("Exercise", comment: "")
-            textField.text = self.exercises[sender.num].name
-        }
-        alertController.setValue(vcPicker, forKey: "contentViewController")
-        let saveAction = UIAlertAction(title: NSLocalizedString("Save", comment: ""), style: UIAlertAction.Style.default, handler: { alert -> Void in
-            let firstTextField = alertController.textFields![0] as UITextField
-            self.exercises[sender.num].name = firstTextField.text ?? ""
-            self.exercises[sender.num].type = self.selectedType
-            self.refresh()
-        })
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: UIAlertAction.Style.default, handler: {
-            (action : UIAlertAction!) -> Void in })
-        alertController.addAction(cancelAction)
-        alertController.addAction(saveAction)
-        
-        self.present(alertController, animated: true, completion: nil)
-        
-    }
+    
     
     @objc func deleteObject(_ sender:Button!){
         AppData().deleteData(exercises[sender.num])
         self.refresh()
+    }
+    @objc func addItem(){
+        let vc = storyboard?.instantiateViewController(withIdentifier: "newex") as! NewExercise
+        vc.isModalInPresentation = true
+
+        self.present(vc, animated: true, completion: {
+            vc.setObject(self.list.add(), isNewObject: true)
+        })
+    }
+    @objc func editItem(_ sender:Button!){
+        let vc = storyboard?.instantiateViewController(withIdentifier: "newex") as! NewExercise
+        vc.isModalInPresentation = true
+
+        self.present(vc, animated: true, completion: {
+            vc.setObject(self.exercises[sender.num], isNewObject: false)
+        })
     }
 }
 
@@ -170,7 +123,7 @@ extension ExercisesTable {
         editButton.setNum(num: indexPath.row)
         editButton.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         editButton.tintColor = .link
-        editButton.addTarget(self, action: #selector(editObject), for: .touchUpInside)
+        editButton.addTarget(self, action: #selector(editItem(_:)), for: .touchUpInside)
         let buttons = UIView(frame: CGRect.init(x: 0, y: 0, width: 100, height: 50))
         buttons.addSubview(deleteButton)
         buttons.addSubview(editButton)
@@ -192,20 +145,4 @@ extension ExercisesTable {
     }
 }
 
-extension ExercisesTable {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return typesSave.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return NSLocalizedString(typesSave[row], comment: "")
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedType = typesSave[row]
-    }
-}
+

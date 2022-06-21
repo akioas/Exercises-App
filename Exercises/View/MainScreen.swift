@@ -22,8 +22,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetch(isFiltered)
-        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
-        
+        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)        
     }
     override func viewDidAppear(_ animated: Bool) {
         
@@ -150,18 +149,7 @@ extension ViewController {
 
         self.present(vc, animated: true)
     }
-    @objc func toExTable(){
-        let vc = ExercisesTable()
-
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false)
-    }
-    @objc func userSettings(){
-        let vc = UserSettings()
-        vc.modalPresentationStyle = .fullScreen
-
-        self.present(vc, animated: false)
-    }
+    
     @objc func clockItem(){
         createDatePicker()
     }
