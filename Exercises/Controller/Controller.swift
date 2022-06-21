@@ -40,6 +40,7 @@ class Fetching {
 class AppData {
     func deleteData(_ object: NSManagedObject){
         DataModel().delete(object)
+        saveObjects()
     }
     func newExercise() -> ExerciseSet{
         DataModel().addModel()
